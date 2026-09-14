@@ -1,0 +1,5 @@
+/* Import all foundational styles - include this in your app's global stylesheet */
+@use './colors.scss';
+@use './fonts.scss';
+@use './fontStyle.scss';
+@use './layout.scss';

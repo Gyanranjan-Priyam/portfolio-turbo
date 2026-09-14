@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "astro preview",
+    "astro": "astro",
+    "check-types": "astro check",
+    "lint": "echo \"[blog] No linter configured\""
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.1",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.2",
+    "sharp": "^0.35.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

@@ -1,0 +1,502 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts?: CollectionEntry<'blog'>[];
+}
+
+const posts = Astro.props.posts || (await getCollection('blog'));
+
+// Prepare serialized posts data for client-side search
+const searchablePosts = posts.map((post) => ({
+  id: post.id,
+  slug: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags || [],
+  date: post.data.pubDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }),
+}));
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
+---
+
+<!-- Spotlight Search Modal & Overlay -->
+<div id="search-modal-backdrop" class="search-modal-backdrop" style="display: none;">
+  <div class="search-modal-container">
+    <div class="search-modal-box">
+      <!-- Input Row -->
+      <div class="search-input-row">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+
+        <input
+          type="text"
+          id="spotlight-search-input"
+          placeholder="Search posts by title, tag, or topic..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+
+        <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear search" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+
+        <kbd class="esc-badge" id="search-close-kbd">ESC</kbd>
+      </div>
+
+      <!-- Tag Filter Pills (shown when search is active) -->
+      <div id="search-tags-row" class="search-tags-row" style="display: none;">
+        {allTags.map((tag) => (
+          <button class="search-tag-chip" data-tag={tag}>
+            #{tag}
+          </button>
+        ))}
+      </div>
+
+      <!-- Results List -->
+      <div id="search-results-list" class="search-results-list" style="display: none;">
+        <!-- Results rendered dynamically by JS -->
+      </div>
+    </div>
+
+    <!-- Keyboard Shortcut Hint -->
+    <p class="search-keyboard-hint">
+      Press <kbd class="kbd-hint">/</kbd> to search · <kbd class="kbd-hint">ESC</kbd> to close
+    </p>
+  </div>
+</div>
+
+<!-- Serialized posts data for search script -->
+<script id="search-posts-data" type="application/json" set:html={JSON.stringify(searchablePosts)}></script>
+
+<style>
+  .search-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh;
+    animation: modalFadeIn 0.15s ease-out;
+  }
+
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .search-modal-container {
+    width: 100%;
+    max-width: 620px;
+    padding: 0 1rem;
+    animation: modalSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-16px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .search-modal-box {
+    width: 100%;
+    max-width: 600px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glow);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .search-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.25rem;
+  }
+
+  .search-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  #spotlight-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  #spotlight-search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .search-clear-btn:hover {
+    color: var(--text-primary);
+  }
+
+  .esc-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-tag);
+    border: 1px solid var(--border-subtle);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .search-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-secondary);
+  }
+
+  .search-tag-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    background: var(--bg-tag);
+    border: 1px solid var(--border-subtle);
+    border-radius: 9999px;
+    padding: 0.15rem 0.55rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .search-tag-chip:hover {
+    color: var(--text-primary);
+    background: var(--bg-tag-hover);
+  }
+
+  .search-tag-chip.active {
+    color: var(--text-inverted);
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .search-results-list {
+    max-height: 50vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-subtle) transparent;
+  }
+
+  :global(.search-result-item) {
+    display: block;
+    text-decoration: none;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color 0.15s ease;
+  }
+
+  :global(.search-result-item:last-child) {
+    border-bottom: none;
+  }
+
+  :global(.search-result-item:hover),
+  :global(.search-result-item.selected) {
+    background-color: var(--bg-card-hover);
+  }
+
+  :global(.search-result-header) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  :global(.search-result-title) {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  :global(.search-result-date) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  :global(.search-result-desc) {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  :global(.search-result-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  :global(.search-result-tag-pill) {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    background: var(--bg-tag);
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    padding: 0.1rem 0.4rem;
+  }
+
+  :global(.search-no-results) {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  :global(.search-highlight) {
+    background-color: rgba(251, 191, 36, 0.25);
+    color: #b45309;
+    border-radius: 2px;
+    padding: 0 2px;
+    font-weight: 600;
+  }
+
+  :global(html.dark .search-highlight) {
+    background-color: rgba(251, 191, 36, 0.3);
+    color: #fbbf24;
+  }
+
+  .search-keyboard-hint {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.85rem;
+  }
+
+  .kbd-hint {
+    display: inline-block;
+    background: var(--bg-tag);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const backdrop = document.getElementById('search-modal-backdrop');
+    const input = document.getElementById('spotlight-search-input');
+    const clearBtn = document.getElementById('search-clear-btn');
+    const tagsRow = document.getElementById('search-tags-row');
+    const resultsList = document.getElementById('search-results-list');
+    const closeKbd = document.getElementById('search-close-kbd');
+    const postsDataEl = document.getElementById('search-posts-data');
+
+    let allPosts = [];
+    try {
+      if (postsDataEl) {
+        allPosts = JSON.parse(postsDataEl.textContent || '[]');
+      }
+    } catch (e) {
+      console.error('Failed to parse search posts', e);
+    }
+
+    let activeTag = null;
+
+    function openSearch() {
+      if (!backdrop) return;
+      backdrop.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        if (input) {
+          input.focus();
+          renderResults();
+        }
+      }, 50);
+    }
+
+    function closeSearch() {
+      if (!backdrop) return;
+      backdrop.style.display = 'none';
+      document.body.style.overflow = '';
+      if (input) input.value = '';
+      activeTag = null;
+      document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+      if (clearBtn) clearBtn.style.display = 'none';
+      if (tagsRow) tagsRow.style.display = 'none';
+      if (resultsList) resultsList.style.display = 'none';
+    }
+
+    function highlightText(text, query) {
+      if (!query || !query.trim()) return text;
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escaped})`, 'gi');
+      return text.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+
+    function renderResults() {
+      if (!resultsList || !tagsRow) return;
+      const query = input ? input.value.trim().toLowerCase() : '';
+
+      if (clearBtn) {
+        clearBtn.style.display = query ? 'flex' : 'none';
+      }
+
+      if (query || activeTag) {
+        tagsRow.style.display = 'flex';
+        resultsList.style.display = 'block';
+
+        const filtered = allPosts.filter((post) => {
+          const matchesTag = activeTag ? post.tags.includes(activeTag) : true;
+          if (!query) return matchesTag;
+          const matchesQuery =
+            post.title.toLowerCase().includes(query) ||
+            post.description.toLowerCase().includes(query) ||
+            post.tags.some((t) => t.toLowerCase().includes(query));
+          return matchesQuery && matchesTag;
+        });
+
+        if (filtered.length === 0) {
+          resultsList.innerHTML = `
+            <div class="search-no-results">
+              <p>No posts found for "${query || activeTag}"</p>
+            </div>
+          `;
+        } else {
+          resultsList.innerHTML = filtered
+            .map((post) => {
+              const highlightedTitle = highlightText(post.title, query);
+              const highlightedDesc = highlightText(post.description, query);
+              const tagsHtml = post.tags
+                .slice(0, 3)
+                .map((t) => `<span class="search-result-tag-pill">#${highlightText(t, query)}</span>`)
+                .join('');
+
+              return `
+                <a href="/${post.slug}" class="search-result-item">
+                  <div class="search-result-header">
+                    <h3 class="search-result-title">${highlightedTitle}</h3>
+                    <span class="search-result-date">${post.date}</span>
+                  </div>
+                  <p class="search-result-desc">${highlightedDesc}</p>
+                  <div class="search-result-tags">${tagsHtml}</div>
+                </a>
+              `;
+            })
+            .join('');
+        }
+      } else {
+        tagsRow.style.display = 'none';
+        resultsList.style.display = 'none';
+        resultsList.innerHTML = '';
+      }
+    }
+
+    // Tag chip clicks
+    document.querySelectorAll('.search-tag-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const tag = chip.getAttribute('data-tag');
+        if (activeTag === tag) {
+          activeTag = null;
+          chip.classList.remove('active');
+        } else {
+          document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+          activeTag = tag;
+          chip.classList.add('active');
+        }
+        renderResults();
+      });
+    });
+
+    if (input) {
+      input.addEventListener('input', renderResults);
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (input) input.value = '';
+        activeTag = null;
+        document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+        renderResults();
+        if (input) input.focus();
+      });
+    }
+
+    if (closeKbd) {
+      closeKbd.addEventListener('click', closeSearch);
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeSearch();
+      });
+    }
+
+    // Global keyboard shortcuts: "/" to open, "Escape" to close
+    window.addEventListener('keydown', (e) => {
+      if (
+        e.key === '/' &&
+        backdrop &&
+        backdrop.style.display === 'none' &&
+        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
+      ) {
+        e.preventDefault();
+        openSearch();
+      } else if (e.key === 'Escape' && backdrop && backdrop.style.display !== 'none') {
+        e.preventDefault();
+        closeSearch();
+      }
+    });
+
+    // Expose openSearch to global for search trigger buttons
+    window.openSpotlightSearch = openSearch;
+  })();
+</script>

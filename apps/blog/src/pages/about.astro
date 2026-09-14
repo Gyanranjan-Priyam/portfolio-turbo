@@ -1,0 +1,221 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import aboutImg from '../assets/blog-placeholder-about.jpg';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="About the Author | Gyanranjan Priyam"
+      description="Learn more about Gyanranjan Priyam - fullstack software engineer, architect, and tech writer."
+    />
+  </head>
+  <body>
+    <div class="ambient-bg">
+      <div class="ambient-blob-1"></div>
+      <div class="ambient-blob-2"></div>
+    </div>
+
+    <main class="about-main">
+      <div class="container-prose">
+        <div class="about-top-nav">
+          <a href="/" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Articles
+          </a>
+          <a href="/" class="brand-mini-link">
+            <img src="/logo.png" alt="Logo" width="28" height="28" />
+            <span class="brand-mini-name">GYANRANJAN PRIYAM</span>
+          </a>
+        </div>
+
+        <div class="about-card glass-card">
+          <div class="about-hero-image">
+            <Image width={800} height={400} src={aboutImg} alt="Gyanranjan Priyam" class="cover-img" />
+          </div>
+
+          <div class="about-content">
+            <span class="badge badge-accent">Author & Engineer</span>
+            <h1 class="about-title">Hi, I'm <span class="text-gradient">Gyanranjan Priyam</span></h1>
+            <p class="about-lead">
+              A fullstack software engineer focused on building high-performance web systems, intuitive interfaces, and scalable distributed architectures.
+            </p>
+
+            <div class="prose">
+              <h2>About This Blog</h2>
+              <p>
+                This space is dedicated to technical deep dives, architectural case studies, performance benchmarks, and real-world software engineering practices. I write about:
+              </p>
+              <ul>
+                <li><strong>Fullstack Frameworks</strong>: Next.js 16, React 19, Astro 5, Server Components.</li>
+                <li><strong>Monorepo Systems</strong>: Turborepo, Bun workspaces, shared design systems.</li>
+                <li><strong>Motion & UI Engineering</strong>: GSAP, Framer Motion, Tailwind CSS, accessible components.</li>
+                <li><strong>Databases & APIs</strong>: PostgreSQL, Prisma ORM, Strapi Headless CMS, REST & GraphQL.</li>
+              </ul>
+
+              <h2>Get in Touch</h2>
+              <p>
+                Feel free to explore my full project portfolio or reach out for collaborations and technical discussions:
+              </p>
+            </div>
+
+            <div class="about-actions">
+              <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer" class="primary-btn">
+                Visit Main Portfolio
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+              </a>
+              <a href="https://github.com/Gyanranjan-Priyam" target="_blank" rel="noopener noreferrer" class="secondary-btn">
+                GitHub Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .about-main {
+    flex: 1;
+    padding: 2.5rem 0 5rem;
+  }
+
+  .about-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .brand-mini-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .brand-mini-name {
+    font-family: var(--font-mokoto);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .about-card {
+    overflow: hidden;
+  }
+
+  .about-hero-image {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-content {
+    padding: 3rem;
+  }
+
+  .about-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin: 1rem 0 0.75rem;
+    letter-spacing: -0.03em;
+  }
+
+  .about-lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .about-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    background: var(--accent-gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-glow);
+    transition: all 0.3s ease;
+  }
+
+  .primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+  }
+
+  .secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-tag);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-subtle);
+    transition: all 0.2s ease;
+  }
+
+  .secondary-btn:hover {
+    background: var(--bg-tag-hover);
+    border-color: var(--border-glow);
+  }
+
+  @media (max-width: 640px) {
+    .about-content {
+      padding: 1.75rem;
+    }
+    .about-title {
+      font-size: 2rem;
+    }
+    .about-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

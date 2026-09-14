@@ -1,0 +1,409 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <nav class="toc-container" aria-label="Table of Contents">
+    <div class="toc-header">
+      <svg class="toc-header-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <span class="toc-header-title">ON THIS PAGE</span>
+    </div>
+
+    <div class="toc-body" id="toc-body">
+      <!-- Dynamic SVG Tree Curved Path Canvas -->
+      <svg class="toc-svg-canvas" id="toc-svg-canvas" aria-hidden="true">
+        <!-- Background guide tree path -->
+        <path id="toc-bg-path" class="toc-svg-bg-path" d="" fill="none" />
+        <!-- Active highlight path -->
+        <path id="toc-active-path" class="toc-svg-active-path" d="" fill="none" />
+        <!-- Glowing dot at active heading -->
+        <circle id="toc-active-dot" class="toc-svg-active-dot" cx="-10" cy="-10" r="3.5" />
+      </svg>
+
+      <ul class="toc-list" id="toc-list">
+        {filteredHeadings.map((heading) => (
+          <li
+            class={`toc-item depth-${heading.depth}`}
+            data-depth={heading.depth}
+            data-heading-id={heading.slug}
+          >
+            <a href={`#${heading.slug}`} class="toc-link">
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Quick Back to Top Link -->
+    <div class="toc-footer">
+      <button id="toc-back-to-top" class="toc-top-btn" aria-label="Scroll back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 15-6-6-6 6"/>
+        </svg>
+        <span>Back to top</span>
+      </button>
+    </div>
+  </nav>
+)}
+
+<style>
+  .toc-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    user-select: none;
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .toc-header-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .toc-header-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .toc-body {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  /* SVG Canvas Overlay */
+  .toc-svg-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .toc-svg-bg-path {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  :global(html:not(.dark)) .toc-svg-bg-path {
+    stroke: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  .toc-svg-active-path {
+    stroke: #fde047;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px rgba(253, 224, 71, 0.6));
+    transition: stroke-dasharray 0.2s ease, stroke-dashoffset 0.2s ease;
+  }
+
+  :global(html:not(.dark)) .toc-svg-active-path {
+    stroke: #ca8a04 !important;
+    filter: drop-shadow(0 0 3px rgba(202, 138, 4, 0.4)) !important;
+  }
+
+  .toc-svg-active-dot {
+    fill: #fde047;
+    filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.9));
+    transition: cx 0.2s cubic-bezier(0.16, 1, 0.3, 1), cy 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  :global(html:not(.dark)) .toc-svg-active-dot {
+    fill: #ca8a04 !important;
+    filter: drop-shadow(0 0 4px rgba(202, 138, 4, 0.5)) !important;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-subtle) transparent;
+  }
+
+  .toc-item {
+    position: relative;
+  }
+
+  .toc-item.depth-1,
+  .toc-item.depth-2 {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .toc-item.depth-3 {
+    font-size: 0.785rem;
+    padding-left: 0.75rem;
+  }
+
+  .toc-link {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    line-height: 1.45;
+    padding: 0.22rem 0.45rem;
+    border-radius: 4px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .toc-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-tag-hover);
+  }
+
+  /* Dark mode active */
+  :global(html.dark) .toc-link.active {
+    color: #fde047 !important;
+    font-weight: 600;
+    background: rgba(253, 224, 71, 0.08);
+  }
+
+  /* Light mode active - dark amber gold text with soft badge background */
+  :global(html:not(.dark)) .toc-link.active {
+    color: #854d0e !important;
+    font-weight: 600;
+    background: rgba(234, 179, 8, 0.15);
+  }
+
+  .toc-item.depth-3 .toc-link {
+    color: var(--text-muted);
+    opacity: 0.85;
+  }
+
+  .toc-item.depth-3 .toc-link:hover {
+    color: var(--text-primary);
+    opacity: 1;
+  }
+
+  :global(html.dark) .toc-item.depth-3 .toc-link.active {
+    color: #fde047 !important;
+    opacity: 1;
+    font-weight: 600;
+  }
+
+  :global(html:not(.dark)) .toc-item.depth-3 .toc-link.active {
+    color: #854d0e !important;
+    opacity: 1;
+    font-weight: 600;
+  }
+
+  .toc-footer {
+    margin-top: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .toc-top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    padding: 0.2rem 0;
+    transition: color 0.15s ease;
+  }
+
+  :global(html.dark) .toc-top-btn:hover {
+    color: #fde047;
+  }
+
+  :global(html:not(.dark)) .toc-top-btn:hover {
+    color: #854d0e;
+  }
+</style>
+
+<script>
+  function initDocsSvgToc() {
+    const body = document.getElementById('toc-body');
+    const svg = document.getElementById('toc-svg-canvas');
+    const bgPath = document.getElementById('toc-bg-path');
+    const activePath = document.getElementById('toc-active-path');
+    const activeDot = document.getElementById('toc-active-dot');
+    const list = document.getElementById('toc-list');
+    const topBtn = document.getElementById('toc-back-to-top');
+    const items = document.querySelectorAll<HTMLLIElement>('.toc-item');
+
+    if (!body || !svg || !bgPath || !activePath || !activeDot || items.length === 0) return;
+
+    interface NodePoint {
+      id: string;
+      x: number;
+      y: number;
+      element: HTMLElement;
+      link: HTMLAnchorElement;
+      item: HTMLLIElement;
+      depth: number;
+    }
+
+    let nodePoints: NodePoint[] = [];
+
+    const X_LEVEL_PARENT = 3;
+    const X_LEVEL_CHILD = 13;
+
+    function measurePoints() {
+      nodePoints = [];
+      const bodyRect = body!.getBoundingClientRect();
+
+      items.forEach((item) => {
+        const link = item.querySelector('a') as HTMLAnchorElement;
+        const headingId = item.getAttribute('data-heading-id');
+        const depth = parseInt(item.getAttribute('data-depth') || '2', 10);
+        const headingEl = headingId ? document.getElementById(headingId) : null;
+
+        if (link && headingEl) {
+          const itemRect = item.getBoundingClientRect();
+          const y = itemRect.top - bodyRect.top + itemRect.height / 2;
+          const x = depth >= 3 ? X_LEVEL_CHILD : X_LEVEL_PARENT;
+
+          nodePoints.push({
+            id: headingId!,
+            x,
+            y,
+            element: headingEl,
+            link,
+            item,
+            depth,
+          });
+        }
+      });
+
+      buildPathString();
+    }
+
+    function buildPathString() {
+      if (nodePoints.length === 0) return;
+
+      let d = `M ${nodePoints[0].x} ${nodePoints[0].y}`;
+
+      for (let i = 0; i < nodePoints.length - 1; i++) {
+        const curr = nodePoints[i];
+        const next = nodePoints[i + 1];
+
+        if (curr.x === next.x) {
+          d += ` V ${next.y}`;
+        } else {
+          const midY = (curr.y + next.y) / 2;
+          d += ` C ${curr.x} ${midY}, ${next.x} ${midY}, ${next.x} ${next.y}`;
+        }
+      }
+
+      bgPath!.setAttribute('d', d);
+      updateActiveHighlight();
+    }
+
+    function updateActiveHighlight() {
+      if (nodePoints.length === 0) return;
+
+      const scrollPos = window.scrollY + 130;
+      let activeIndex = 0;
+
+      for (let i = 0; i < nodePoints.length; i++) {
+        if (nodePoints[i].element.offsetTop <= scrollPos) {
+          activeIndex = i;
+        } else {
+          break;
+        }
+      }
+
+      // Update text link classes
+      nodePoints.forEach((node, idx) => {
+        if (idx === activeIndex) {
+          node.link.classList.add('active');
+        } else {
+          node.link.classList.remove('active');
+        }
+      });
+
+      // Update dot position
+      const activeNode = nodePoints[activeIndex];
+      activeDot!.setAttribute('cx', String(activeNode.x));
+      activeDot!.setAttribute('cy', String(activeNode.y));
+      (activeDot as unknown as HTMLElement).style.opacity = '1';
+
+      // Build active path segment spanning around the active item
+      let activeD = '';
+      if (activeIndex === 0) {
+        activeD = `M ${activeNode.x} ${activeNode.y} V ${activeNode.y + 14}`;
+      } else {
+        const prev = nodePoints[activeIndex - 1];
+        if (prev.x === activeNode.x) {
+          activeD = `M ${prev.x} ${prev.y} V ${activeNode.y}`;
+        } else {
+          const midY = (prev.y + activeNode.y) / 2;
+          activeD = `M ${prev.x} ${prev.y} C ${prev.x} ${midY}, ${activeNode.x} ${midY}, ${activeNode.x} ${activeNode.y}`;
+        }
+      }
+      activePath!.setAttribute('d', activeD);
+
+      // Auto-scroll TOC list if needed
+      if (list) {
+        const itemTop = activeNode.item.offsetTop;
+        const itemHeight = activeNode.item.offsetHeight;
+        const listHeight = list.clientHeight;
+        const listScroll = list.scrollTop;
+
+        if (itemTop < listScroll || itemTop + itemHeight > listScroll + listHeight) {
+          list.scrollTo({
+            top: itemTop - listHeight / 2 + itemHeight / 2,
+            behavior: 'smooth',
+          });
+        }
+      }
+    }
+
+    if (topBtn) {
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Measure on load, font load, and resize
+    measurePoints();
+    window.addEventListener('resize', measurePoints);
+    window.addEventListener('scroll', updateActiveHighlight, { passive: true });
+
+    setTimeout(measurePoints, 150);
+    setTimeout(measurePoints, 600);
+  }
+
+  document.addEventListener('DOMContentLoaded', initDocsSvgToc);
+  initDocsSvgToc();
+</script>

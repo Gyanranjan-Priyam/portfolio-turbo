@@ -1,0 +1,161 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="brand">
+      <a href="/" class="logo-link">
+        <img src="/logo.png" alt="Logo" width="34" height="34" class="header-logo-img" />
+        <div class="logo-text">
+          <span class="brand-title">Priyam's Log</span>
+          <span class="brand-subtitle">Tech, Design & Systems</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="nav-menu">
+      <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/about">About</HeaderLink>
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle />
+      <a
+        href="http://localhost:3000"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="portfolio-link-btn"
+      >
+        <span>Portfolio</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 7h10v10"></path>
+          <path d="M7 17 17 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    padding: 0.75rem 0;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: var(--bg-glass);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: all 0.3s ease;
+  }
+
+  .header-container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .header-logo-img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .brand-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--bg-tag);
+    padding: 0.25rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .portfolio-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-tag);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .portfolio-link-btn:hover {
+    background: var(--bg-tag-hover);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .brand-subtitle {
+      display: none;
+    }
+    .portfolio-link-btn span {
+      display: none;
+    }
+    .portfolio-link-btn {
+      padding: 0.5rem;
+    }
+  }
+</style>
