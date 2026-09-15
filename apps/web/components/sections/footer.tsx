@@ -128,7 +128,7 @@ export function Footer() {
       </BlurFade>
 
       {/* Divider */}
-      <div className="mx-auto mt-8 max-w-3xl border-t border-dashed" />
+      <div className="separator-dotted-h mt-8" />
 
       {/* Bottom row */}
       <BlurFade delay={0.12} inView>

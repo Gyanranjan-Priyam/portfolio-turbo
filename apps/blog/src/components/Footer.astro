@@ -1,19 +1,18 @@
 ---
+import { AUTHOR_PORTFOLIO } from '../consts';
+
 const today = new Date();
 
 const navLinks = [
-  { label: 'About', href: 'http://localhost:3000/#about' },
-  { label: 'Skills', href: 'http://localhost:3000/#skills' },
-  { label: 'Projects', href: 'http://localhost:3000/projects' },
+  { label: 'About', href: `${AUTHOR_PORTFOLIO}/#about` },
+  { label: 'Skills', href: `${AUTHOR_PORTFOLIO}/#skills` },
+  { label: 'Projects', href: `${AUTHOR_PORTFOLIO}/projects` },
   { label: 'Blog', href: '/' },
-  { label: 'Contact', href: 'http://localhost:3000/#contact' },
+  { label: 'Contact', href: `${AUTHOR_PORTFOLIO}/#contact` },
 ];
 ---
 
 <footer class="site-footer">
-  <!-- Top Separator Line matching portfolio -->
-  <div class="footer-top-separator"></div>
-
   <div class="footer-inner">
     <!-- Top Center: Logo & Name -->
     <div class="brand-center">
@@ -32,14 +31,14 @@ const navLinks = [
       ))}
     </nav>
 
-    <!-- Dashed divider -->
+    <!-- Dotted divider -->
     <div class="footer-divider"></div>
 
     <!-- Bottom row -->
     <div class="footer-bottom">
       <p class="copyright">&copy; {today.getFullYear()} Gyanranjan Priyam</p>
 
-      <a href="http://localhost:3000/privacy" class="privacy-link">
+      <a href={`${AUTHOR_PORTFOLIO}/privacy`} class="privacy-link">
         Privacy Policy
       </a>
 
@@ -142,14 +141,6 @@ const navLinks = [
     z-index: 10;
   }
 
-  .footer-top-separator {
-    width: 100%;
-    max-width: 70%;
-    height: 1px;
-    background-color: var(--border-subtle);
-    margin: 0 auto 3rem;
-  }
-
   .footer-inner {
     max-width: 900px;
     margin: 0 auto;
@@ -213,7 +204,12 @@ const navLinks = [
   .footer-divider {
     width: 100%;
     max-width: 768px;
-    border-top: 1px dashed var(--border-subtle);
+    height: 2.5px;
+    background-image: radial-gradient(circle, var(--dotted-border) 1.25px, transparent 1.25px);
+    background-size: 10px 2.5px;
+    background-repeat: repeat-x;
+    background-position: center;
+    border: none;
     margin-bottom: 1.75rem;
   }
 

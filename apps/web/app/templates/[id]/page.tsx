@@ -79,12 +79,11 @@ export default async function TemplatePage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="py-8 sm:py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(templateSchema) }}
       />
-      <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Breadcrumb */}
         <BlurFade delay={0.04}>
           <nav
@@ -359,6 +358,5 @@ export default async function TemplatePage({ params }: Props) {
           </div>
         </BlurFade>
       </div>
-    </div>
   );
 }

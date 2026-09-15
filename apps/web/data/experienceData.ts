@@ -1,5 +1,6 @@
 export const experiences = [
   {
+    id: "cb-treasurer",
     title: "Treasurer and Management Co-Lead",
     company: "CodeBreakers GCE Kalahandi",
     period: "Aug 2026 - Present",
@@ -13,6 +14,7 @@ export const experiences = [
     ],
   },
   {
+    id: "cb-tech-lead",
     title: "Technical Lead",
     company: "CodeBreakers GCE Kalahandi",
     period: "Oct 2025 - Aug 2026",
@@ -25,6 +27,7 @@ export const experiences = [
     ],
   },
   {
+    id: "cttc-vlsi-trainee",
     title: "VLSI Trainee",
     company: "CTTC Bhubaneswar",
     period: "June 2026 - July 2026",
@@ -37,6 +40,7 @@ export const experiences = [
     ],
   },
   {
+    id: "gfg-campus-ambassador",
     title: "Campus Ambassador",
     company: "GeeksforGeeks",
     period: "Jan 2026 - June 2026",

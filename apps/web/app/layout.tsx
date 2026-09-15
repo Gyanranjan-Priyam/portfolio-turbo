@@ -182,11 +182,13 @@ export default function RootLayout({
         <SmoothScroll>
           <LoaderWrapper />
           <ClickSpark>
-            <main id="layout" className="pt-6 lg:pt-0 lg:pl-64 lg:pr-64">
-              {children}
-              <Toaster />
-              <Separator />
-              <div className="mx-auto max-w-2xl px-4 sm:px-6">
+            <main id="layout" className="min-h-screen bg-background text-foreground">
+              <div className="border-dotted-side mx-auto max-w-3xl px-4 sm:px-6 bg-background min-h-screen flex flex-col">
+                <div className="flex-1">
+                  {children}
+                </div>
+                <Toaster />
+                <Separator />
                 <Footer />
               </div>
             </main>

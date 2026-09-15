@@ -129,9 +129,8 @@ const sections: Section[] = [
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
-          <BlurFade delay={0.04} direction="up">
+    <div className="py-8 sm:py-12">
+      <BlurFade delay={0.04} direction="up">
           <div className="mb-3 flex items-start justify-between">
             <div>
               <h1
@@ -304,6 +303,5 @@ export default function PrivacyPage() {
           </div>
         </BlurFade>
       </div>
-    </div>
   );
 }

@@ -43,29 +43,27 @@ const personSchema = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
-      <div className="mx-auto max-w-2xl px-4 sm:px-6">
-        <HeroSection />
-        <Separator />
-        <AboutSection />
-        <Separator />
-        <EducationSection />
-        <Separator />
-        <ExperienceSection />
-        <Separator />
-        <SkillsSection />
-        <GitHubCalendarSection />
-        <Separator />
-        <ProjectsSection />
-        <Separator />
-        <TemplatesSection />
-        <Separator />
-        <ContactSection />
-      </div>
-    </div>
+      <HeroSection />
+      <Separator />
+      <AboutSection />
+      <Separator />
+      <EducationSection />
+      <Separator />
+      <ExperienceSection />
+      <Separator />
+      <SkillsSection />
+      <GitHubCalendarSection />
+      <Separator />
+      <ProjectsSection />
+      <Separator />
+      <TemplatesSection />
+      <Separator />
+      <ContactSection />
+    </>
   );
 }

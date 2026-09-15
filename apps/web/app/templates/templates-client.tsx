@@ -196,9 +196,8 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 py-8 sm:py-12">
-        <BlurFade delay={0.04}>
+    <div className="py-8 sm:py-12">
+      <BlurFade delay={0.04}>
           <div className="flex items-start justify-between mb-10">
             <div>
               <h1
@@ -504,6 +503,5 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
           )}
         </AnimatePresence>
       </div>
-    </div>
   );
 }

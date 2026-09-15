@@ -1,12 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import SearchModal from '../components/SearchModal.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import SearchModal from "../components/SearchModal.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { AUTHOR_PORTFOLIO } from "../consts";
 
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection("blog");
 const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
@@ -16,8 +17,8 @@ const recentPosts = allPosts
 <html lang="en">
   <head>
     <BaseHead
-      title="404 — Page Not Found | Priyam's Log"
-      description="The page or article you are looking for does not exist on Priyam's Log."
+      title="404 — Page Not Found | Priyam's Blog"
+      description="The page or article you are looking for does not exist on Priyam's Blog."
     />
   </head>
   <body>
@@ -28,15 +29,36 @@ const recentPosts = allPosts
       <div class="notfound-container">
         <!-- Top Nav Bar -->
         <header class="notfound-header">
-          <a href="/" class="notfound-brand" aria-label="Priyam's Log Home">
-            <img src="/logo.png" alt="Priyam's Log" class="notfound-logo" width="34" height="34" />
-            <span class="notfound-brand-title">Priyam's Log</span>
+          <a href="/" class="notfound-brand" aria-label="Priyam's Blog Home">
+            <img
+              src="/logo.png"
+              alt="Priyam's Blog"
+              class="notfound-logo"
+              width="34"
+              height="34"
+            />
+            <span class="notfound-brand-title">Priyam's Blog</span>
           </a>
 
           <div class="notfound-nav-actions">
             <ThemeToggle />
-            <a href="http://localhost:3000" class="notfound-nav-btn" title="Portfolio Home" aria-label="Portfolio Home">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a
+              href={AUTHOR_PORTFOLIO}
+              class="notfound-nav-btn"
+              title="Portfolio Home"
+              aria-label="Portfolio Home"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
               </svg>
@@ -54,20 +76,40 @@ const recentPosts = allPosts
           <h1 class="notfound-code">404</h1>
           <h2 class="notfound-title">Lost in the Digital Void</h2>
           <p class="notfound-desc">
-            The article, route, or resource you are looking for has been moved, renamed, or doesn't exist.
+            The article, route, or resource you are looking for has been moved,
+            renamed, or doesn't exist.
           </p>
 
           <!-- Auto Redirection Bar -->
           <div class="redirect-box" id="redirect-box">
             <div class="redirect-text-row">
               <div class="redirect-msg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>Redirecting to blog home in <strong id="countdown-num">6</strong>s</span>
+                <span
+                  >Redirecting to blog home in <strong id="countdown-num"
+                    >6</strong
+                  >s</span
+                >
               </div>
-              <button id="cancel-redirect-btn" class="cancel-redirect-btn" type="button" aria-label="Stay on page">
+              <button
+                id="cancel-redirect-btn"
+                class="cancel-redirect-btn"
+                type="button"
+                aria-label="Stay on page"
+              >
                 Stay on page
               </button>
             </div>
@@ -79,14 +121,34 @@ const recentPosts = allPosts
           <!-- Quick Action Buttons -->
           <div class="notfound-actions">
             <a href="/" class="btn-primary" id="home-now-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m15 18-6-6 6-6"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
               </svg>
               <span>Back to Articles</span>
             </a>
 
             <button id="search-trigger-404" class="btn-secondary" type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
               </svg>
@@ -96,31 +158,35 @@ const recentPosts = allPosts
         </div>
 
         <!-- Suggested Articles -->
-        {recentPosts.length > 0 && (
-          <div class="suggested-section">
-            <div class="suggested-header">
-              <h3 class="suggested-title">Or explore popular articles:</h3>
-            </div>
-            <div class="suggested-grid">
-              {recentPosts.map((post) => (
-                <a href={`/${post.id}`} class="suggested-card">
-                  <div class="suggested-card-body">
-                    <h4 class="suggested-post-title">{post.data.title}</h4>
-                    <p class="suggested-post-desc">{post.data.description}</p>
-                    <div class="suggested-meta">
-                      <span class="suggested-date">
-                        <FormattedDate date={post.data.pubDate} />
-                      </span>
-                      {post.data.tags && post.data.tags.length > 0 && (
-                        <span class="suggested-tag">#{post.data.tags[0]}</span>
-                      )}
+        {
+          recentPosts.length > 0 && (
+            <div class="suggested-section">
+              <div class="suggested-header">
+                <h3 class="suggested-title">Or explore popular articles:</h3>
+              </div>
+              <div class="suggested-grid">
+                {recentPosts.map((post) => (
+                  <a href={`/${post.id}`} class="suggested-card">
+                    <div class="suggested-card-body">
+                      <h4 class="suggested-post-title">{post.data.title}</h4>
+                      <p class="suggested-post-desc">{post.data.description}</p>
+                      <div class="suggested-meta">
+                        <span class="suggested-date">
+                          <FormattedDate date={post.data.pubDate} />
+                        </span>
+                        {post.data.tags && post.data.tags.length > 0 && (
+                          <span class="suggested-tag">
+                            #{post.data.tags[0]}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </a>
-              ))}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </div>
     </main>
 
@@ -155,7 +221,12 @@ const recentPosts = allPosts
     transform: translateX(-50%);
     width: 600px;
     height: 350px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(234, 179, 8, 0.04) 50%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.08) 0%,
+      rgba(234, 179, 8, 0.04) 50%,
+      transparent 70%
+    );
     pointer-events: none;
     z-index: 0;
     filter: blur(60px);
@@ -265,8 +336,15 @@ const recentPosts = allPosts
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.85); }
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
   }
 
   .notfound-code {
@@ -275,7 +353,11 @@ const recentPosts = allPosts
     font-weight: 900;
     line-height: 1;
     letter-spacing: -0.04em;
-    background: linear-gradient(180deg, var(--text-primary) 30%, var(--text-muted) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--text-primary) 30%,
+      var(--text-muted) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0 0 0.5rem;
@@ -516,10 +598,10 @@ const recentPosts = allPosts
 <script is:inline>
   (function () {
     // 404 Spotlight Search Trigger
-    const searchBtn = document.getElementById('search-trigger-404');
+    const searchBtn = document.getElementById("search-trigger-404");
     if (searchBtn) {
-      searchBtn.addEventListener('click', () => {
-        if (typeof window.openSpotlightSearch === 'function') {
+      searchBtn.addEventListener("click", () => {
+        if (typeof window.openSpotlightSearch === "function") {
           window.openSpotlightSearch();
         }
       });
@@ -530,10 +612,10 @@ const recentPosts = allPosts
     let remaining = TOTAL_SECONDS;
     let isCancelled = false;
 
-    const countdownNum = document.getElementById('countdown-num');
-    const redirectFill = document.getElementById('redirect-fill');
-    const cancelBtn = document.getElementById('cancel-redirect-btn');
-    const redirectBox = document.getElementById('redirect-box');
+    const countdownNum = document.getElementById("countdown-num");
+    const redirectFill = document.getElementById("redirect-fill");
+    const cancelBtn = document.getElementById("cancel-redirect-btn");
+    const redirectBox = document.getElementById("redirect-box");
 
     const interval = setInterval(() => {
       if (isCancelled) {
@@ -544,7 +626,7 @@ const recentPosts = allPosts
       remaining -= 0.1;
       if (remaining <= 0) {
         clearInterval(interval);
-        window.location.href = '/';
+        window.location.href = "/";
         return;
       }
 
@@ -559,7 +641,7 @@ const recentPosts = allPosts
     }, 100);
 
     if (cancelBtn) {
-      cancelBtn.addEventListener('click', () => {
+      cancelBtn.addEventListener("click", () => {
         isCancelled = true;
         clearInterval(interval);
         if (redirectBox) {

@@ -19,6 +19,7 @@ import {
 } from "react";
 import { EASE_OUT } from "@/lib/ease";
 import { cn } from "@/lib/utils";
+import { Tooltip } from "@/components/motion/tooltip";
 
 export interface ExpandableTabsContextType {
   activeId: string | null;
@@ -47,6 +48,8 @@ export type ExpandableTabsItem = {
   onClick?: () => void;
   /** Optional badge count or indicator */
   badge?: string | number;
+  /** Optional tooltip text override (defaults to label) */
+  tooltip?: string;
 };
 
 export type ExpandableTabsClassNames = {
@@ -429,91 +432,100 @@ export function ExpandableTabs({
             const isActive = item.id === visualActiveId;
             const activeTabWidth = getActiveTabWidth(item);
             const labelWidth = labelWidths[item.id] ?? 0;
+            const tooltipText = item.tooltip || item.label;
 
             return (
-              <motion.button
+              <Tooltip
                 key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-label={item.label}
-                onClick={() => handleTabClick(item)}
-                layout={reduce ? false : "position"}
-                animate={{
-                  width: active && isActive ? activeTabWidth : TAB_W,
-                }}
-                transition={reduce ? { duration: 0 } : TAB_CHANGE_SPRING}
-                className={cn(
-                  "relative isolate flex h-9 min-w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[20px] px-2 text-sm font-medium outline-none transition-colors",
-                  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  active && isActive && "min-w-0 justify-start pl-2.5 pr-3.5",
-                  isActive
-                    ? "text-foreground font-semibold"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/30 dark:hover:bg-white/[0.08]",
-                  classNames?.tab,
-                  isActive && classNames?.activeTab,
-                )}
+                content={tooltipText}
+                side="top"
+                open={visualActiveId ? false : undefined}
+                delay={100}
+                className="rounded-lg border border-white/20 bg-neutral-950/90 dark:bg-neutral-900/95 px-2.5 py-1 text-[11px] font-medium tracking-tight text-white shadow-xl backdrop-blur-md"
               >
-                {isActive ? (
-                  <motion.span
-                    layoutId="liquid-glass-tab-pill"
+                <motion.button
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={item.label}
+                  onClick={() => handleTabClick(item)}
+                  layout={reduce ? false : "position"}
+                  animate={{
+                    width: active && isActive ? activeTabWidth : TAB_W,
+                  }}
+                  transition={reduce ? { duration: 0 } : TAB_CHANGE_SPRING}
+                  className={cn(
+                    "relative isolate flex h-9 min-w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[20px] px-2 text-sm font-medium outline-none transition-colors",
+                    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    active && isActive && "min-w-0 justify-start pl-2.5 pr-3.5",
+                    isActive
+                      ? "text-foreground font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/30 dark:hover:bg-white/[0.08]",
+                    classNames?.tab,
+                    isActive && classNames?.activeTab,
+                  )}
+                >
+                  {isActive ? (
+                    <motion.span
+                      layoutId="liquid-glass-tab-pill"
+                      className={cn(
+                        "absolute inset-0 -z-10 rounded-[20px]",
+                        "bg-gradient-to-b from-white/80 via-white/50 to-white/30 dark:from-white/20 dark:via-white/10 dark:to-white/[0.04]",
+                        "backdrop-blur-md",
+                        "border border-white/60 dark:border-white/25",
+                        "shadow-[0_4px_14px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.9),inset_0_-1px_1px_rgba(0,0,0,0.05)]",
+                        "dark:shadow-[0_4px_14px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.3)]",
+                        classNames?.pill,
+                      )}
+                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                    >
+                      {/* Inner highlight line on active capsule */}
+                      <span className="pointer-events-none absolute inset-x-2 top-0.5 h-[1px] bg-gradient-to-r from-transparent via-white dark:via-white/60 to-transparent" />
+                    </motion.span>
+                  ) : null}
+                  <span
                     className={cn(
-                      "absolute inset-0 -z-10 rounded-[20px]",
-                      "bg-gradient-to-b from-white/80 via-white/50 to-white/30 dark:from-white/20 dark:via-white/10 dark:to-white/[0.04]",
-                      "backdrop-blur-md",
-                      "border border-white/60 dark:border-white/25",
-                      "shadow-[0_4px_14px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.9),inset_0_-1px_1px_rgba(0,0,0,0.05)]",
-                      "dark:shadow-[0_4px_14px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.4),inset_0_-1px_1px_rgba(0,0,0,0.3)]",
-                      classNames?.pill,
+                      "grid shrink-0 place-items-center transition-transform duration-200",
+                      isActive ? "scale-105" : "group-hover:scale-105",
+                      classNames?.icon,
                     )}
-                    transition={{ type: "spring", stiffness: 420, damping: 30 }}
                   >
-                    {/* Inner highlight line on active capsule */}
-                    <span className="pointer-events-none absolute inset-x-2 top-0.5 h-[1px] bg-gradient-to-r from-transparent via-white dark:via-white/60 to-transparent" />
+                    {item.icon}
+                  </span>
+                  <motion.span
+                    aria-hidden
+                    initial={false}
+                    animate={
+                      reduce
+                        ? {
+                            width: isActive ? labelWidth : 0,
+                            opacity: isActive ? 1 : 0,
+                            marginLeft: isActive ? LABEL_GAP : 0,
+                            filter: "blur(0px)",
+                          }
+                        : {
+                            width: isActive ? labelWidth : 0,
+                            opacity: isActive ? 1 : 0,
+                            marginLeft: isActive ? LABEL_GAP : 0,
+                            filter: isActive ? "blur(0px)" : "blur(3px)",
+                          }
+                    }
+                    transition={
+                      reduce
+                        ? { duration: 0 }
+                        : isActive
+                          ? LABEL_OPEN
+                          : LABEL_CLOSE
+                    }
+                    className={cn(
+                      "inline-block overflow-hidden whitespace-nowrap text-xs font-semibold tracking-tight",
+                      classNames?.label,
+                    )}
+                  >
+                    {item.label}
                   </motion.span>
-                ) : null}
-                <span
-                  className={cn(
-                    "grid shrink-0 place-items-center transition-transform duration-200",
-                    isActive ? "scale-105" : "group-hover:scale-105",
-                    classNames?.icon,
-                  )}
-                >
-                  {item.icon}
-                </span>
-                <motion.span
-                  aria-hidden
-                  initial={false}
-                  animate={
-                    reduce
-                      ? {
-                          width: isActive ? labelWidth : 0,
-                          opacity: isActive ? 1 : 0,
-                          marginLeft: isActive ? LABEL_GAP : 0,
-                          filter: "blur(0px)",
-                        }
-                      : {
-                          width: isActive ? labelWidth : 0,
-                          opacity: isActive ? 1 : 0,
-                          marginLeft: isActive ? LABEL_GAP : 0,
-                          filter: isActive ? "blur(0px)" : "blur(3px)",
-                        }
-                  }
-                  transition={
-                    reduce
-                      ? { duration: 0 }
-                      : isActive
-                        ? LABEL_OPEN
-                        : LABEL_CLOSE
-                  }
-                  className={cn(
-                    "inline-block overflow-hidden whitespace-nowrap text-xs font-semibold tracking-tight",
-                    classNames?.label,
-                  )}
-                >
-                  {item.label}
-                </motion.span>
-              </motion.button>
+                </motion.button>
+              </Tooltip>
             );
           })}
         </div>

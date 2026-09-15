@@ -55,14 +55,14 @@ function ExpandedExperienceCard({
       />
       <div className="fixed inset-0 z-100 grid place-items-center p-4 pointer-events-none">
         <motion.div
-          layoutId={`card-${active.company}-${id}`}
+          layoutId={`card-${active.id}-${id}`}
           ref={ref}
           className="pointer-events-auto text-sm w-full max-w-md overflow-hidden rounded-2xl border bg-card shadow-lg"
           style={{ fontFamily: "var(--font-jetbrains-mono)" }}
         >
           <div className="flex items-start justify-between p-5">
             <div className="flex items-center gap-4">
-              <motion.div layoutId={`avatar-${active.company}-${id}`}>
+              <motion.div layoutId={`avatar-${active.id}-${id}`}>
                 <Avatar className="size-14 border bg-black p-1.5">
                   <AvatarImage src={active.logo} alt={active.company} className="object-contains" />
                   <AvatarFallback className="text-xs font-bold">
@@ -72,14 +72,14 @@ function ExpandedExperienceCard({
               </motion.div>
               <div>
                 <motion.h3
-                  layoutId={`company-${active.company}-${id}`}
+                  layoutId={`company-${active.id}-${id}`}
                   className="text-md font-semibold"
                   style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                 >
                   {active.company}
                 </motion.h3>
                 <motion.p
-                  layoutId={`title-${active.company}-${id}`}
+                  layoutId={`title-${active.id}-${id}`}
                   className="text-md text-muted-foreground"
                   style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                 >
@@ -97,7 +97,7 @@ function ExpandedExperienceCard({
 
           <div className="border-t px-5 py-4">
             <motion.p
-              layoutId={`period-${active.company}-${id}`}
+              layoutId={`period-${active.id}-${id}`}
               className="mb-3 text-sm font-medium text-muted-foreground"
               style={{ fontFamily: "var(--font-jetbrains-mono)" }}
             >
@@ -171,14 +171,14 @@ export function ExperienceSection() {
       {/* List */}
       <div className="space-y-1">
         {experiences.map((exp, i) => (
-          <BlurFade key={exp.company} delay={0.04 + i * 0.05} inView>
+          <BlurFade key={exp.id} delay={0.04 + i * 0.05} inView>
             <motion.div
-              layoutId={`card-${exp.company}-${id}`}
-              key={exp.company}
+              layoutId={`card-${exp.id}-${id}`}
+              key={exp.id}
               onClick={() => setActive(exp)}
               className="flex cursor-pointer items-center gap-4 rounded-xl p-3 transition-colors hover:bg-muted/50"
             >
-              <motion.div layoutId={`avatar-${exp.company}-${id}`}>
+              <motion.div layoutId={`avatar-${exp.id}-${id}`}>
                 <Avatar className="size-10 border">
                   <AvatarImage src={exp.logo} alt={exp.company} />
                   <AvatarFallback className="text-[10px] font-bold">
@@ -188,14 +188,14 @@ export function ExperienceSection() {
               </motion.div>
               <div className="flex-1 min-w-0">
                 <motion.p
-                  layoutId={`company-${exp.company}-${id}`}
+                  layoutId={`company-${exp.id}-${id}`}
                   className="text-md font-semibold leading-tight"
                   style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                 >
                   {exp.company}
                 </motion.p>
                 <motion.p
-                  layoutId={`title-${exp.company}-${id}`}
+                  layoutId={`title-${exp.id}-${id}`}
                   className="text-xs text-muted-foreground"
                   style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                 >
@@ -203,7 +203,7 @@ export function ExperienceSection() {
                 </motion.p>
               </div>
               <motion.span
-                layoutId={`period-${exp.company}-${id}`}
+                layoutId={`period-${exp.id}-${id}`}
                 className="shrink-0 text-xs text-muted-foreground text-right"
                 style={{ fontFamily: "var(--font-jetbrains-mono)" }}
               >

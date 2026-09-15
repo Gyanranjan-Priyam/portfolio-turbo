@@ -194,7 +194,7 @@ export function TemplatesSection() {
         )}
       </AnimatePresence>
 
-      <ul className="max-w-2xl mx-auto w-full gap-4">
+      <ul className="w-full gap-4">
         {displayTemplates.map((template, i) => (
           <BlurFade
             key={`card-${template.title}-${id}`}

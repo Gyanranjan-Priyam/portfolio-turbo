@@ -175,7 +175,7 @@ function ProjectsPanel() {
         {featured.map((p) => (
           <Link
             key={p.id}
-            href={`/projects`}
+            href={p.link}
             onClick={() => close()}
             className="group flex items-start gap-2.5 rounded-lg p-2 transition-colors border border-transparent hover:border-border/60 hover:bg-neutral-100/70 dark:hover:bg-neutral-900/60 cursor-pointer"
           >
@@ -238,7 +238,7 @@ function TemplatesPanel() {
         {templates.map((t) => (
           <Link
             key={t.id}
-            href={`/templates`}
+            href={t.link}
             onClick={() => close()}
             className="group flex items-start gap-2.5 rounded-lg p-2 transition-colors border border-transparent hover:border-border/60 hover:bg-neutral-100/70 dark:hover:bg-neutral-900/60 cursor-pointer"
           >
@@ -519,36 +519,42 @@ export function NavigationDock() {
     {
       id: "explore",
       label: "Explore",
+      tooltip: "Explore Navigation",
       icon: <IconCompass className="h-4 w-4" />,
       content: <NavigationPanel />,
     },
     {
       id: "projects",
       label: "Projects",
+      tooltip: "Selected Projects",
       icon: <IconBriefcase className="h-4 w-4" />,
       content: <ProjectsPanel />,
     },
     {
       id: "templates",
       label: "Templates",
+      tooltip: "Templates & Starters",
       icon: <IconTemplate className="h-4 w-4" />,
       content: <TemplatesPanel />,
     },
     {
       id: "blog",
       label: "Blog",
+      tooltip: "Blog Topics",
       icon: <IconNotebook className="h-4 w-4" />,
       content: <BlogsPanel />,
     },
     {
       id: "contact",
       label: "Contact",
+      tooltip: "Contact & Profiles",
       icon: <IconMail className="h-4 w-4" />,
       content: <SocialsPanel />,
     },
     {
       id: "theme",
       label: mounted && isDark ? "Light" : "Dark",
+      tooltip: mounted && isDark ? "Switch to Light Mode" : "Switch to Dark Mode",
       icon: mounted ? (
         <ActionSwapIcon
           value={isDark ? "dark" : "light"}

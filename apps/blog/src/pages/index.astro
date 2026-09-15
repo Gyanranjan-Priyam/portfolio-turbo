@@ -4,775 +4,397 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION } from '../consts';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { SITE_DESCRIPTION, AUTHOR_PORTFOLIO } from '../consts';
+import '../styles/home.css';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const tagCounts: Record<string, number> = {};
-allPosts.forEach((post) => {
-  post.data.tags?.forEach((tag) => {
-    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-  });
-});
-const popularTags = Object.entries(tagCounts)
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 5)
-  .map(([tag]) => tag);
+// Collect all unique categories
+const categories = ['All', ...new Set(posts.map((p) => p.data.category || 'Engineering'))];
+
+// Color mapping helper for category badges
+const getCategoryColorClass = (cat: string) => {
+  const c = cat.toLowerCase();
+  if (c.includes('engineering') || c.includes('tech')) return 'cat-cyan';
+  if (c.includes('career') || c.includes('journey')) return 'cat-orange';
+  if (c.includes('web') || c.includes('dev')) return 'cat-purple';
+  if (c.includes('guide') || c.includes('tutorial')) return 'cat-green';
+  return 'cat-rose';
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title="Blogs | Gyanranjan Priyam" description={SITE_DESCRIPTION} />
+    <BaseHead title="The Priyam's Blog | Gyanranjan Priyam" description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <main class="blogs-page-main">
-      <div id="blogs-page-wrap" class="blogs-page-wrap">
-        <!-- Header -->
-        <header class="blogs-header">
-          <div class="blogs-header-top-row">
-            <div class="blogs-brand-group">
-              <a href="/" class="blogs-brand-logo-link" aria-label="Home">
-                <img src="/logo.png" alt="Priyam's Log" class="blogs-brand-logo" width="40" height="40" />
-              </a>
-              <h1 class="blogs-title">Priyam's Log</h1>
-            </div>
+    <main class="blogs-main-wrapper">
+      <div class="blogs-container border-dotted-side">
+        <div style="flex: 1; display: flex; flex-direction: column; width: 100%;">
+        
+        <!-- MINIMAL TOP BAR -->
+        <header class="blogs-minimal-topbar">
+          <a href="/" class="topbar-brand" aria-label="Priyam's Blog Home">
+            <img src="/logo.png" alt="Logo" class="topbar-logo" width="28" height="28" />
+            <span class="topbar-name">Priyam's Blog</span>
+          </a>
 
-            <!-- Controls (Search, View Mode, Theme Toggle, Home) -->
-            <div class="blogs-controls">
-              <!-- Search -->
-              <button
-                id="search-trigger-btn"
-                class="icon-btn search-trigger"
-                aria-label="Search posts"
-                title="Search posts (Ctrl+K)"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="topbar-actions">
+            <!-- Theme Toggle -->
+            <ThemeToggle />
+
+            <!-- Portfolio Link -->
+            <a
+              href={AUTHOR_PORTFOLIO}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="topbar-action-btn"
+            >
+              <span>Portfolio</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </a>
+          </div>
+        </header>
+
+        <!-- Dotted Separator below Top Bar -->
+        <div class="separator-dotted-h home-topbar-separator"></div>
+
+        <!-- HERO SECTION -->
+        <section class="blog-hero">
+          <h1 class="hero-brand-title">
+            The <span class="font-brand-cooper">Priyam's</span> Blog
+          </h1>
+
+          <p class="hero-subtitle">
+            Articles, tutorials, and practical insights on web development and engineering.
+          </p>
+
+          <!-- Search Bar Pill -->
+          <div class="hero-search-box">
+            <button
+              id="hero-search-trigger-btn"
+              class="hero-search-pill-btn"
+              type="button"
+              aria-label="Search articles"
+              title="Search articles (Ctrl+K)"
+            >
+              <div class="search-pill-left">
+                <svg
+                  class="search-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16" height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
                 </svg>
-              </button>
-
-              <!-- View Mode Toggle -->
-              <button
-                id="view-toggle-btn"
-                class="icon-btn view-toggle"
-                aria-label="Toggle layout view mode"
-                title="Toggle layout view mode"
-              >
-                <svg id="list-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="8" y1="6" x2="21" y2="6"></line>
-                  <line x1="8" y1="12" x2="21" y2="12"></line>
-                  <line x1="8" y1="18" x2="21" y2="18"></line>
-                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                </svg>
-                <svg id="grid-icon" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="14" width="7" height="7"></rect>
-                  <rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-              </button>
-
-              <!-- Home -->
-              <a
-                href="https://www.priyam.tech"
-                class="icon-btn"
-                aria-label="Home"
-                title="Portfolio Home"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-              </a>
-            </div>
+                <span class="search-placeholder-text">Search articles...</span>
+              </div>
+              <div class="search-pill-right">
+                <kbd class="search-kbd-chip">Ctrl K</kbd>
+              </div>
+            </button>
           </div>
 
-          <p class="blogs-subtitle">
-            Thoughts on web development, engineering, and the journey of building things.
-          </p>
-
-          {popularTags.length > 0 && (
-            <div class="popular-tags-row">
-              <span class="popular-tags-label">Popular:</span>
-              <div class="popular-tags-chips">
-                {popularTags.map((tag) => (
-                  <a href={`/tags/${encodeURIComponent(tag)}`} class="popular-tag-chip">
-                    #{tag}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </header>
-
-        <!-- Blog Posts List / Tiles -->
-        <div id="blogs-container" class="blogs-list-mode">
-          {posts.map((post, index) => (
-            <a
-              href={`/${post.id}`}
-              class="blog-entry-card"
-              data-post-card
-              data-post-index={index}
-              style={index >= 4 ? "display: none;" : ""}
-            >
-              {post.data.heroImage && (
-                <div class="blog-entry-image">
-                  <img
-                    src={typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage.src}
-                    alt={post.data.title}
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div class="blog-entry-content">
-                <div class="blog-entry-top">
-                  <h2 class="blog-entry-title">{post.data.title}</h2>
-                  <span class="blog-entry-date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </span>
-                </div>
-                <p class="blog-entry-desc">{post.data.description}</p>
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="blog-entry-tags">
-                    {post.data.tags.slice(0, 3).map((tag) => (
-                      <span class="blog-tag-pill">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <!-- Pagination (Max 4 posts per page) -->
-        <div class="blogs-pagination" id="blogs-pagination" data-total-posts={posts.length} data-page-size="4">
-          <div class="pagination-nav">
-            <button
-              id="pagination-prev"
-              class="page-arrow disabled"
-              type="button"
-              aria-label="Previous page"
-              disabled
-            >
-              &lt; Previous
-            </button>
-            <div id="pagination-numbers" class="pagination-numbers">
-              {Array.from({ length: Math.max(1, Math.ceil(posts.length / 4)) }).map((_, i) => (
+          <!-- Category Filter Tabs -->
+          <nav class="category-tabs-nav" aria-label="Filter posts by category">
+            <div class="category-tabs-scroll" id="category-tabs-container">
+              {categories.map((cat, idx) => (
                 <button
                   type="button"
-                  class={`page-num ${i === 0 ? 'active' : ''}`}
-                  data-page={i + 1}
-                  aria-label={`Go to page ${i + 1}`}
-                  aria-current={i === 0 ? 'page' : undefined}
+                  class={`cat-tab-btn ${idx === 0 ? 'active' : ''}`}
+                  data-category={cat}
                 >
-                  {i + 1}
+                  {cat}
                 </button>
               ))}
             </div>
+          </nav>
+        </section>
+
+        <!-- Dotted Separator between Hero/Filters and Posts Feed -->
+        <div class="separator-dotted-h home-hero-separator"></div>
+
+        <!-- POSTS FEED SECTION -->
+        <section class="posts-feed-section" id="posts-feed-section">
+          <div class="featured-posts-grid" id="featured-posts-grid">
+            {posts.map((post) => {
+              const imageSrc = post.data.heroImage
+                ? typeof post.data.heroImage === 'string'
+                  ? post.data.heroImage
+                  : post.data.heroImage.src
+                : null;
+              const cat = post.data.category || 'Engineering';
+              const colorClass = getCategoryColorClass(cat);
+
+              return (
+                <article
+                  class="featured-post-card"
+                  data-post-card
+                  data-category={cat}
+                  data-tags={JSON.stringify(post.data.tags || [])}
+                  data-title={post.data.title.toLowerCase()}
+                  data-desc={post.data.description.toLowerCase()}
+                >
+                  <a href={`/${post.id}`} class="card-link-wrapper" aria-label={post.data.title}>
+                    <!-- Visual Cover / Thumbnail -->
+                    <div class="post-cover-frame">
+                      {imageSrc ? (
+                        <img
+                          src={imageSrc}
+                          alt={post.data.title}
+                          loading="lazy"
+                          class="post-cover-img"
+                        />
+                      ) : (
+                        <div class="post-cover-fallback">
+                          <span class="fallback-title">{post.data.title}</span>
+                        </div>
+                      )}
+                      <div class="cover-overlay-badge">
+                        <span class="play-icon">▶</span>
+                        <span>{post.data.readingTime || '5 min read'}</span>
+                      </div>
+                    </div>
+
+                    <!-- Post Info -->
+                    <div class="featured-post-body">
+                      <div class={`post-cat-label ${colorClass}`}>
+                        <span class="cat-bar"></span>
+                        <span class="cat-text">{cat}</span>
+                      </div>
+
+                      <h2 class="featured-post-title">
+                        {post.data.title}
+                      </h2>
+
+                      <p class="featured-post-excerpt">
+                        {post.data.description}
+                      </p>
+
+                      <div class="post-meta-row">
+                        <span class="post-meta-date">
+                          <FormattedDate date={post.data.pubDate} />
+                        </span>
+                        <span class="meta-dot">·</span>
+                        <span class="post-meta-reading-time">{post.data.readingTime || '5 min read'}</span>
+                      </div>
+                    </div>
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+
+          <!-- Empty State when filtering yields 0 items -->
+          <div id="no-posts-found" class="no-posts-empty-state" style="display: none;">
+            <div class="empty-icon">🔍</div>
+            <h3 class="empty-title">No articles found</h3>
+            <p class="empty-desc">Try selecting another category or clear your search term.</p>
+            <button id="reset-filter-btn" class="reset-filter-btn" type="button">
+              Reset Filters
+            </button>
+          </div>
+        </section>
+
+        <!-- PAGINATION SECTION -->
+        <div class="pagination-section" id="pagination-section">
+          <nav class="pagination-controls" aria-label="Pagination">
             <button
-              id="pagination-next"
-              class={`page-arrow ${Math.ceil(posts.length / 4) <= 1 ? 'disabled' : ''}`}
+              id="pg-prev-btn"
+              class="pg-btn pg-arrow disabled"
               type="button"
+              disabled
+              aria-label="Previous page"
+            >
+              &lt; Prev
+            </button>
+
+            <div id="pg-numbers-container" class="pg-numbers-wrap">
+              <button type="button" class="pg-btn pg-num active" data-page="1">1</button>
+            </div>
+
+            <button
+              id="pg-next-btn"
+              class="pg-btn pg-arrow disabled"
+              type="button"
+              disabled
               aria-label="Next page"
-              disabled={Math.ceil(posts.length / 4) <= 1}
             >
               Next &gt;
             </button>
-          </div>
-          <p id="pagination-info" class="page-info">
-            Page 1 of {Math.max(1, Math.ceil(posts.length / 4))} · {posts.length} posts
+          </nav>
+          <p id="pg-summary-text" class="pg-summary-text">
+            Showing all {posts.length} posts
           </p>
         </div>
+
+        </div>
+
+        <!-- Dotted Separator before Footer -->
+        <div class="separator-dotted-h"></div>
+        <Footer />
       </div>
     </main>
 
-    <!-- Search Modal -->
+    <!-- Spotlight Search Modal -->
     <SearchModal posts={posts} />
 
-    <Footer />
+    <script is:inline>
+      (function () {
+        // Search Trigger Integration
+        const searchTriggerBtn = document.getElementById('hero-search-trigger-btn');
+        if (searchTriggerBtn) {
+          searchTriggerBtn.addEventListener('click', () => {
+            if (typeof window.openSpotlightSearch === 'function') {
+              window.openSpotlightSearch();
+            }
+          });
+        }
+
+        // Category Tab Filtering & Pagination
+        const categoryTabs = document.querySelectorAll('.cat-tab-btn');
+        const postCards = Array.from(document.querySelectorAll('[data-post-card]'));
+        const featuredGrid = document.getElementById('featured-posts-grid');
+        const emptyState = document.getElementById('no-posts-found');
+        const resetBtn = document.getElementById('reset-filter-btn');
+
+        const prevBtn = document.getElementById('pg-prev-btn');
+        const nextBtn = document.getElementById('pg-next-btn');
+        const numbersContainer = document.getElementById('pg-numbers-container');
+        const summaryText = document.getElementById('pg-summary-text');
+
+        const PAGE_SIZE = 6;
+        let currentCategory = 'All';
+        let currentPage = 1;
+
+        function getFilteredPosts() {
+          if (currentCategory === 'All') return postCards;
+          return postCards.filter((card) => {
+            const cat = card.getAttribute('data-category') || '';
+            const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+            return cat.toLowerCase() === currentCategory.toLowerCase() || 
+                   tags.some(t => t.toLowerCase() === currentCategory.toLowerCase());
+          });
+        }
+
+        function renderPagination(filteredList) {
+          const total = filteredList.length;
+          const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+          if (currentPage > totalPages) currentPage = totalPages;
+
+          postCards.forEach((c) => (c.style.display = 'none'));
+
+          if (total === 0) {
+            if (emptyState) emptyState.style.display = 'block';
+            if (featuredGrid) featuredGrid.style.display = 'none';
+          } else {
+            if (emptyState) emptyState.style.display = 'none';
+            if (featuredGrid) featuredGrid.style.display = 'grid';
+
+            const startIndex = (currentPage - 1) * PAGE_SIZE;
+            const endIndex = startIndex + PAGE_SIZE;
+
+            filteredList.slice(startIndex, endIndex).forEach((card) => {
+              card.style.display = '';
+            });
+          }
+
+          if (prevBtn) {
+            prevBtn.disabled = currentPage <= 1;
+            prevBtn.classList.toggle('disabled', currentPage <= 1);
+          }
+          if (nextBtn) {
+            nextBtn.disabled = currentPage >= totalPages;
+            nextBtn.classList.toggle('disabled', currentPage >= totalPages);
+          }
+
+          if (numbersContainer) {
+            numbersContainer.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = `pg-btn pg-num ${i === currentPage ? 'active' : ''}`;
+              btn.textContent = String(i);
+              btn.setAttribute('data-page', String(i));
+              btn.addEventListener('click', () => {
+                currentPage = i;
+                renderPagination(filteredList);
+                scrollToFeed();
+              });
+              numbersContainer.appendChild(btn);
+            }
+          }
+
+          if (summaryText) {
+            summaryText.textContent = `Showing page ${currentPage} of ${totalPages} · ${total} ${total === 1 ? 'post' : 'posts'}`;
+          }
+        }
+
+        function scrollToFeed() {
+          const feed = document.getElementById('posts-feed-section');
+          if (feed) {
+            feed.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+
+        categoryTabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            categoryTabs.forEach((t) => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentCategory = tab.getAttribute('data-category') || 'All';
+            currentPage = 1;
+            renderPagination(getFilteredPosts());
+          });
+        });
+
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            currentCategory = 'All';
+            currentPage = 1;
+            categoryTabs.forEach((t) => {
+              t.classList.toggle('active', t.getAttribute('data-category') === 'All');
+            });
+            renderPagination(getFilteredPosts());
+          });
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+              currentPage--;
+              renderPagination(getFilteredPosts());
+              scrollToFeed();
+            }
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(getFilteredPosts().length / PAGE_SIZE);
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderPagination(getFilteredPosts());
+              scrollToFeed();
+            }
+          });
+        }
+
+        // Initial render
+        renderPagination(getFilteredPosts());
+      })();
+    </script>
   </body>
 </html>
-
-<style>
-  .blogs-page-main {
-    flex: 1;
-    min-height: 100vh;
-    padding: 2.5rem 1rem 5rem;
-    background-color: var(--bg-primary);
-  }
-
-  .blogs-page-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    transition: max-width 0.25s ease;
-  }
-
-  .blogs-page-wrap.tiles-mode {
-    max-width: 980px;
-  }
-
-  /* Header */
-  .blogs-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    margin-bottom: 2.25rem;
-  }
-
-  .blogs-header-top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    width: 100%;
-  }
-
-  .blogs-brand-group {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-width: 0;
-  }
-
-  .blogs-brand-logo-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .blogs-brand-logo {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.2s ease;
-  }
-
-  .blogs-brand-logo-link:hover .blogs-brand-logo {
-    transform: scale(1.05);
-  }
-
-  .blogs-title {
-    font-size: 1.65rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  @media (min-width: 640px) {
-    .blogs-brand-logo {
-      width: 44px;
-      height: 44px;
-    }
-    .blogs-title {
-      font-size: 2.15rem;
-    }
-  }
-
-  .blogs-subtitle {
-    font-family: var(--font-mono);
-    font-size: 0.825rem;
-    line-height: 1.55;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .popular-tags-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 0.85rem;
-    padding-top: 0.75rem;
-    border-top: 1px dashed var(--border-subtle);
-  }
-
-  .popular-tags-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-  }
-
-  .popular-tags-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .popular-tag-chip {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    padding: 0.15rem 0.55rem;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-  }
-
-  .popular-tag-chip:hover {
-    color: var(--accent-primary);
-    border-color: var(--accent-primary);
-    background: var(--bg-card);
-    transform: translateY(-1px);
-  }
-
-  .blogs-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    flex-shrink: 0;
-  }
-
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-
-  .icon-btn:hover {
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-    background: var(--bg-hover);
-  }
-
-  @media (max-width: 640px) {
-    .icon-btn {
-      width: 30px;
-      height: 30px;
-    }
-    .icon-btn svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  /* ── LIST MODE (Default) ── */
-  .blogs-list-mode {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .blog-entry-card {
-    display: block;
-    text-decoration: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1.25rem 1.4rem;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.15s ease;
-  }
-
-  .blog-entry-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-glow);
-  }
-
-  /* In list mode, images are completely hidden */
-  .blogs-list-mode .blog-entry-image {
-    display: none !important;
-  }
-
-  .blog-entry-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.45rem;
-  }
-
-  .blog-entry-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.35;
-    color: var(--text-primary);
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-
-  .blog-entry-card:hover .blog-entry-title {
-    text-decoration: underline;
-  }
-
-  .blog-entry-date {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .blog-entry-desc {
-    font-family: var(--font-mono);
-    font-size: 0.825rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin: 0 0 0.85rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .blog-entry-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .blog-tag-pill {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── TILES / GRID MODE ── */
-  .blogs-tiles-mode {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .blogs-tiles-mode {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .blogs-tiles-mode .blog-entry-card {
-    display: flex;
-    flex-direction: column;
-    padding: 1.15rem;
-  }
-
-  .blogs-tiles-mode .blog-entry-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-subtle);
-    background: #000;
-  }
-
-  .blogs-tiles-mode .blog-entry-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .blogs-tiles-mode .blog-entry-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .blogs-tiles-mode .blog-entry-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-
-  .blogs-tiles-mode .blog-entry-title {
-    font-size: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .blogs-tiles-mode .blog-entry-desc {
-    flex: 1;
-    -webkit-line-clamp: 3;
-  }
-
-  /* Pagination */
-  .blogs-pagination {
-    margin-top: 2.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .pagination-nav {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-
-  .pagination-numbers {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .page-arrow {
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    padding: 0.35rem 0.65rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .page-arrow:hover:not(.disabled):not(:disabled) {
-    color: var(--text-primary);
-    background: var(--bg-hover);
-    border-color: var(--border-subtle);
-  }
-
-  .page-arrow.disabled,
-  .page-arrow:disabled {
-    color: var(--text-muted);
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  .page-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    background: transparent;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .page-num:hover:not(.active) {
-    color: var(--text-primary);
-    background: var(--bg-hover);
-    border-color: var(--border-subtle);
-  }
-
-  .page-num.active {
-    background: var(--bg-card);
-    color: var(--text-primary);
-    border: 1px solid var(--border-glow, var(--border-subtle));
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-    font-weight: 700;
-  }
-
-  .page-info {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin: 0;
-  }
-</style>
-
-<script is:inline>
-  (function () {
-    const wrap = document.getElementById('blogs-page-wrap');
-    const container = document.getElementById('blogs-container');
-    const toggleBtn = document.getElementById('view-toggle-btn');
-    const iconShowList = document.getElementById('icon-show-list');
-    const iconShowTiles = document.getElementById('icon-show-tiles');
-    const searchBtn = document.getElementById('search-trigger-btn');
-
-    if (searchBtn) {
-      searchBtn.addEventListener('click', () => {
-        if (typeof window.openSpotlightSearch === 'function') {
-          window.openSpotlightSearch();
-        }
-      });
-    }
-
-    let currentMode = localStorage.getItem('blogs_view_mode') || 'list';
-    renderMode(currentMode);
-
-    function renderMode(mode) {
-      if (!wrap || !container) return;
-
-      if (mode === 'tiles') {
-        wrap.classList.add('tiles-mode');
-        container.className = 'blogs-tiles-mode';
-        if (iconShowList) iconShowList.style.display = 'block';
-        if (iconShowTiles) iconShowTiles.style.display = 'none';
-        localStorage.setItem('blogs_view_mode', 'tiles');
-        currentMode = 'tiles';
-      } else {
-        wrap.classList.remove('tiles-mode');
-        container.className = 'blogs-list-mode';
-        if (iconShowList) iconShowList.style.display = 'none';
-        if (iconShowTiles) iconShowTiles.style.display = 'block';
-        localStorage.setItem('blogs_view_mode', 'list');
-        currentMode = 'list';
-      }
-    }
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const next = currentMode === 'list' ? 'tiles' : 'list';
-        renderMode(next);
-      });
-    }
-
-    // --- Pagination Controller (Max 4 posts per page) ---
-    const PAGE_SIZE = 4;
-    const postCards = Array.from(document.querySelectorAll('[data-post-card]'));
-    const totalPosts = postCards.length;
-    const totalPages = Math.max(1, Math.ceil(totalPosts / PAGE_SIZE));
-
-    const prevBtn = document.getElementById('pagination-prev');
-    const nextBtn = document.getElementById('pagination-next');
-    const numButtons = Array.from(document.querySelectorAll('.page-num'));
-    const infoText = document.getElementById('pagination-info');
-
-    // Read page from URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentPage = parseInt(urlParams.get('page') || '1', 10);
-    if (isNaN(currentPage) || currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-
-    function goToPage(page, updateUrl = true, shouldScroll = false) {
-      currentPage = page;
-      const startIndex = (currentPage - 1) * PAGE_SIZE;
-      const endIndex = startIndex + PAGE_SIZE;
-
-      postCards.forEach((card, i) => {
-        if (i >= startIndex && i < endIndex) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      // Update button states
-      if (prevBtn) {
-        if (currentPage <= 1) {
-          prevBtn.classList.add('disabled');
-          prevBtn.disabled = true;
-        } else {
-          prevBtn.classList.remove('disabled');
-          prevBtn.disabled = false;
-        }
-      }
-
-      if (nextBtn) {
-        if (currentPage >= totalPages) {
-          nextBtn.classList.add('disabled');
-          nextBtn.disabled = true;
-        } else {
-          nextBtn.classList.remove('disabled');
-          nextBtn.disabled = false;
-        }
-      }
-
-      numButtons.forEach((btn) => {
-        const btnPage = parseInt(btn.getAttribute('data-page') || '1', 10);
-        if (btnPage === currentPage) {
-          btn.classList.add('active');
-          btn.setAttribute('aria-current', 'page');
-        } else {
-          btn.classList.remove('active');
-          btn.removeAttribute('aria-current');
-        }
-      });
-
-      if (infoText) {
-        infoText.textContent = `Page ${currentPage} of ${totalPages} · ${totalPosts} posts`;
-      }
-
-      if (updateUrl) {
-        const newUrl = new URL(window.location.href);
-        if (currentPage > 1) {
-          newUrl.searchParams.set('page', String(currentPage));
-        } else {
-          newUrl.searchParams.delete('page');
-        }
-        window.history.pushState({ page: currentPage }, '', newUrl.toString());
-      }
-
-      if (shouldScroll) {
-        const wrapEl = document.getElementById('blogs-page-wrap');
-        if (wrapEl) {
-          wrapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    }
-
-    // Set initial page view
-    goToPage(currentPage, false, false);
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-          goToPage(currentPage - 1, true, true);
-        }
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-          goToPage(currentPage + 1, true, true);
-        }
-      });
-    }
-
-    numButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const page = parseInt(btn.getAttribute('data-page') || '1', 10);
-        if (page !== currentPage) {
-          goToPage(page, true, true);
-        }
-      });
-    });
-
-    window.addEventListener('popstate', (e) => {
-      const pageFromState = e.state?.page || parseInt(new URLSearchParams(window.location.search).get('page') || '1', 10);
-      goToPage(pageFromState, false, false);
-    });
-  })();
-</script>

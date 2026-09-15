@@ -3,7 +3,8 @@
 .root {
   position: fixed;
   top: 0;
-  z-index: 5;
+  left: 0;
+  z-index: 100;
   width: 100vw;
   height: 100vh;
   height: calc(100 * var(--svh, 1vh));

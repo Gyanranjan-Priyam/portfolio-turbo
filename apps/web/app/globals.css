@@ -82,6 +82,7 @@ html:not([data-beui-vt]) body {
   --destructive: oklch(0.5802 0.2200 27.0985);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9219 0 0);
+  --dotted-border: rgba(0, 0, 0, 0.28);
   --input: oklch(0.9219 0 0);
   --ring: oklch(0.7090 0 0);
   --chart-1: oklch(0.8071 0.1007 250.4462);
@@ -136,6 +137,7 @@ html:not([data-beui-vt]) body {
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
+  --dotted-border: rgba(255, 255, 255, 0.28);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.809 0.105 251.813);
@@ -211,5 +213,60 @@ html:not([data-beui-vt]) body {
   .font-jakarta-sans {
     font-family: "Plus Jakarta Sans";
   }
+
+  /* Universal scrollbar hide utility */
+  .no-scrollbar {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+  .no-scrollbar::-webkit-scrollbar,
+  .no-scrollbar *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Custom Dotted Border System (Larger dots & increased spacing) */
+  .border-dotted-side {
+    position: relative;
+  }
+  .border-dotted-side::before,
+  .border-dotted-side::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2.5px;
+    background-image: radial-gradient(circle, var(--dotted-border) 1.25px, transparent 1.25px);
+    background-size: 2.5px 10px;
+    background-repeat: repeat-y;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .border-dotted-side::before {
+    left: 0;
+  }
+  .border-dotted-side::after {
+    right: 0;
+  }
+
+  .separator-dotted-h {
+    height: 2.5px;
+    width: 100%;
+    background-image: radial-gradient(circle, var(--dotted-border) 1.25px, transparent 1.25px);
+    background-size: 10px 2.5px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+
+  .separator-dotted-v {
+    width: 2.5px;
+    height: 100%;
+    background-image: radial-gradient(circle, var(--dotted-border) 1.25px, transparent 1.25px);
+    background-size: 2.5px 10px;
+    background-repeat: repeat-y;
+    background-position: center;
+  }
 }
+
 

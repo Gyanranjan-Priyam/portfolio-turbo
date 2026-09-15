@@ -1,13 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import SearchModal from '../../components/SearchModal.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import SearchModal from "../../components/SearchModal.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { AUTHOR_PORTFOLIO } from "../../consts";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
-  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+  const allPosts = await getCollection("blog");
+  const uniqueTags = [
+    ...new Set(allPosts.flatMap((post) => post.data.tags || [])),
+  ];
 
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts
@@ -41,7 +44,7 @@ const otherPopularTags = Object.entries(tagCounts)
 <html lang="en">
   <head>
     <BaseHead
-      title={`Articles tagged #${tag} | Priyam's Log`}
+      title={`Articles tagged #${tag} | Priyam's Blog`}
       description={`Articles, engineering notes, and technical deep dives tagged #${tag}.`}
     />
   </head>
@@ -53,10 +56,16 @@ const otherPopularTags = Object.entries(tagCounts)
           <div class="blogs-header-top-row">
             <div class="blogs-brand-group">
               <a href="/" class="blogs-brand-logo-link" aria-label="Home">
-                <img src="/logo.png" alt="Priyam's Log" class="blogs-brand-logo" width="40" height="40" />
+                <img
+                  src="/logo.png"
+                  alt="Priyam's Blog"
+                  class="blogs-brand-logo"
+                  width="40"
+                  height="40"
+                />
               </a>
               <a href="/" class="blogs-title-link">
-                <h1 class="blogs-title">Priyam's Log</h1>
+                <h1 class="blogs-title">Priyam's Blog</h1>
               </a>
             </div>
 
@@ -69,7 +78,17 @@ const otherPopularTags = Object.entries(tagCounts)
                 aria-label="Search posts"
                 title="Search posts (Ctrl+K)"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
                 </svg>
@@ -82,7 +101,18 @@ const otherPopularTags = Object.entries(tagCounts)
                 aria-label="Toggle layout view mode"
                 title="Toggle layout view mode"
               >
-                <svg id="list-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  id="list-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <line x1="8" y1="6" x2="21" y2="6"></line>
                   <line x1="8" y1="12" x2="21" y2="12"></line>
                   <line x1="8" y1="18" x2="21" y2="18"></line>
@@ -90,7 +120,19 @@ const otherPopularTags = Object.entries(tagCounts)
                   <line x1="3" y1="12" x2="3.01" y2="12"></line>
                   <line x1="3" y1="18" x2="3.01" y2="18"></line>
                 </svg>
-                <svg id="grid-icon" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  id="grid-icon"
+                  style="display: none;"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="7" height="7"></rect>
                   <rect x="14" y="3" width="7" height="7"></rect>
                   <rect x="14" y="14" width="7" height="7"></rect>
@@ -105,10 +147,33 @@ const otherPopularTags = Object.entries(tagCounts)
                 aria-label="Toggle dark/light theme"
                 title="Toggle dark/light theme"
               >
-                <svg id="theme-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  id="theme-moon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                 </svg>
-                <svg id="theme-sun" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  id="theme-sun"
+                  style="display: none;"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="12" r="4"></circle>
                   <path d="M12 2v2"></path>
                   <path d="M12 20v2"></path>
@@ -123,13 +188,24 @@ const otherPopularTags = Object.entries(tagCounts)
 
               <!-- Home -->
               <a
-                href="http://localhost:3000"
+                href={AUTHOR_PORTFOLIO}
                 class="icon-btn"
                 aria-label="Home"
                 title="Portfolio Home"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
               </a>
@@ -139,62 +215,90 @@ const otherPopularTags = Object.entries(tagCounts)
           <!-- Tag Header Banner -->
           <div class="tag-banner">
             <a href="/" class="back-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg
+              >
               All Articles
             </a>
             <div class="tag-banner-title-row">
               <h2 class="tag-heading">
                 Articles tagged <span class="tag-highlight">#{tag}</span>
               </h2>
-              <span class="tag-count-badge">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</span>
+              <span class="tag-count-badge"
+                >{posts.length}
+                {posts.length === 1 ? "article" : "articles"}</span
+              >
             </div>
 
-            {otherPopularTags.length > 0 && (
-              <div class="other-tags-row">
-                <span class="other-tags-label">Other tags:</span>
-                <div class="other-tags-chips">
-                  {otherPopularTags.map((t) => (
-                    <a href={`/tags/${encodeURIComponent(t)}`} class="other-tag-chip">
-                      #{t}
-                    </a>
-                  ))}
+            {
+              otherPopularTags.length > 0 && (
+                <div class="other-tags-row">
+                  <span class="other-tags-label">Other tags:</span>
+                  <div class="other-tags-chips">
+                    {otherPopularTags.map((t) => (
+                      <a
+                        href={`/tags/${encodeURIComponent(t)}`}
+                        class="other-tag-chip"
+                      >
+                        #{t}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )
+            }
           </div>
         </header>
 
         <!-- Blog Posts List / Tiles -->
         <div id="blogs-container" class="blogs-list-mode">
-          {posts.map((post) => (
-            <a href={`/${post.id}`} class="blog-entry-card">
-              {post.data.heroImage && (
-                <div class="blog-entry-image">
-                  <img
-                    src={typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage.src}
-                    alt={post.data.title}
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div class="blog-entry-content">
-                <div class="blog-entry-top">
-                  <h3 class="blog-entry-title">{post.data.title}</h3>
-                  <span class="blog-entry-date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </span>
-                </div>
-                <p class="blog-entry-desc">{post.data.description}</p>
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="blog-entry-tags">
-                    {post.data.tags.slice(0, 3).map((t) => (
-                      <span class={`blog-tag-pill ${t === tag ? 'active-tag' : ''}`}>#{t}</span>
-                    ))}
+          {
+            posts.map((post) => (
+              <a href={`/${post.id}`} class="blog-entry-card">
+                {post.data.heroImage && (
+                  <div class="blog-entry-image">
+                    <img
+                      src={
+                        typeof post.data.heroImage === "string"
+                          ? post.data.heroImage
+                          : post.data.heroImage.src
+                      }
+                      alt={post.data.title}
+                      loading="lazy"
+                    />
                   </div>
                 )}
-              </div>
-            </a>
-          ))}
+                <div class="blog-entry-content">
+                  <div class="blog-entry-top">
+                    <h3 class="blog-entry-title">{post.data.title}</h3>
+                    <span class="blog-entry-date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </span>
+                  </div>
+                  <p class="blog-entry-desc">{post.data.description}</p>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="blog-entry-tags">
+                      {post.data.tags.slice(0, 3).map((t) => (
+                        <span
+                          class={`blog-tag-pill ${t === tag ? "active-tag" : ""}`}
+                        >
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </a>
+            ))
+          }
         </div>
       </div>
     </main>
@@ -204,86 +308,89 @@ const otherPopularTags = Object.entries(tagCounts)
     <Footer />
 
     <script is:inline>
-      (function() {
-        const wrap = document.getElementById('blogs-page-wrap');
-        const container = document.getElementById('blogs-container');
-        const toggleBtn = document.getElementById('view-toggle-btn');
-        const listIcon = document.getElementById('list-icon');
-        const gridIcon = document.getElementById('grid-icon');
-        const searchBtn = document.getElementById('search-trigger-btn');
-        const themeBtn = document.getElementById('theme-toggle-btn');
-        const moonIcon = document.getElementById('theme-moon');
-        const sunIcon = document.getElementById('theme-sun');
+      (function () {
+        const wrap = document.getElementById("blogs-page-wrap");
+        const container = document.getElementById("blogs-container");
+        const toggleBtn = document.getElementById("view-toggle-btn");
+        const listIcon = document.getElementById("list-icon");
+        const gridIcon = document.getElementById("grid-icon");
+        const searchBtn = document.getElementById("search-trigger-btn");
+        const themeBtn = document.getElementById("theme-toggle-btn");
+        const moonIcon = document.getElementById("theme-moon");
+        const sunIcon = document.getElementById("theme-sun");
 
         // Search trigger
         if (searchBtn) {
-          searchBtn.addEventListener('click', () => {
-            if (typeof window.openSpotlightSearch === 'function') {
+          searchBtn.addEventListener("click", () => {
+            if (typeof window.openSpotlightSearch === "function") {
               window.openSpotlightSearch();
             }
           });
         }
 
         // View Mode Toggle (List vs Tiles) with localStorage
-        let currentMode = localStorage.getItem('blogs_view_mode') || 'list';
+        let currentMode = localStorage.getItem("blogs_view_mode") || "list";
         renderMode(currentMode);
 
         function renderMode(mode) {
           if (!wrap || !container) return;
 
-          if (mode === 'tiles') {
-            wrap.classList.add('tiles-mode');
-            container.className = 'blogs-tiles-mode';
-            if (listIcon) listIcon.style.display = 'block';
-            if (gridIcon) gridIcon.style.display = 'none';
-            toggleBtn?.setAttribute('title', 'Switch to list view');
-            localStorage.setItem('blogs_view_mode', 'tiles');
-            currentMode = 'tiles';
+          if (mode === "tiles") {
+            wrap.classList.add("tiles-mode");
+            container.className = "blogs-tiles-mode";
+            if (listIcon) listIcon.style.display = "block";
+            if (gridIcon) gridIcon.style.display = "none";
+            toggleBtn?.setAttribute("title", "Switch to list view");
+            localStorage.setItem("blogs_view_mode", "tiles");
+            currentMode = "tiles";
           } else {
-            wrap.classList.remove('tiles-mode');
-            container.className = 'blogs-list-mode';
-            if (listIcon) listIcon.style.display = 'none';
-            if (gridIcon) gridIcon.style.display = 'block';
-            toggleBtn?.setAttribute('title', 'Switch to tiles view');
-            localStorage.setItem('blogs_view_mode', 'list');
-            currentMode = 'list';
+            wrap.classList.remove("tiles-mode");
+            container.className = "blogs-list-mode";
+            if (listIcon) listIcon.style.display = "none";
+            if (gridIcon) gridIcon.style.display = "block";
+            toggleBtn?.setAttribute("title", "Switch to tiles view");
+            localStorage.setItem("blogs_view_mode", "list");
+            currentMode = "list";
           }
         }
 
         if (toggleBtn) {
-          toggleBtn.addEventListener('click', () => {
-            const next = currentMode === 'list' ? 'tiles' : 'list';
+          toggleBtn.addEventListener("click", () => {
+            const next = currentMode === "list" ? "tiles" : "list";
             renderMode(next);
           });
         }
 
         // Theme Toggle
         function updateThemeIcons(theme) {
-          if (theme === 'dark') {
-            if (moonIcon) moonIcon.style.display = 'none';
-            if (sunIcon) sunIcon.style.display = 'block';
+          if (theme === "dark") {
+            if (moonIcon) moonIcon.style.display = "none";
+            if (sunIcon) sunIcon.style.display = "block";
           } else {
-            if (moonIcon) moonIcon.style.display = 'block';
-            if (sunIcon) sunIcon.style.display = 'none';
+            if (moonIcon) moonIcon.style.display = "block";
+            if (sunIcon) sunIcon.style.display = "none";
           }
         }
 
-        const isDark = document.documentElement.classList.contains('dark') ||
-          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
-          localStorage.getItem('theme') === 'dark';
+        const isDark =
+          document.documentElement.classList.contains("dark") ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+          localStorage.getItem("theme") === "dark";
 
-        updateThemeIcons(isDark ? 'dark' : 'light');
+        updateThemeIcons(isDark ? "dark" : "light");
 
         if (themeBtn) {
-          themeBtn.addEventListener('click', () => {
-            const currentIsDark = document.documentElement.classList.contains('dark');
-            const newTheme = currentIsDark ? 'light' : 'dark';
-            if (newTheme === 'dark') {
-              document.documentElement.classList.add('dark');
+          themeBtn.addEventListener("click", () => {
+            const currentIsDark =
+              document.documentElement.classList.contains("dark");
+            const newTheme = currentIsDark ? "light" : "dark";
+            if (newTheme === "dark") {
+              document.documentElement.classList.add("dark");
             } else {
-              document.documentElement.classList.remove('dark');
+              document.documentElement.classList.remove("dark");
             }
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem("theme", newTheme);
             updateThemeIcons(newTheme);
           });
         }
@@ -681,4 +788,3 @@ const otherPopularTags = Object.entries(tagCounts)
     -webkit-line-clamp: 3;
   }
 </style>
-
