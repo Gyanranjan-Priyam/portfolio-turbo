@@ -250,8 +250,8 @@ export function GitHubCalendarSection() {
 
       {/* Diagonal Hatch Pattern Band with Handwritten Greeting, Subtitle & Live Clock */}
       <BlurFade delay={0.12} inView>
-        <div className="mt-6 rounded-lg border border-border/80 pattern-diagonal-stripes overflow-hidden">
-          <div className="px-4 py-3 bg-background/80 backdrop-blur-xs flex flex-wrap items-center justify-between gap-3">
+        <div className="mt-6 -mx-4 sm:-mx-6 border-y border-border pattern-diagonal-stripes overflow-hidden">
+          <div className="px-4 sm:px-6 py-3 bg-background/80 backdrop-blur-xs flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-baseline gap-2 flex-wrap">
               <span className="font-caveat text-xl sm:text-2xl text-foreground font-medium tracking-wide">
                 {greeting}

@@ -1,20 +1,11 @@
 import { ImageResponse } from "next/og";
 
-
 export const alt = "Gyanranjan Priyam — Full Stack Developer Portfolio";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export async function GET() {
-  const skills = [
-    "Next.js 16",
-    "React 19",
-    "TypeScript",
-    "Tailwind CSS",
-    "PostgreSQL",
-    "Node.js",
-    "AI & LLMs",
-  ];
+  const skills = ["Next.js 16", "React 19", "TypeScript", "Node.js", "Tailwind CSS"];
 
   return new ImageResponse(
     (
@@ -24,183 +15,169 @@ export async function GET() {
           width: "100%",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           backgroundColor: "#090a0f",
           backgroundImage:
-            "radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.15), transparent 40%), radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.15), transparent 40%)",
-          padding: "54px 64px",
+            "radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.22), transparent 55%), radial-gradient(circle at 50% 85%, rgba(59, 130, 246, 0.18), transparent 50%)",
+          padding: "40px",
           position: "relative",
-          fontFamily: "sans-serif",
-          justifyContent: "space-between",
+          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         }}
       >
-        {/* Top vibrant border glow */}
+        {/* Top vibrant accent stripe */}
         <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
-            height: "5px",
-            background:
-              "linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%)",
+            height: "6px",
+            background: "linear-gradient(90deg, #10b981 0%, #06b6d4 50%, #6366f1 100%)",
           }}
         />
 
-        {/* Top Header Row */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div
-              style={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "14px",
-                background: "linear-gradient(135deg, #10b981, #059669)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#ffffff",
-                fontSize: "22px",
-                fontWeight: 800,
-                boxShadow: "0 8px 24px rgba(16, 185, 129, 0.35)",
-              }}
-            >
-              GP
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span
-                style={{
-                  color: "#f4f4f5",
-                  fontSize: "22px",
-                  fontWeight: 700,
-                  letterSpacing: "-0.5px",
-                }}
-              >
-                Gyanranjan Priyam
-              </span>
-              <span
-                style={{
-                  color: "#71717a",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  fontFamily: "monospace",
-                }}
-              >
-                priyam.tech
-              </span>
-            </div>
-          </div>
-
-          {/* Status Badge */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              backgroundColor: "rgba(16, 185, 129, 0.12)",
-              border: "1px solid rgba(16, 185, 129, 0.3)",
-              padding: "8px 16px",
-              borderRadius: "9999px",
-            }}
-          >
-            <div
-              style={{
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
-                backgroundColor: "#10b981",
-                boxShadow: "0 0 10px #10b981",
-              }}
-            />
-            <span
-              style={{
-                color: "#34d399",
-                fontSize: "14px",
-                fontWeight: 600,
-                letterSpacing: "0.5px",
-              }}
-            >
-              AVAILABLE FOR WORK
-            </span>
-          </div>
-        </div>
-
-        {/* Center Main Content */}
+        {/* Central Glassmorphic Card (Optimized for WhatsApp 1:1 square & 16:9 banners) */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "16px",
-            maxWidth: "950px",
-            marginTop: "16px",
-            marginBottom: "16px",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            backgroundColor: "rgba(18, 20, 29, 0.85)",
+            border: "1.5px solid rgba(255, 255, 255, 0.12)",
+            borderRadius: "28px",
+            padding: "42px 56px",
+            maxWidth: "760px",
+            width: "100%",
+            boxShadow: "0 24px 64px rgba(0, 0, 0, 0.6)",
           }}
         >
-          {/* Main Headline */}
+          {/* Avatar Icon + Available Badge Row */}
           <div
             style={{
-              fontSize: "58px",
-              fontWeight: 800,
-              color: "#ffffff",
-              lineHeight: 1.1,
-              letterSpacing: "-1.5px",
               display: "flex",
-              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "14px",
+              marginBottom: "18px",
             }}
           >
-            Full Stack Developer &
-            <span
+            {/* GP Avatar Emblem */}
+            <div
               style={{
-                marginLeft: "12px",
-                background: "linear-gradient(90deg, #34d399, #60a5fa)",
-                backgroundClip: "text",
-                color: "transparent",
+                width: "58px",
+                height: "58px",
+                borderRadius: "16px",
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#ffffff",
+                fontSize: "26px",
+                fontWeight: 900,
+                boxShadow: "0 8px 24px rgba(16, 185, 129, 0.4)",
               }}
             >
-              Software Engineer
-            </span>
+              GP
+            </div>
+
+            {/* Pulsing Status Pill */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                backgroundColor: "rgba(16, 185, 129, 0.14)",
+                border: "1px solid rgba(16, 185, 129, 0.35)",
+                padding: "8px 16px",
+                borderRadius: "9999px",
+              }}
+            >
+              <div
+                style={{
+                  width: "10px",
+                  height: "10px",
+                  borderRadius: "50%",
+                  backgroundColor: "#10b981",
+                  boxShadow: "0 0 10px #10b981",
+                }}
+              />
+              <span
+                style={{
+                  color: "#34d399",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  letterSpacing: "0.8px",
+                }}
+              >
+                AVAILABLE FOR WORK
+              </span>
+            </div>
           </div>
 
-          {/* Bio / Value Prop */}
-          <p
+          {/* Primary Name */}
+          <h1
             style={{
-              fontSize: "22px",
-              color: "#a1a1aa",
-              lineHeight: 1.45,
-              margin: 0,
-              maxWidth: "850px",
+              fontSize: "48px",
+              fontWeight: 900,
+              color: "#ffffff",
+              margin: "0 0 8px 0",
+              letterSpacing: "-1px",
+              lineHeight: 1.1,
             }}
           >
-            Building high-performance web applications, scalable digital products,
-            and interactive user experiences at the intersection of web dev & AI.
+            Gyanranjan Priyam
+          </h1>
+
+          {/* Subtitle / Role */}
+          <div
+            style={{
+              fontSize: "24px",
+              fontWeight: 700,
+              background: "linear-gradient(90deg, #34d399 0%, #60a5fa 100%)",
+              backgroundClip: "text",
+              color: "transparent",
+              marginBottom: "16px",
+              letterSpacing: "-0.3px",
+            }}
+          >
+            Full Stack Developer & Engineer
+          </div>
+
+          {/* Value proposition */}
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#94a3b8",
+              margin: "0 0 20px 0",
+              lineHeight: 1.45,
+              maxWidth: "560px",
+            }}
+          >
+            Building high-performance web applications, scalable products, and AI solutions.
           </p>
 
           {/* Tech Stack Pills */}
           <div
             style={{
               display: "flex",
-              gap: "10px",
+              gap: "8px",
               flexWrap: "wrap",
-              marginTop: "8px",
+              justifyContent: "center",
+              marginBottom: "20px",
             }}
           >
             {skills.map((skill) => (
               <div
                 key={skill}
                 style={{
-                  backgroundColor: "rgba(39, 39, 42, 0.75)",
-                  border: "1px solid rgba(63, 63, 70, 0.6)",
-                  color: "#e4e4e7",
-                  padding: "6px 14px",
+                  backgroundColor: "rgba(255, 255, 255, 0.07)",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  color: "#f1f5f9",
+                  padding: "5px 12px",
                   borderRadius: "8px",
-                  fontSize: "15px",
+                  fontSize: "13px",
                   fontWeight: 600,
                 }}
               >
@@ -208,57 +185,21 @@ export async function GET() {
               </div>
             ))}
           </div>
-        </div>
 
-        {/* Bottom Footer Info */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderTop: "1px solid rgba(39, 39, 42, 0.8)",
-            paddingTop: "20px",
-            width: "100%",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-            <span
-              style={{
-                color: "#a1a1aa",
-                fontSize: "15px",
-                fontWeight: 500,
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              📍 India
-            </span>
-            <span style={{ color: "#52525b", fontSize: "14px" }}>•</span>
-            <span
-              style={{
-                color: "#a1a1aa",
-                fontSize: "15px",
-                fontWeight: 500,
-                fontFamily: "monospace",
-              }}
-            >
-              github.com/gyanranjan-priyam
-            </span>
-          </div>
-
+          {/* Domain tag */}
           <div
             style={{
-              color: "#34d399",
-              fontSize: "16px",
-              fontWeight: 700,
-              fontFamily: "monospace",
               display: "flex",
               alignItems: "center",
               gap: "6px",
+              color: "#64748b",
+              fontSize: "14px",
+              fontWeight: 600,
+              fontFamily: "monospace",
             }}
           >
-            https://www.priyam.tech ↗
+            <span>🌐</span>
+            <span style={{ color: "#38bdf8" }}>https://www.priyam.tech</span>
           </div>
         </div>
       </div>

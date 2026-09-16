@@ -66,6 +66,33 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Projects",
+      item: `${SITE_URL}/projects`,
+    },
+  ],
+};
+
 export default function ProjectsPage() {
-  return <ProjectsClient projects={projects} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ProjectsClient projects={projects} />
+    </>
+  );
 }

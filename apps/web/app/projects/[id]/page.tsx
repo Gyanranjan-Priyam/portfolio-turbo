@@ -154,6 +154,31 @@ export default async function ProjectPage({ params }: Props) {
     ...(project.liveLink && { downloadUrl: project.liveLink }),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: `${SITE_URL}/projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: `${SITE_URL}/projects/${project.id}`,
+      },
+    ],
+  };
+
   const mediaItems = project.images;
   const hasRichContent =
     "highlights" in project ||
@@ -164,7 +189,9 @@ export default async function ProjectPage({ params }: Props) {
     <div className="py-8 sm:py-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([projectSchema, breadcrumbSchema]),
+        }}
       />
       {/* Breadcrumb */}
       <BlurFade delay={0.04}>

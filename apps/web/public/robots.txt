@@ -60,6 +60,7 @@ Disallow: /
 
 User-Agent: *
 Allow: /
+Disallow: /offline
 
 User-Agent: GPTBot
 User-Agent: OAI-SearchBot

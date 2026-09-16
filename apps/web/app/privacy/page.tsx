@@ -3,6 +3,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { ArrowLeft, Shield, Eye, Cookie, Database, Mail, FileText, Clock, Home } from "lucide-react";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy — Gyanranjan Priyam",
     description:
       "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how visitor data and analytics are handled transparently and securely.",
-    url: "https://www.priyam.tech/privacy",
+    url: `${SITE_URL}/privacy`,
     siteName: "Gyanranjan Priyam",
     locale: "en_US",
     type: "website",
@@ -133,9 +134,32 @@ const sections: Section[] = [
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Privacy Policy",
+      item: `${SITE_URL}/privacy`,
+    },
+  ],
+};
+
 export default function PrivacyPage() {
   return (
     <div className="py-8 sm:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <BlurFade delay={0.04} direction="up">
           <div className="mb-3 flex items-start justify-between">
             <div>

@@ -139,7 +139,7 @@ const projects = [
     img: 'https://res.cloudinary.com/df2x3ampe/image/upload/v1774454594/1_aqmepk.png',
     link: '/projects/blogs-codebreakers',
     date: '2025',
-    liveLink: 'https://blogs.codebreakersgcek,tech',
+    liveLink: 'https://blogs.codebreakersgcek.tech',
     github: 'https://github.com/Gyanranjan-Priyam/codebreakers-blog',
     company: 'Community Blog Platform',
     primary: '#0A0A0A',
