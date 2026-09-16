@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/config";
+import { SITE_URL, BLOG_URL } from "@/lib/config";
 import projects from "@/data/projectsData";
 import templates from "@/data/templateData";
 
@@ -8,7 +8,7 @@ export async function GET() {
   const content = `# Gyanranjan Priyam — Full Technical Portfolio
 
 - Website: ${SITE_URL}
-- Blog: https://priyam.tech/blog
+- Blog: ${BLOG_URL}
 - Projects: ${SITE_URL}/projects
 - Templates: ${SITE_URL}/templates
 

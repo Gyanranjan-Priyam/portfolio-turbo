@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import projects from "@/data/projectsData";
 import { ProjectsClient } from "./projects-client";
 
+import { SITE_URL } from "@/lib/config";
+
 export const metadata: Metadata = {
-  title: "Projects - Gyanranjan Priyam",
+  title: "Projects",
   description:
-    "Explore my portfolio to see a range of full stack projects, from responsive websites to web applications. Discover my work with React, Next.js, Node.js, and more.",
+    "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
   keywords: [
     "Gyanranjan Priyam projects",
     "Gyanranjan Priyam portfolio",
@@ -49,12 +51,18 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Projects — Gyanranjan Priyam",
     description:
-      "Explore my portfolio to see a range of full stack projects, from responsive websites to web applications.",
+      "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
+    url: `${SITE_URL}/projects`,
+    siteName: "Gyanranjan Priyam",
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Projects — Gyanranjan Priyam",
     description:
-      "Explore my portfolio to see a range of full stack projects, from responsive websites to web applications.",
+      "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
+    creator: "@gr_priyam",
   },
 };
 

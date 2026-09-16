@@ -6,7 +6,7 @@ export const SITE_URL = "https://blogs.priyam.tech";
 export const AUTHOR_NAME = "Gyanranjan Priyam";
 export const AUTHOR_TWITTER = "@gr_priyam";
 export const AUTHOR_GITHUB = "https://github.com/gyanranjan-priyam";
-export const AUTHOR_PORTFOLIO = "https://priyam.tech";
+export const AUTHOR_PORTFOLIO = "https://www.priyam.tech";
 
 export const GLOBAL_SEO_KEYWORDS = [
   "Gyanranjan Priyam",

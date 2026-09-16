@@ -19,16 +19,35 @@ export async function generateStaticParams() {
   return templates.map((t) => ({ id: t.id }));
 }
 
+function getTemplateMetaDescription(template: { title: string; desc: string[]; tech: string[] }): string {
+  const raw = template.desc[0] || "";
+  if (raw.length <= 155 && raw.length >= 115) return raw;
+  if (raw.length > 155) {
+    const sliced = raw.slice(0, 150);
+    const lastSpace = sliced.lastIndexOf(" ");
+    return `${lastSpace > 100 ? sliced.slice(0, lastSpace) : sliced}...`;
+  }
+  const suffix = ` Built with ${template.tech.slice(0, 3).join(", ")}. Free developer template.`;
+  const combined = raw + suffix;
+  return combined.length > 155 ? combined.slice(0, 152) + "..." : combined;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const template = templates.find((t) => t.id === id);
-  if (!template) return {};
+  if (!template)
+    return {
+      title: "Template Not Found",
+      description: "The requested website template was not found on Gyanranjan Priyam's portfolio.",
+    };
 
   const ogImageUrl = `${SITE_URL}/templates/${template.id}/opengraph-image`;
+  const metaDescription = getTemplateMetaDescription(template);
+  const displayTitle = template.title.length > 30 ? template.title.slice(0, 27) + "... Template" : `${template.title} Template`;
 
   return {
-    title: `${template.title} Template`,
-    description: `Check out the ${template.title} template — ${template.desc[0]}`,
+    title: displayTitle,
+    description: metaDescription,
     keywords: [
       `${template.title} template`,
       `${template.title} design`,
@@ -38,21 +57,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     alternates: { canonical: `/templates/${template.id}` },
     openGraph: {
-      title: `${template.title} — Gyanranjan Priyam`,
-      description: template.desc[0],
+      title: `${displayTitle} — Gyanranjan Priyam`,
+      description: metaDescription,
+      url: `${SITE_URL}/templates/${template.id}`,
+      siteName: "Gyanranjan Priyam",
+      locale: "en_US",
+      type: "article",
       images: [
         {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: template.title,
+          alt: `${template.title} Template — Gyanranjan Priyam`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${template.title} — Gyanranjan Priyam`,
-      description: template.desc[0],
+      title: `${displayTitle} — Gyanranjan Priyam`,
+      description: metaDescription,
+      creator: "@gr_priyam",
       images: [ogImageUrl],
     },
   };
@@ -63,20 +87,43 @@ export default async function TemplatePage({ params }: Props) {
   const template = templates.find((t) => t.id === id);
   if (!template) notFound();
 
+  const metaDescription = getTemplateMetaDescription(template);
+  const templateImageUrl = template.img.startsWith("http")
+    ? template.img
+    : `${SITE_URL}${template.img}`;
+
   const templateSchema = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: template.title,
-    description: template.desc[0],
+    "@type": "WebApplication",
+    name: `${template.title} Template`,
+    description: metaDescription,
     url: template.liveLink || `${SITE_URL}${template.link}`,
-    image: template.img,
+    image: templateImageUrl,
     dateCreated: template.date,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web Browser",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
+      "@type": "Person",
+      name: "Gyanranjan Priyam",
+      url: SITE_URL,
+      sameAs: [
+        "https://github.com/gyanranjan-priyam",
+        "https://linkedin.com/in/gyanranjan-priyam",
+        "https://x.com/gr_priyam",
+      ],
+    },
     creator: {
       "@type": "Person",
       name: "Gyanranjan Priyam",
       url: SITE_URL,
     },
     ...(template.github && { codeRepository: template.github }),
+    ...(template.liveLink && { downloadUrl: template.liveLink }),
   };
 
   return (

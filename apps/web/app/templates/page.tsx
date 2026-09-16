@@ -4,9 +4,9 @@ import { TemplatesClient } from "./templates-client";
 import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Templates - Gyanranjan Priyam",
+  title: "Templates",
   description:
-    "Browse my collection of free pre-built website templates featuring modern designs, smooth animations, and responsive layouts. Built with React, Next.js, and Tailwind CSS. Ready to customize and deploy.",
+    "Browse free, modern website templates built with React, Next.js, and Tailwind CSS. Clean design, smooth animations, and ready to customize.",
   keywords: [
     "website templates",
     "free website templates",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "free dashboard templates",
     "free portfolio templates",
 
-    "Next.js templates ",
+    "Next.js templates",
     "React templates",
     "Tailwind CSS templates",
     "TypeScript templates",
@@ -54,17 +54,18 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Templates — Gyanranjan Priyam",
     description:
-      "Browse my collection of free pre-built website templates featuring modern designs, smooth animations, and responsive layouts. Built with React, Next.js, and Tailwind CSS.",
+      "Browse free, modern website templates built with React, Next.js, and Tailwind CSS. Clean design, smooth animations, and ready to customize.",
     url: `${SITE_URL}/templates`,
     siteName: "Gyanranjan Priyam",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Templates — Gyanranjan Priyam",
     description:
-      "Browse my collection of free pre-built website templates featuring modern designs, smooth animations, and responsive layouts. Built with React, Next.js, and Tailwind CSS.",
-    creator: "@gyanranjanpriyam", // ← your Twitter handle
+      "Browse free, modern website templates built with React, Next.js, and Tailwind CSS. Clean design, smooth animations, and ready to customize.",
+    creator: "@gr_priyam",
   },
 };
 

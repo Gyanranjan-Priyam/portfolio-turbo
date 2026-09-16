@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/config";
+import { SITE_URL, BLOG_URL } from "@/lib/config";
 import projects from "@/data/projectsData";
 import templates from "@/data/templateData";
 import { experiences } from "@/data/experienceData";
@@ -61,7 +61,7 @@ ${certifications
 
 ## Blog
 
-Technical articles on web development, React, Next.js, TypeScript, and AI/ML are published on the official blog: https://priyam.tech/blog
+Technical articles on web development, React, Next.js, TypeScript, and AI/ML are published on the official blog: ${BLOG_URL}
 
 ## Projects
 
@@ -79,7 +79,7 @@ ${templates
 ## Pages
 
 - [Home](${SITE_URL}): Portfolio homepage with hero, experience, education, about sections
-- [Blog](${SITE_URL}/blog): All technical blog posts
+- [Blog](${BLOG_URL}): All technical blog posts
 - [Projects](${SITE_URL}/projects): Showcase of built projects
 - [Templates](${SITE_URL}/templates): Free developer templates
 

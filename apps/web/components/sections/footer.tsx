@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
+import { BLOG_URL } from "@/lib/config";
 
 const navLinks = [
   { label: "About", href: "/#about" },
   { label: "Skills", href: "/#skills" },
   { label: "Projects", href: "/projects" },
-  { label: "Blog", href: "/blog" },
+  { label: "Blog", href: BLOG_URL },
   { label: "Contact", href: "/#contact" },
 ];
 

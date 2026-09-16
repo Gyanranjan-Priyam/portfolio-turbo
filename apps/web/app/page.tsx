@@ -10,19 +10,21 @@ import { Separator } from "@/components/ui/separator";
 import { ExperienceSection } from "@/components/sections/experience";
 import { SITE_URL } from "@/lib/config";
 
-const OG_IMAGE =
-  "https://res.cloudinary.com/dw47ib0sh/image/upload/v1766402986/ls67mu0pkqalizjmvuyf.png";
+const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
   name: "Gyanranjan Priyam",
   jobTitle: "Full Stack Developer",
   url: SITE_URL,
   image: OG_IMAGE,
+  email: "info@priyam.tech",
   sameAs: [
     "https://linkedin.com/in/gyanranjan-priyam",
-    "https://github.com/Gyanranjan-Priyam",
+    "https://github.com/gyanranjan-priyam",
+    "https://x.com/gr_priyam",
     "https://instagram.com/gyanranjanpriyam",
   ],
   description:

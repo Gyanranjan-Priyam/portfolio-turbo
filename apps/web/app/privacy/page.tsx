@@ -7,19 +7,25 @@ import { ArrowLeft, Shield, Eye, Cookie, Database, Mail, FileText, Clock, Home }
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how your data is collected, used, and protected when you visit priyam.tech.",
+    "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how visitor data and analytics are handled transparently and securely.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
     title: "Privacy Policy — Gyanranjan Priyam",
     description:
-      "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how your data is collected, used, and protected.",
+      "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how visitor data and analytics are handled transparently and securely.",
+    url: "https://www.priyam.tech/privacy",
+    siteName: "Gyanranjan Priyam",
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
+    card: "summary_large_image",
     title: "Privacy Policy — Gyanranjan Priyam",
     description:
-      "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how your data is collected, used, and protected.",
+      "Privacy Policy for Gyanranjan Priyam's portfolio website. Learn how visitor data and analytics are handled transparently and securely.",
+    creator: "@gr_priyam",
   },
 };
 

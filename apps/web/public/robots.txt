@@ -92,3 +92,5 @@ Host: https://www.priyam.tech
 
 # Sitemaps
 Sitemap: https://www.priyam.tech/sitemap.xml
+Sitemap: https://blogs.priyam.tech/sitemap-index.xml
+

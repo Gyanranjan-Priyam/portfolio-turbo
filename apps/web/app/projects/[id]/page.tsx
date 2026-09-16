@@ -21,20 +21,35 @@ export async function generateStaticParams() {
   return projects.map((p) => ({ id: p.id }));
 }
 
+function getProjectMetaDescription(project: { desc: string[]; tech: string[] }): string {
+  const raw = project.desc[0] || "";
+  if (raw.length <= 155 && raw.length >= 115) return raw;
+  if (raw.length > 155) {
+    const sliced = raw.slice(0, 150);
+    const lastSpace = sliced.lastIndexOf(" ");
+    return `${lastSpace > 100 ? sliced.slice(0, lastSpace) : sliced}...`;
+  }
+  const suffix = ` Built with ${project.tech.slice(0, 3).join(", ")} by Gyanranjan Priyam.`;
+  const combined = raw + suffix;
+  return combined.length > 155 ? combined.slice(0, 152) + "..." : combined;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const project = projects.find((p) => p.id === id);
   if (!project)
     return {
-      title: "Project Not Found - Gyanranjan Priyam",
-      description: "The project you're looking for doesn't exist.",
+      title: "Project Not Found",
+      description: "The project you're looking for doesn't exist on Gyanranjan Priyam's portfolio.",
     };
 
   const ogImageUrl = `${SITE_URL}/projects/${project.id}/opengraph-image`;
+  const metaDescription = getProjectMetaDescription(project);
+  const displayTitle = project.title.length > 35 ? project.title.slice(0, 32) + "..." : project.title;
 
   return {
-    title: `${project.title} - Gyanranjan Priyam`,
-    description: `${project.desc[0]} Built with ${project.tech.slice(0, 4).join(", ")} and more. A project by Gyanranjan Priyam.`,
+    title: displayTitle,
+    description: metaDescription,
     keywords: [
       project.title,
       `${project.title} project`,
@@ -69,10 +84,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `/projects/${project.id}`,
     },
     openGraph: {
-      title: `${project.title} — Gyanranjan Priyam`,
-      description: `${project.desc[0]} Built with ${project.tech.slice(0, 4).join(", ")}.`,
+      title: `${displayTitle} — Gyanranjan Priyam`,
+      description: metaDescription,
       url: `${SITE_URL}/projects/${project.id}`,
       siteName: "Gyanranjan Priyam",
+      locale: "en_US",
       type: "article",
       images: [
         {
@@ -85,8 +101,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} — Gyanranjan Priyam`,
-      description: `${project.desc[0]} Built with ${project.tech.slice(0, 4).join(", ")}.`,
+      title: `${displayTitle} — Gyanranjan Priyam`,
+      description: metaDescription,
+      creator: "@gr_priyam",
       images: [ogImageUrl],
     },
   };
@@ -97,28 +114,44 @@ export default async function ProjectPage({ params }: Props) {
   const project = projects.find((p) => p.id === id);
   if (!project) notFound();
 
+  const metaDescription = getProjectMetaDescription(project);
+  const projectImageUrl = project.img.startsWith("http")
+    ? project.img
+    : `${SITE_URL}${project.img}`;
+
   const projectSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: project.title,
-    description: project.desc[0],
+    description: metaDescription,
     url: project.liveLink || `${SITE_URL}${project.link}`,
-    image: project.img,
+    image: projectImageUrl,
     dateCreated: project.date,
-    applicationCategory: "WebApplication",
+    applicationCategory: "DeveloperApplication",
     operatingSystem: "Web Browser",
-    creator: {
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
       "@type": "Person",
       name: "Gyanranjan Priyam",
       url: SITE_URL,
       sameAs: [
         "https://github.com/gyanranjan-priyam",
         "https://linkedin.com/in/gyanranjan-priyam",
+        "https://x.com/gr_priyam",
       ],
+    },
+    creator: {
+      "@type": "Person",
+      name: "Gyanranjan Priyam",
+      url: SITE_URL,
     },
     keywords: project.tech.join(", "),
     ...(project.github && { codeRepository: project.github }),
-    ...(project.liveLink && { installUrl: project.liveLink }),
+    ...(project.liveLink && { downloadUrl: project.liveLink }),
   };
 
   const mediaItems = project.images;

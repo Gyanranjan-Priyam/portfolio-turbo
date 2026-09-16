@@ -90,7 +90,7 @@ function NavigationPanel() {
     {
       title: "Resume",
       description: "Download PDF document",
-      href: "/resume/Gyanranjan_Priyam_Resume.pdf",
+      href: "/resume/resume.pdf",
       badge: "PDF",
       external: true,
       icon: <IconDownload className="h-4 w-4" />,

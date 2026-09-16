@@ -21,8 +21,7 @@ import { NavigationDock } from "@/components/sections/NavigationDock";
 import { SITE_URL } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
 
-const OG_IMAGE =
-  "https://res.cloudinary.com/dw47ib0sh/image/upload/v1766402986/ls67mu0pkqalizjmvuyf.png";
+const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
