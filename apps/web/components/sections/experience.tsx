@@ -8,6 +8,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { experiences } from "@/data/experienceData";
 import { BlurFade } from "@/components/ui/blur-fade";
 
+import { useLoaderStore } from "@/components/loader-component";
+
 function CloseIcon() {
   return (
     <motion.svg
@@ -50,22 +52,23 @@ function ExpandedExperienceCard({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-10 bg-black/40"
+        data-lenis-prevent
+        className="fixed inset-0 z-50 bg-background/80 backdrop-blur-md h-full w-full touch-none overscroll-none"
         onClick={onClose}
       />
-      <div className="fixed inset-0 z-100 grid place-items-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 grid place-items-center p-4 pointer-events-none">
         <motion.div
           layoutId={`card-${active.id}-${id}`}
           ref={ref}
-          className="pointer-events-auto text-sm w-full max-w-md overflow-hidden rounded-2xl border bg-card shadow-lg"
-          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          data-lenis-prevent
+          className="pointer-events-auto text-sm w-full max-w-md max-h-[90vh] overflow-hidden rounded-sm border bg-card shadow-lg font-mono flex flex-col"
         >
-          <div className="flex items-start justify-between p-5">
+          <div className="flex items-start justify-between p-5 flex-shrink-0">
             <div className="flex items-center gap-4">
               <motion.div layoutId={`avatar-${active.id}-${id}`}>
                 <Avatar className="size-14 border bg-black p-1.5">
                   <AvatarImage src={active.logo} alt={active.company} className="object-contains" />
-                  <AvatarFallback className="text-xs font-bold">
+                  <AvatarFallback className="text-xs font-bold font-mono">
                     {active.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -73,15 +76,13 @@ function ExpandedExperienceCard({
               <div>
                 <motion.h3
                   layoutId={`company-${active.id}-${id}`}
-                  className="text-md font-semibold"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="text-md font-semibold font-mono"
                 >
                   {active.company}
                 </motion.h3>
                 <motion.p
                   layoutId={`title-${active.id}-${id}`}
-                  className="text-md text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="text-md text-muted-foreground font-mono"
                 >
                   {active.title}
                 </motion.p>
@@ -95,11 +96,10 @@ function ExpandedExperienceCard({
             </button>
           </div>
 
-          <div className="border-t px-5 py-4">
+          <div className="border-t px-5 py-4 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <motion.p
               layoutId={`period-${active.id}-${id}`}
-              className="mb-3 text-sm font-medium text-muted-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+              className="mb-3 text-sm font-medium text-muted-foreground font-mono"
             >
               {active.period}
             </motion.p>
@@ -108,8 +108,7 @@ function ExpandedExperienceCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-md leading-relaxed text-muted-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+              className="text-md leading-relaxed text-muted-foreground font-mono"
             >
               {Array.isArray(active.content) ? (
                 <ul className="space-y-2 list-none">
@@ -142,18 +141,31 @@ export function ExperienceSection() {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setActive(null);
     }
-    document.body.style.overflow = active ? "hidden" : "auto";
+    
+    const lenis = useLoaderStore.getState().lenis;
+    if (active) {
+      lenis?.stop();
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      lenis?.start();
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      lenis?.start();
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [active]);
 
   return (
     <section id="experience" className="py-8">
       <BlurFade delay={0.04} inView>
-        <h2
-          className="mb-6 text-3xl font-bold"
-          style={{ fontFamily: "var(--font-ibm)" }}
-        >
+        <h2 className="mb-6 text-3xl font-bold font-sans">
           Work Experience
         </h2>
       </BlurFade>
@@ -181,7 +193,7 @@ export function ExperienceSection() {
               <motion.div layoutId={`avatar-${exp.id}-${id}`}>
                 <Avatar className="size-10 border">
                   <AvatarImage src={exp.logo} alt={exp.company} />
-                  <AvatarFallback className="text-[10px] font-bold">
+                  <AvatarFallback className="text-[10px] font-bold font-mono">
                     {exp.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -189,23 +201,20 @@ export function ExperienceSection() {
               <div className="flex-1 min-w-0">
                 <motion.p
                   layoutId={`company-${exp.id}-${id}`}
-                  className="text-md font-semibold leading-tight"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="text-md font-semibold leading-tight font-mono"
                 >
                   {exp.company}
                 </motion.p>
                 <motion.p
                   layoutId={`title-${exp.id}-${id}`}
-                  className="text-xs text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="text-xs text-muted-foreground font-mono"
                 >
                   {exp.title}
                 </motion.p>
               </div>
               <motion.span
                 layoutId={`period-${exp.id}-${id}`}
-                className="shrink-0 text-xs text-muted-foreground text-right"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                className="shrink-0 text-xs text-muted-foreground text-right font-mono"
               >
                 {exp.period}
               </motion.span>

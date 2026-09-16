@@ -6,9 +6,25 @@ import FormattedDate from '../components/FormattedDate.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import SearchModal from '../components/SearchModal.astro';
-import { Image } from 'astro:assets';
+import HatchDivider from '../components/HatchDivider.astro';
 import type { MarkdownHeading } from 'astro';
 import '../styles/post.css';
+
+import placeholder2 from '../assets/blog-placeholder-2.jpg';
+import placeholder3 from '../assets/blog-placeholder-3.jpg';
+import placeholder4 from '../assets/blog-placeholder-4.jpg';
+import placeholder5 from '../assets/blog-placeholder-5.jpg';
+
+const placeholders = [placeholder2, placeholder3, placeholder4, placeholder5];
+
+const getPlaceholderImage = (id: string) => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return placeholders[Math.abs(hash) % placeholders.length].src;
+};
 
 interface Props {
   data: CollectionEntry<'blog'>['data'];
@@ -172,24 +188,39 @@ const encodedUrl = encodeURIComponent(currentUrl);
           </div>
         </div>
 
-        <!-- Dotted Separator below Top Nav -->
-        <div class="separator-dotted-h post-top-separator"></div>
+        <!-- Hatch Pattern Separator below Top Nav -->
+        <HatchDivider class="post-top-separator" />
 
         <!-- Centered Article Hero Header -->
         <header class="article-hero-header">
           <h1 class="article-hero-title">{title}</h1>
 
           <!-- Hero Cover Thumbnail Image (Between Title & Description) -->
-          {heroImage && (
+          {heroImage ? (
             <div class="article-thumbnail-box">
-              <Image
-                width={1200}
-                height={630}
-                src={heroImage}
+              <img
+                src={typeof heroImage === 'string' ? heroImage : heroImage.src}
                 alt={title}
                 class="article-thumbnail-img"
                 loading="eager"
               />
+            </div>
+          ) : (
+            <div class="article-thumbnail-box">
+              <div class="post-cover-fallback">
+                <img src={getPlaceholderImage(currentPostId || title)} alt="" class="fallback-backdrop" aria-hidden="true" />
+                <div class="fallback-overlay"></div>
+                <div class="fallback-content">
+                  <div class="fallback-badge">
+                    <span class="fallback-badge-icon">✦</span>
+                    <span>{data.category || 'BLOG'}</span>
+                  </div>
+                  <h2 class="fallback-title">{title}</h2>
+                  {description && (
+                    <p class="fallback-subtitle">{description}</p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -228,8 +259,8 @@ const encodedUrl = encodeURIComponent(currentUrl);
           </div>
         </header>
 
-        <!-- Divider Line -->
-        <div class="article-hero-divider"></div>
+        <!-- Hatch Pattern Divider Line -->
+        <HatchDivider class="article-hero-divider" />
 
         <!-- 2-Column Responsive Layout (Article + Sticky TOC) -->
         <div class="post-layout-grid">

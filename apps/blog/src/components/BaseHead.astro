@@ -192,7 +192,7 @@ const structuredData = article
   article && (updatedDate || pubDate) && (
     <meta
       property="article:modified_time"
-      content={(updatedDate || pubDate).toISOString()}
+      content={(updatedDate || pubDate)?.toISOString()}
     />
   )
 }

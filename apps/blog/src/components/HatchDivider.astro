@@ -1,0 +1,16 @@
+---
+interface Props {
+  class?: string;
+  height?: string;
+}
+
+const { class: className = '', height } = Astro.props;
+---
+
+<div
+  role="separator"
+  aria-hidden="true"
+  class={`hatch-divider pattern-diagonal-stripes ${className}`}
+  style={height ? { height } : undefined}
+>
+</div>

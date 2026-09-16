@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import {
@@ -8,11 +8,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltipProvider";
+} from "@/components/ui/tooltip";
 import { Highlighter } from "../ui/highlighter";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Link from "next/link";
 import Meet from "./Cal";
+import { WordRotate } from "@/components/ui/word-rotate"
 
 const socials: {
   label: string;
@@ -105,40 +106,12 @@ const socials: {
 ];
 
 export function HeroSection() {
-  const [, setIsDark] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      document.documentElement.classList.contains("dark"),
-  );
-  const [waving, setWaving] = useState(true);
-
-  // Restart wave animation every 3s
-  useEffect(() => {
-    const id = setInterval(() => {
-      setWaving(false);
-      requestAnimationFrame(() => setWaving(true));
-    }, 3000);
-    return () => clearInterval(id);
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    const html = document.documentElement;
-    html.style.transition = "background-color 0.5s ease, color 0.5s ease";
-    html.classList.toggle("dark");
-    const newIsDark = html.classList.contains("dark");
-    setIsDark(newIsDark);
-    // Save user preference to localStorage
-    localStorage.setItem("theme", newIsDark ? "dark" : "light");
-    setTimeout(() => {
-      html.style.transition = "";
-    }, 500);
-  }, []);
 
   return (
-    <section className="pb-8 sm:pt-1 md:pt-4 lg:pt-6">
+    <section className="pb-8">
       {/* Cover image */}
       <BlurFade delay={0.04} direction="down">
-        <div className="relative h-32 w-full overflow-hidden rounded-xl bg-linear-to-br from-neutral-200 via-neutral-300 to-neutral-400 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-900 sm:h-40">
+        <div className="relative mt-2 h-32 w-full overflow-hidden rounded-xl bg-linear-to-br from-neutral-200 via-neutral-300 to-neutral-400 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-900 sm:h-40">
           <Image
             src="/profile/cover.png"
             alt="Cover"
@@ -152,94 +125,106 @@ export function HeroSection() {
         </div>
       </BlurFade>
 
-      {/* Avatar row */}
+      {/* Avatar & Title Row */}
       <BlurFade delay={0.1} direction="up">
-        <div className="flex items-end px-2 -mt-16 sm:-mt-20">
+        <div className="flex items-end justify-between px-2 -mt-16 sm:-mt-20">
           <Avatar className="size-32 border-4 border-background shadow-md ring-1 ring-border sm:size-36">
-            <AvatarImage src="/profile/profile.png" alt="Gyanranjan Priyam" fetchPriority="high" />
-            <AvatarFallback className="text-3xl font-semibold">
+            <AvatarImage
+              src="/profile/profile.png"
+              alt="Gyanranjan Priyam"
+              fetchPriority="high"
+            />
+            <AvatarFallback className="text-3xl font-semibold font-caveat">
               GP
             </AvatarFallback>
           </Avatar>
+          <div className="mb-7 sm:mb-9">
+            <span className="text-[11px] sm:text-xs font-mono text-muted-foreground/70 tracking-tight">
+              @gyanranjanpriyam
+            </span>
+          </div>
         </div>
       </BlurFade>
 
       {/* Info */}
-      <div className="mt-3 space-y-1.5 px-1">
+      <div className="mt-4 space-y-3 px-1">
         <BlurFade delay={0.16} direction="up">
-          <h1
-            className="text-2xl font-bold tracking-widest sm:text-4xl"
-            style={{ fontFamily: "var(--font-mokoto)" }}
-          >
-            Hi I&apos;m{" "}
-            <span className="cursor-pointer">
-              <Highlighter action="underline" color="#FF9800">
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground flex items-center justify-center gap-2">
+                <span className="font-caveat text-4xl sm:text-6xl text-foreground font-semibold">
+                  Gyanranjan
+                </span>
+                <span className="font-caveat text-4xl sm:text-6xl text-foreground font-semibold">
+                  <Highlighter action="underline" color="#87CEFA">
+                    Priyam
+                  </Highlighter>
+                </span>
+                <span
+                  className="inline-flex items-center sm:mt-4 mt-2 text-[#1D9BF0] select-none ml-0.5"
+                  title="Verified"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-label="Verified"
+                    className="size-6 sm:size-7 fill-current shrink-0"
+                  >
+                    <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.67-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.34 2.19c-1.39-.46-2.9-.2-3.91.81s-1.27 2.52-.81 3.91c-1.31.67-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.81 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.33 2.33 4.99-4.99 1.42 1.41-6.41 6.41z" />
+                  </svg>
+                </span>
+              </h1>
+            </div>
+            <p className="text-sm mt-2 sm:text-base text-muted-foreground font-mono inline-flex items-center gap-1.5 flex-wrap">
+              <span>Hi, I&apos;m</span>
+              <span className="font-caveat text-xl sm:text-2xl text-foreground underline font-semibold">
                 Priyam
-              </Highlighter>{" "}
-            </span>{" "}
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="inline-block origin-[70%_80%] cursor-pointer align-middle text-2xl leading-none sm:text-3xl"
-              style={{
-                animation: waving ? "wave 1.8s ease-in-out infinite" : "none",
-              }}
-            >
-              👋
-            </button>
-          </h1>
-        </BlurFade>
-        <BlurFade delay={0.22} direction="up">
-          <p
-            className="text-md mt-3 font-medium "
-            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-          >
-            Full-Stack Developer · Electrical Engineering @GCE Kalahandi
-          </p>
-        </BlurFade>
-        <BlurFade delay={0.28} direction="up">
-          <p
-            className="text-[14px] leading-relaxed text-muted-foreground"
-            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-          >
-            Electrical Engineer by degree, Full-Stack Developer by passion. I
-            build scalable products and mentor the next generation of
-            developers.
-          </p>
-        </BlurFade>
-        <BlurFade delay={0.31} direction="up">
-          <p
-            className="text-[14px] leading-relaxed text-muted-foreground"
-            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-          >
-            Open to{" "}
-            <span className="font-medium text-foreground">
-              internships,
-            </span>{" "}
-            <span className="font-medium text-foreground">
-              
-              freelance projects,
-            </span>
-            and{" "}
-            <span className="font-medium text-foreground">
-              full-time roles
-            </span>
-            . If you&apos;re building something meaningful, I&apos;d love to be
-            part of it.
-          </p>
-        </BlurFade>
-
-        {/* Availability Banner */}
-        <BlurFade delay={0.31} direction="up">
-          <div className="flex flex-wrap items-center gap-3 pt-3">
-              <Meet />
-              
+              </span>
+              <span>—</span>
+              <WordRotate
+                words={["Full-stack Developer", "Electrical Engineer", "Open source Enthusiast"]}
+                duration={2800}
+                className="font-medium"
+              />
+            </p>
           </div>
         </BlurFade>
+      </div>
+      
 
-        {/* Social icons + Resume button */}
-        <BlurFade delay={0.34} direction="up">
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+    <div className="mt-4">
+      {/* Intro Description */}
+      <BlurFade delay={0.2} direction="up">
+        <div className="border-x border-t border-border rounded-t-xl p-4 sm:p-5 bg-card/10 space-y-2">
+          <p className="text-[14px] leading-relaxed text-muted-foreground font-mono">
+            Electrical Engineer by degree, Full-Stack Developer by passion. I
+            build scalable digital products, explore AI/ML integrations, and
+            contribute to open-source software.
+          </p>
+          <p className="text-[14px] leading-relaxed text-muted-foreground font-mono">
+            Open to{" "}
+            <span className="font-medium text-foreground">internships</span>,{" "}
+            <span className="font-medium text-foreground">
+              freelance projects
+            </span>
+            , and{" "}
+            <span className="font-medium text-foreground">
+              full-time engineering roles
+            </span>
+            . If you&apos;re building something meaningful, I&apos;d love to be part of it.
+          </p>
+        </div>
+      </BlurFade>
+
+
+      {/* Socials & Actions Panel */}
+      <BlurFade delay={0.16} direction="up">
+        <div className="border-x border-b border-t rounded-b-xl border-border p-4 bg-background/50 flex flex-wrap items-center justify-between gap-3">
+          {/* Handwritten "follow me" annotation */}
+          <div className="flex items-center gap-1.5 text-muted-foreground/90 font-caveat text-lg select-none">
+            <span className="text-3xl">follow me</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             <TooltipProvider>
               {socials.map((s) => (
                 <Tooltip key={s.label}>
@@ -255,7 +240,7 @@ export function HeroSection() {
                           : "noopener noreferrer"
                       }
                       aria-label={s.label}
-                      className="text-muted-foreground transition-opacity hover:opacity-70"
+                      className="size-9 flex items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-muted hover:text-foreground hover:border-foreground/30 shadow-2xs"
                     >
                       {s.icon}
                     </a>
@@ -270,9 +255,10 @@ export function HeroSection() {
                 </Tooltip>
               ))}
             </TooltipProvider>
+
             <Link
               href="https://assets.priyam.tech/resume/resume.pdf"
-              className="inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-xs font-semibold transition-colors hover:bg-muted"
+              className="h-9 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-3.5 text-xs font-semibold font-mono text-foreground transition-all hover:bg-muted hover:border-foreground/30 shadow-2xs select-none"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -289,9 +275,14 @@ export function HeroSection() {
               </svg>
               Resume
             </Link>
+
+            <Meet />
           </div>
-        </BlurFade>
-      </div>
+        </div>
+      </BlurFade>
+    </div>
+
+      
     </section>
   );
 }

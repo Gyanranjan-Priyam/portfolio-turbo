@@ -2,9 +2,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { IconBrandGithub as Github } from "@tabler/icons-react";
 import templates from "@/data/templateData";
+import { skillCategories } from "@/data/skillCategories";
 import { SITE_URL } from "@/lib/config";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
@@ -84,248 +85,51 @@ export default async function TemplatePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(templateSchema) }}
       />
-        {/* Breadcrumb */}
-        <BlurFade delay={0.04}>
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-8 flex items-center gap-1 text-sm text-muted-foreground"
+      {/* Breadcrumb */}
+      <BlurFade delay={0.04}>
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-8 flex items-center gap-1 text-sm text-muted-foreground"
+        >
+          <Link href="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          <ChevronRight className="size-3.5" />
+          <Link
+            href="/templates"
+            className="transition-colors hover:text-foreground"
           >
-            <Link href="/" className="transition-colors hover:text-foreground">
-              Home
-            </Link>
-            <ChevronRight className="size-3.5" />
-            <Link
-              href="/templates"
-              className="transition-colors hover:text-foreground"
-            >
-              Templates
-            </Link>
-            <ChevronRight className="size-3.5" />
-            <span className="truncate text-foreground font-medium">
-              {template.title}
-            </span>
-          </nav>
-        </BlurFade>
+            Templates
+          </Link>
+          <ChevronRight className="size-3.5" />
+          <span className="truncate text-foreground font-medium">
+            {template.title}
+          </span>
+        </nav>
+      </BlurFade>
 
-        {/* Header */}
-        <BlurFade delay={0.12}>
-          <div className="mb-6">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h1
-                  className="text-3xl font-bold tracking-tight sm:text-4xl"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  {template.title}
-                </h1>
-                <p
-                  className="mt-1 text-sm text-muted-foreground"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  {template.company} &middot; {template.date}
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                {template.liveLink && (
-                  <a
-                    href={template.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <ExternalLink className="size-3.5" />
-                    Live Demo
-                  </a>
-                )}
-                {template.github && (
-                  <a
-                    href={template.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <Github className="size-4" />
-                    Source
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Tech badges */}
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {template.tech.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        </BlurFade>
-
-        {/* Preview Section with Desktop/Mobile Toggle */}
-        {(template.desktopImage || template.mobileImage || template.liveLink) && (
-          <BlurFade delay={0.15}>
-            <div className="mb-8">
-              <TemplatePreview
-                title={template.title}
-                liveLink={template.liveLink}
-                desktopImage={template.desktopImage}
-                mobileImage={template.mobileImage}
-              />
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Fallback Image if no preview available */}
-        {!template.desktopImage && !template.mobileImage && !template.liveLink && template.img && (
-          <BlurFade delay={0.15}>
-            <div className="relative w-full aspect-video mb-8 overflow-hidden rounded-lg">
-              <Image
-                src={template.img}
-                alt={template.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 672px"
-                priority
-              />
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Description */}
-        <BlurFade delay={0.16}>
-          <div className="mb-10 space-y-4">
-            <h2
-              className="text-2xl font-semibold"
-              style={{ fontFamily: "var(--font-ibm)" }}
-            >
-              Overview
-            </h2>
-            {template.desc.map((paragraph, i) => (
-              <p
-                key={i}
-                className="text-sm font-medium leading-relaxed text-muted-foreground"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
-                {paragraph}
+      {/* Header */}
+      <BlurFade delay={0.12}>
+        <div className="mb-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight font-sans text-foreground sm:text-4xl">
+                {template.title}
+              </h1>
+              <p className="mt-1 text-xs sm:text-sm font-mono text-muted-foreground">
+                {template.company} &middot; {template.date}
               </p>
-            ))}
-          </div>
-        </BlurFade>
-
-        {/* Key Highlights */}
-        {"highlights" in template && (template as any).highlights?.length > 0 && (
-          <BlurFade delay={0.18} inView>
-            <div className="mb-10">
-              <h2
-                className="mb-4 text-2xl font-semibold"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Key Highlights
-              </h2>
-              <div className="grid gap-2.5 sm:grid-cols-2">
-                {(template as any).highlights.map((item: string, i: number) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2.5 rounded-lg border p-3 tracking-tight font-medium"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <Zap className="mt-0.5 size-3.5 shrink-0 text-amber-500" />
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
-          </BlurFade>
-        )}
-
-        {/* Features */}
-        {"features" in template && (template as any).features?.length > 0 && (
-          <BlurFade delay={0.20} inView>
-            <div className="mb-10">
-              <h2
-                className="mb-4 text-2xl font-semibold"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Features Included
-              </h2>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {(template as any).features.map((feature: string, i: number) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2 rounded-lg border bg-muted/30 p-3"
-                  >
-                    <div className="mt-0.5 size-1.5 rounded-full bg-foreground shrink-0" />
-                    <p
-                      className="text-sm leading-relaxed text-muted-foreground font-medium"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      {feature}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Tech Stack Section */}
-        <BlurFade delay={0.22} inView>
-          <div className="mb-10">
-            <h2
-              className="mb-4 text-2xl font-semibold"
-              style={{ fontFamily: "var(--font-ibm)" }}
-            >
-              Tech Stack
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {template.tech.map((tech) => (
-                <div
-                  key={tech}
-                  className="rounded-lg border bg-muted/30 px-4 py-2 text-sm font-medium"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
-                  {tech}
-                </div>
-              ))}
-            </div>
-          </div>
-        </BlurFade>
-
-        {/* CTA Section */}
-        <BlurFade delay={0.24} inView>
-          <div className="rounded-lg border bg-muted/30 p-6 text-center">
-            <h3
-              className="mb-2 text-xl font-semibold"
-              style={{ fontFamily: "var(--font-ibm)" }}
-            >
-              Ready to use this template?
-            </h3>
-            <p
-              className="mb-4 text-sm text-muted-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-            >
-              View the live demo or check out the source code
-            </p>
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center gap-3">
               {template.liveLink && (
                 <a
                   href={template.liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs sm:text-sm font-mono font-medium transition-colors hover:bg-muted"
                 >
-                  <ExternalLink className="size-4" />
-                  View Live Demo
+                  <ExternalLink className="size-3.5" />
+                  Live Demo
                 </a>
               )}
               {template.github && (
@@ -333,30 +137,264 @@ export default async function TemplatePage({ params }: Props) {
                   href={template.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs sm:text-sm font-mono font-medium transition-colors hover:bg-muted"
                 >
                   <Github className="size-4" />
-                  View Source
+                  Source
                 </a>
               )}
             </div>
           </div>
-        </BlurFade>
 
-        {/* Back to Templates */}
-        <BlurFade delay={0.26} inView>
-          <div className="mt-12 text-center">
-            <Link
-              href="/templates"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-            >
-              <ChevronRight className="size-3.5 rotate-180" />
-              Back to all templates
-            </Link>
+          {/* Tech badges */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {template.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border px-2.5 py-0.5 text-xs font-mono font-medium text-muted-foreground"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </BlurFade>
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Preview Section with Desktop/Mobile Toggle */}
+      {(template.desktopImage || template.mobileImage || template.liveLink) ? (
+        <BlurFade delay={0.15}>
+          <div className="my-6">
+            <TemplatePreview
+              title={template.title}
+              liveLink={template.liveLink}
+              desktopImage={template.desktopImage}
+              mobileImage={template.mobileImage}
+            />
           </div>
         </BlurFade>
-      </div>
+      ) : template.img ? (
+        <BlurFade delay={0.15}>
+          <div className="-mx-4 mt-6 mb-4 sm:-mx-6 overflow-hidden p-4">
+            <Image
+              src={template.img}
+              alt={template.title}
+              width={1200}
+              height={700}
+              className="w-full h-auto block rounded-none"
+              priority
+            />
+          </div>
+        </BlurFade>
+      ) : null}
+
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Description / Overview */}
+      <BlurFade delay={0.16}>
+        <div className="mb-10 mt-8 space-y-4">
+          <div className="mb-4 flex items-baseline gap-2">
+            <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+              Overview
+            </h2>
+          </div>
+          {template.desc.map((paragraph, i) => (
+            <p
+              key={i}
+              className="text-xs sm:text-sm font-mono leading-relaxed text-muted-foreground"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </BlurFade>
+
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Key Highlights */}
+      {"highlights" in template && (template as any).highlights?.length > 0 && (
+        <BlurFade delay={0.18} inView>
+          <div className="mb-10 mt-8">
+            <div className="mb-4 flex items-baseline gap-2">
+              <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                Key Highlights
+              </h2>
+              <span className="text-xs font-mono text-muted-foreground/70">
+                ({(template as any).highlights.length})
+              </span>
+            </div>
+
+            <div className="-mx-4 sm:-mx-6 border-t border-b border-border">
+              <div className="grid grid-cols-1 sm:grid-cols-2">
+                {(template as any).highlights.map((item: string, i: number) => {
+                  const num = String(i + 1).padStart(2, "0");
+                  const total = (template as any).highlights.length;
+                  const isEven = i % 2 === 0;
+                  const isLastRowDesktop = i >= total - (total % 2 === 0 ? 2 : 1);
+                  const isLastItem = i === total - 1;
+
+                  const borderBottomClass = isLastItem
+                    ? ""
+                    : isLastRowDesktop
+                      ? "border-b sm:border-b-0"
+                      : "border-b";
+
+                  const borderRightClass = isEven ? "sm:border-r" : "";
+
+                  return (
+                    <div
+                      key={i}
+                      className={`group flex items-start gap-3.5 px-4 sm:px-6 py-3.5 sm:py-4 transition-colors hover:bg-muted/30 border-border ${borderBottomClass} ${borderRightClass}`}
+                    >
+                      {/* Minimalist Keycap Badge */}
+                      <div className="size-7 shrink-0 mt-0.5 rounded-md border border-border/80 bg-muted/40 dark:bg-neutral-900 flex items-center justify-center text-[11px] font-mono font-medium text-muted-foreground group-hover:text-foreground group-hover:border-foreground/40 transition-colors select-none shadow-2xs">
+                        {num}
+                      </div>
+
+                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                        {item}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </BlurFade>
+      )}
+
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Features */}
+      {"features" in template && (template as any).features?.length > 0 && (
+        <BlurFade delay={0.2} inView>
+          <div className="mb-10 mt-8">
+            <div className="mb-4 flex items-baseline gap-2">
+              <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                Features Included
+              </h2>
+              <span className="text-xs font-mono text-muted-foreground/70">
+                ({(template as any).features.length})
+              </span>
+            </div>
+
+            <div className="-mx-4 sm:-mx-6 border-t border-b border-border">
+              <div className="grid grid-cols-1 sm:grid-cols-2">
+                {(template as any).features.map((feature: string, i: number) => {
+                  const total = (template as any).features.length;
+                  const isEven = i % 2 === 0;
+                  const isLastRowDesktop = i >= total - (total % 2 === 0 ? 2 : 1);
+                  const isLastItem = i === total - 1;
+
+                  const borderBottomClass = isLastItem
+                    ? ""
+                    : isLastRowDesktop
+                      ? "border-b sm:border-b-0"
+                      : "border-b";
+
+                  const borderRightClass = isEven ? "sm:border-r" : "";
+
+                  return (
+                    <div
+                      key={i}
+                      className={`group flex items-start gap-3.5 px-4 sm:px-6 py-3.5 sm:py-4 transition-colors hover:bg-muted/30 border-border ${borderBottomClass} ${borderRightClass}`}
+                    >
+                      {/* Minimalist Code Keycap Badge */}
+                      <div className="size-7 shrink-0 mt-0.5 rounded-md border border-border/80 bg-muted/40 dark:bg-neutral-900 flex items-center justify-center text-[10px] font-mono font-medium text-muted-foreground group-hover:text-foreground group-hover:border-foreground/40 transition-colors select-none shadow-2xs">
+                        &lt;/&gt;
+                      </div>
+
+                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                        {feature}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </BlurFade>
+      )}
+
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Tech Stack Section */}
+      <BlurFade delay={0.22} inView>
+        <div className="mb-10 mt-8">
+          <div className="mb-4 flex items-baseline gap-2">
+            <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+              Tech Stack
+            </h2>
+            <span className="text-xs font-mono text-muted-foreground/70">
+              ({template.tech.length})
+            </span>
+          </div>
+
+          <div className="-mx-4 sm:-mx-6 border-y border-border/70 p-4 sm:p-6 bg-card/10">
+            <div className="flex flex-wrap items-center gap-2">
+              {template.tech.map((techName, j) => {
+                const matchedSkill = skillCategories
+                  .flatMap((c) => c.skills)
+                  .find(
+                    (s) =>
+                      s.name.toLowerCase() === techName.toLowerCase() ||
+                      techName.toLowerCase().includes(s.name.toLowerCase()) ||
+                      s.name.toLowerCase().includes(techName.toLowerCase())
+                  );
+
+                return (
+                  <div
+                    key={j}
+                    className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 text-xs sm:text-[13px] font-mono text-foreground transition-all duration-150 select-none"
+                  >
+                    {matchedSkill?.icon}
+                    <span>{techName}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </BlurFade>
+
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      {/* Next template */}
+      <BlurFade delay={0.26} inView>
+        <div className="mt-8">
+          {(() => {
+            const idx = templates.findIndex((t) => t.id === template.id);
+            const next = templates[(idx + 1) % templates.length];
+            return (
+              <Link
+                href={`/templates/${next.id}`}
+                className="group flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
+              >
+                <div>
+                  <p className="text-xs font-mono text-muted-foreground">
+                    Next Template
+                  </p>
+                  <p className="text-base font-sans font-semibold text-foreground group-hover:underline">
+                    {next.title}
+                  </p>
+                </div>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </Link>
+            );
+          })()}
+        </div>
+      </BlurFade>
+    </div>
   );
 }

@@ -13,11 +13,11 @@
 }
 
 :root {
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Open Sans', sans-serif;
-  --font-code: 'JetBrains Mono', monospace;
-  --font-name: 'Mokoto';
-  --font-loader: 'Pricedown';
+  --font-heading: var(--font-caveat), 'Caveat', cursive;
+  --font-body: var(--font-geist-sans), 'Geist', sans-serif;
+  --font-code: var(--font-geist-mono), 'Geist Mono', monospace;
+  --font-name: var(--font-caveat), 'Caveat', cursive;
+  --font-loader: 'Mokoto', sans-serif;
 }
 
 body {

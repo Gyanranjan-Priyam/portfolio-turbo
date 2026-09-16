@@ -184,6 +184,76 @@ html:not(.dark) {
   background-position: center;
 }
 
+/* ==========================================================================
+   Diagonal Hatch Pattern Divider (Matching Portfolio Aesthetic)
+   ========================================================================== */
+/* Default (Light Mode) */
+.pattern-diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.08) 0,
+    rgba(0, 0, 0, 0.08) 1px,
+    transparent 0,
+    transparent 7px
+  );
+}
+
+/* Explicit Dark Mode */
+html.dark .pattern-diagonal-stripes,
+.dark .pattern-diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.09) 0,
+    rgba(255, 255, 255, 0.09) 1px,
+    transparent 0,
+    transparent 7px
+  );
+}
+
+.pattern-diagonal-stripes-subtle {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.04) 0,
+    rgba(0, 0, 0, 0.04) 1px,
+    transparent 0,
+    transparent 8px
+  );
+}
+
+html.dark .pattern-diagonal-stripes-subtle,
+.dark .pattern-diagonal-stripes-subtle {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.045) 0,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 0,
+    transparent 8px
+  );
+}
+
+.hatch-divider {
+  width: calc(100% + 4.5rem) !important;
+  margin-left: -2.25rem !important;
+  margin-right: -2.25rem !important;
+  height: 28px;
+  overflow: hidden;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  border-left: none;
+  border-right: none;
+  background-color: var(--bg-card);
+  user-select: none;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .hatch-divider {
+    width: calc(100% + 2.5rem) !important;
+    margin-left: -1.25rem !important;
+    margin-right: -1.25rem !important;
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }

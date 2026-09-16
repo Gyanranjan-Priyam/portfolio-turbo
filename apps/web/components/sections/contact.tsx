@@ -5,18 +5,12 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-8">
       <BlurFade delay={0.04} inView>
-        <h2
-          className="mb-4 text-3xl font-bold"
-          style={{ fontFamily: "var(--font-ibm)" }}
-        >
+        <h2 className="mb-4 text-3xl font-bold font-sans">
           Contact
         </h2>
       </BlurFade>
       <BlurFade delay={0.08} inView>
-        <p
-          className="text-sm leading-relaxed text-muted-foreground"
-          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-        >
+        <p className="text-sm leading-relaxed text-muted-foreground font-mono">
           I&apos;m always open to discussing new opportunities, freelance
           projects, or just having a chat about technology. Reach out to me at{" "}
           <a

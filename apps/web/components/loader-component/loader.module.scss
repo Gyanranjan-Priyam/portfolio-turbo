@@ -35,10 +35,13 @@
         display: inline-block;
         overflow: hidden;
         color: var(--black);
+        font-family: var(--font-caveat), 'Caveat', cursive !important;
+        font-weight: 700;
 
         > span {
           position: relative;
           top: 0px;
+          font-family: var(--font-caveat), 'Caveat', cursive !important;
         }
       }
     }
@@ -58,10 +61,13 @@
         overflow: hidden;
         opacity: 0;
         color: var(--black);
+        font-family: var(--font-caveat), 'Caveat', cursive !important;
+        font-weight: 700;
 
         > span {
           position: relative;
           top: 12vw;
+          font-family: var(--font-caveat), 'Caveat', cursive !important;
         }
       }
     }
@@ -77,10 +83,13 @@
       display: inline-block;
       overflow: hidden;
       color: var(--black);
+      font-family: 'Mokoto', sans-serif !important;
+      font-weight: normal;
 
       > span {
         position: relative;
         top: 0px;
+        font-family: 'Mokoto', sans-serif !important;
       }
     }
   }

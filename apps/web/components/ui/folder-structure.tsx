@@ -151,8 +151,7 @@ function TreeNode({ node, depth }: { node: FileNode; depth: number }) {
           </>
         )}
         <span 
-          className="text-[13px] leading-6 text-foreground/90 group-hover:text-foreground transition-colors"
-          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          className="text-[13px] leading-6 text-foreground/90 group-hover:text-foreground transition-colors font-mono"
         >
           {node.name}
         </span>
@@ -194,12 +193,31 @@ function buildAscii(nodes: FileNode[], prefix = ""): string {
     .join("\n");
 }
 
+function countNodes(nodes: FileNode[]): { files: number; folders: number } {
+  let files = 0;
+  let folders = 0;
+  for (const n of nodes) {
+    if (n.type === "folder") {
+      folders++;
+      if (n.children) {
+        const sub = countNodes(n.children);
+        files += sub.files;
+        folders += sub.folders;
+      }
+    } else {
+      files++;
+    }
+  }
+  return { files, folders };
+}
+
 export function FolderStructure({ structure }: { structure: FileNode[] }) {
   const [tab, setTab] = useState<"tree" | "md">("tree");
   const [copied, setCopied] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const ascii = buildAscii(structure);
+  const { files, folders } = countNodes(structure);
 
   const handleCopy = () => {
     navigator.clipboard.writeText("```\n" + ascii + "\n```");
@@ -228,31 +246,31 @@ export function FolderStructure({ structure }: { structure: FileNode[] }) {
   }, [tab]);
 
   return (
-    <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
+    <div className="-mx-4 sm:-mx-6 border-t border-b border-border bg-card/10">
       {/* Tab bar */}
-      <div className="flex items-center justify-between border-b bg-muted/40 px-2">
-        <div
-          className="flex"
-          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-        >
+      <div className="flex items-center justify-between border-b border-border bg-muted/20 px-4 sm:px-6">
+        <div className="flex font-mono text-xs">
           {(["tree", "md"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`relative px-4 py-2.5 text-xs font-medium transition-colors ${
+              className={`relative px-4 py-2.5 font-medium transition-colors cursor-pointer select-none ${
                 tab === t
                   ? "text-foreground after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-foreground"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {t === "tree" ? (
-                <span className="flex items-center gap-2 font-medium">
-                  <IconFolder size={16} stroke={1.5} className="text-amber-400" />
+                <span className="flex items-center gap-2">
+                  <IconFolder size={15} stroke={1.5} className="text-amber-400" />
                   Explorer
+                  <span className="text-[10px] text-muted-foreground/70">
+                    ({folders}d, {files}f)
+                  </span>
                 </span>
               ) : (
-                <span className="flex items-center gap-2 font-medium">
-                  <IconMarkdown size={16} stroke={1.5} className="text-blue-500" />
+                <span className="flex items-center gap-2">
+                  <IconMarkdown size={15} stroke={1.5} className="text-blue-500" />
                   README.md
                 </span>
               )}
@@ -260,32 +278,30 @@ export function FolderStructure({ structure }: { structure: FileNode[] }) {
           ))}
         </div>
 
-        {tab === "md" && (
-          <button
-            onClick={handleCopy}
-            className="mr-2 flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
-            title="Copy markdown"
-          >
-            {copied ? (
-              <>
-                <IconCheck size={14} stroke={1.5} className="text-green-500" />
-                <span className="text-green-500">Copied</span>
-              </>
-            ) : (
-              <>
-                <IconCopy size={14} stroke={1.5} />
-                Copy
-              </>
-            )}
-          </button>
-        )}
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer select-none font-mono"
+          title="Copy structure markdown"
+        >
+          {copied ? (
+            <>
+              <IconCheck size={14} stroke={1.5} className="text-green-500" />
+              <span className="text-green-500 font-medium">Copied</span>
+            </>
+          ) : (
+            <>
+              <IconCopy size={14} stroke={1.5} />
+              <span className="hidden sm:inline">Copy Tree</span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Content - Fixed height with hidden scrollbar and isolated scroll */}
       {tab === "tree" ? (
         <div
           ref={scrollRef}
-          className="h-[400px] overflow-y-auto overflow-x-auto p-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="h-[400px] overflow-y-auto overflow-x-auto p-4 sm:p-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {structure.map((node) => (
             <TreeNode key={node.name + node.type} node={node} depth={0} />
@@ -294,12 +310,9 @@ export function FolderStructure({ structure }: { structure: FileNode[] }) {
       ) : (
         <div
           ref={scrollRef}
-          className="h-[400px] overflow-y-auto overflow-x-auto bg-zinc-950 dark:bg-zinc-900 p-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="h-[400px] overflow-y-auto overflow-x-auto bg-zinc-950/90 dark:bg-zinc-950 p-4 sm:p-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <pre 
-            className="text-[13px] leading-7 text-emerald-400 whitespace-pre"
-            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-          >
+          <pre className="text-xs sm:text-[13px] leading-7 text-emerald-400 whitespace-pre font-mono selection:bg-emerald-500/30">
             {ascii}
           </pre>
         </div>

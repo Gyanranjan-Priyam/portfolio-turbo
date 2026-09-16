@@ -40,7 +40,8 @@
 }
 
 .home-topbar-separator {
-  margin: 0 0 1.75rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 1.75rem !important;
 }
 
 .topbar-brand {
@@ -132,7 +133,8 @@
 }
 
 .home-hero-separator {
-  margin: 0 0 2.5rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 2.5rem !important;
 }
 
 .hero-brand-title {
@@ -326,7 +328,6 @@
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: #09090b;
   border: 1px solid var(--border-subtle);
   margin-bottom: 0.95rem;
   transition: border-color 0.2s ease, transform 0.2s ease;
@@ -340,32 +341,112 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  transition: transform 0.3s ease;
 }
 
-.featured-post-card:hover .post-cover-img {
-  transform: scale(1.025);
-}
-
+/* Post Cover Fallback (Textured placeholder with overlay & typography matching reference) */
 .post-cover-fallback {
   position: relative;
   width: 100%;
   height: 100%;
+  aspect-ratio: 16 / 9;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
-  background: radial-gradient(circle at 50% 30%, #1e1e24 0%, #0c0c0e 100%);
+  padding: 1.25rem 1.15rem;
+  overflow: hidden;
   text-align: center;
+  background-color: #0c0d12;
+}
+
+.fallback-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.92;
+  filter: brightness(0.85) contrast(1.1);
+  transition: transform 0.35s ease;
+}
+
+.featured-post-card:hover .fallback-backdrop,
+.blog-entry-card:hover .fallback-backdrop {
+  transform: scale(1.03);
+}
+
+.fallback-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(12, 13, 18, 0.45) 0%, rgba(8, 8, 12, 0.88) 100%);
+  background-image: 
+    radial-gradient(circle at center, rgba(10, 10, 14, 0.4) 0%, rgba(8, 8, 12, 0.85) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fallback-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  max-width: 90%;
+}
+
+.fallback-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.fallback-badge-icon {
+  font-size: 0.7rem;
+  opacity: 0.9;
+  color: #fde047;
 }
 
 .fallback-title {
-  position: relative;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #f1f5f9;
+  font-family: 'Newsreader', 'Outfit', Georgia, serif;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  margin: 0;
+}
+
+.fallback-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 90%;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .cover-overlay-badge {
@@ -453,6 +534,11 @@ html.dark .cat-rose .cat-bar { background-color: #fb7185; }
   color: var(--text-primary);
   margin: 0 0 0.45rem;
   transition: color 0.15s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
 }
 
 .featured-post-card:hover .featured-post-title {
@@ -469,6 +555,7 @@ html.dark .cat-rose .cat-bar { background-color: #fb7185; }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 3.1em;
 }
 
 .post-meta-row {

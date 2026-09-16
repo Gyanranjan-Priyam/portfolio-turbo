@@ -3,7 +3,7 @@
 /* Typography classes used by the Loader */
 
 .h1 {
-  font-family: var(--font-heading), sans-serif;
+  font-family: 'Mokoto', var(--font-loader), sans-serif !important;
   font-size: 6.1vw;
   line-height: 120%;
   font-weight: normal;
@@ -14,20 +14,23 @@
 }
 
 .h2 {
-  font-family: var(--font-heading), sans-serif;
-  font-size: 4.7vw;
+  font-family: var(--font-name), 'Caveat', cursive !important;
+  font-size: 7.2vw;
   line-height: 120%;
-  font-weight: normal;
+  font-weight: 700;
   @include mobile {
-    font-size: 7.6vw;
+    font-size: 12vw;
     line-height: 120%;
   }
 }
 
 .name-text {
-  font-family: var(--font-name), sans-serif !important;
+  font-family: var(--font-name), 'Caveat', cursive !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .loader-number {
-  font-family: var(--font-loader), sans-serif !important;
+  font-family: 'Mokoto', var(--font-loader), sans-serif !important;
+  font-weight: normal;
 }

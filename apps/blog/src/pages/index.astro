@@ -5,8 +5,25 @@ import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import HatchDivider from '../components/HatchDivider.astro';
 import { SITE_DESCRIPTION, AUTHOR_PORTFOLIO } from '../consts';
 import '../styles/home.css';
+
+import placeholder2 from '../assets/blog-placeholder-2.jpg';
+import placeholder3 from '../assets/blog-placeholder-3.jpg';
+import placeholder4 from '../assets/blog-placeholder-4.jpg';
+import placeholder5 from '../assets/blog-placeholder-5.jpg';
+
+const placeholders = [placeholder2, placeholder3, placeholder4, placeholder5];
+
+const getPlaceholderImage = (id: string) => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return placeholders[Math.abs(hash) % placeholders.length].src;
+};
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort(
@@ -63,8 +80,8 @@ const getCategoryColorClass = (cat: string) => {
           </div>
         </header>
 
-        <!-- Dotted Separator below Top Bar -->
-        <div class="separator-dotted-h home-topbar-separator"></div>
+        <!-- Hatch Pattern Separator below Top Bar -->
+        <HatchDivider class="home-topbar-separator" />
 
         <!-- HERO SECTION -->
         <section class="blog-hero">
@@ -124,8 +141,8 @@ const getCategoryColorClass = (cat: string) => {
           </nav>
         </section>
 
-        <!-- Dotted Separator between Hero/Filters and Posts Feed -->
-        <div class="separator-dotted-h home-hero-separator"></div>
+        <!-- Hatch Pattern Separator between Hero/Filters and Posts Feed -->
+        <HatchDivider class="home-hero-separator" />
 
         <!-- POSTS FEED SECTION -->
         <section class="posts-feed-section" id="posts-feed-section">
@@ -138,6 +155,8 @@ const getCategoryColorClass = (cat: string) => {
                 : null;
               const cat = post.data.category || 'Engineering';
               const colorClass = getCategoryColorClass(cat);
+
+              const fallbackBg = getPlaceholderImage(post.id);
 
               return (
                 <article
@@ -160,7 +179,18 @@ const getCategoryColorClass = (cat: string) => {
                         />
                       ) : (
                         <div class="post-cover-fallback">
-                          <span class="fallback-title">{post.data.title}</span>
+                          <img src={fallbackBg} alt="" class="fallback-backdrop" aria-hidden="true" />
+                          <div class="fallback-overlay"></div>
+                          <div class="fallback-content">
+                            <div class="fallback-badge">
+                              <span class="fallback-badge-icon">✦</span>
+                              <span>{post.data.category || 'BLOG'}</span>
+                            </div>
+                            <h3 class="fallback-title">{post.data.title}</h3>
+                            {post.data.description && (
+                              <p class="fallback-subtitle">{post.data.description}</p>
+                            )}
+                          </div>
                         </div>
                       )}
                       <div class="cover-overlay-badge">

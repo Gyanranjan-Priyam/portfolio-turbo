@@ -6,10 +6,7 @@ export function EducationSection() {
   return (
     <section id="education" className="py-8">
       <BlurFade delay={0.04} inView>
-        <h2
-          className="mb-6 text-3xl font-bold"
-          style={{ fontFamily: "var(--font-ibm)" }}
-        >
+        <h2 className="mb-6 text-3xl font-bold font-sans">
           Education
         </h2>
       </BlurFade>
@@ -23,46 +20,32 @@ export function EducationSection() {
                   alt={edu.school}
                   className="object-contain"
                 />
-                <AvatarFallback className="text-xs font-bold">
+                <AvatarFallback className="text-xs font-bold font-mono">
                   {edu.initials}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
-                <p
-                  className="text-[15px] font-semibold leading-tight"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
+                <p className="text-[15px] font-semibold leading-tight font-mono">
                   {edu.school}
                 </p>
-                <p
-                  className="text-sm text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
+                <p className="text-sm text-muted-foreground font-mono">
                   {edu.degree}
                 </p>
-                <p
-                  className="text-xs text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
+                <p className="text-xs text-muted-foreground font-mono">
                   {edu.marks}
                 </p>
               </div>
-              <span
-                className="shrink-0 text-sm text-muted-foreground text-right"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
+              <span className="shrink-0 text-sm text-muted-foreground text-right font-mono">
                 {edu.period}
               </span>
             </div>
           </BlurFade>
         ))}
       </div>
+      <div className="stripe-divider mt-8 -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
 
       <BlurFade delay={0.04} inView>
-        <h2
-          className="mb-6 mt-12 text-3xl font-bold"
-          style={{ fontFamily: "var(--font-ibm)" }}
-        >
+        <h2 className="mb-6 mt-8 text-3xl font-bold font-sans">
           Certifications
         </h2>
       </BlurFade>
@@ -71,23 +54,14 @@ export function EducationSection() {
           <BlurFade key={i} delay={0.04 + i * 0.05} inView>
             <div className="flex items-center justify-between gap-2">
               <div className="min-w-0 flex-1">
-                <p
-                  className="text-sm font-medium"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
+                <p className="text-sm font-medium font-mono">
                   {cert.name}
                 </p>
-                <p
-                  className="text-sm text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
+                <p className="text-sm text-muted-foreground font-mono">
                   {cert.issuer}
                 </p>
               </div>
-              <span
-                className="shrink-0 text-sm text-muted-foreground"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
+              <span className="shrink-0 text-sm text-muted-foreground font-mono">
                 {cert.year}
               </span>
             </div>

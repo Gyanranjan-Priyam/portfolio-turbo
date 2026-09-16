@@ -76,7 +76,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
 </div>
 
 <!-- Serialized posts data for search script -->
-<script id="search-posts-data" type="application/json" set:html={JSON.stringify(searchablePosts)}></script>
+<script id="search-posts-data" type="application/json" is:inline set:html={JSON.stringify(searchablePosts)}></script>
 
 <style>
   .search-modal-backdrop {
@@ -480,17 +480,33 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
       });
     }
 
-    // Global keyboard shortcuts: "/" to open, "Escape" to close
+    // Global keyboard shortcuts: Ctrl+K / Cmd+K / "/" to open, "Escape" to close
     window.addEventListener('keydown', (e) => {
+      // Ctrl+K or Cmd+K
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        const isOpen = backdrop && backdrop.style.display && backdrop.style.display !== 'none';
+        if (isOpen) {
+          closeSearch();
+        } else {
+          openSearch();
+        }
+        return;
+      }
+
+      // "/" shortcut when not focused on an input/editable field
       if (
         e.key === '/' &&
-        backdrop &&
-        backdrop.style.display === 'none' &&
-        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
+        (!backdrop || backdrop.style.display === 'none' || backdrop.style.display === '') &&
+        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || (e.target && e.target.isContentEditable))
       ) {
         e.preventDefault();
         openSearch();
-      } else if (e.key === 'Escape' && backdrop && backdrop.style.display !== 'none') {
+        return;
+      }
+
+      // Escape to close
+      if (e.key === 'Escape' && backdrop && backdrop.style.display !== 'none' && backdrop.style.display !== '') {
         e.preventDefault();
         closeSearch();
       }

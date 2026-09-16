@@ -50,7 +50,8 @@
 
   .post-top-separator {
     display: block;
-    margin: 0 0 1.75rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.75rem !important;
   }
 }
 
@@ -150,19 +151,16 @@ html.dark .post-back-link {
 .article-thumbnail-box {
   width: 100%;
   max-width: 800px;
-  aspect-ratio: 16 / 9;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-sm);
-  background: #09090b;
   margin: 0 auto 1.35rem;
 }
 
 .article-thumbnail-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 
@@ -249,14 +247,8 @@ html.dark .post-back-link {
 }
 
 .article-hero-divider {
-  height: 2.5px;
-  width: 100%;
-  background-image: radial-gradient(circle, var(--dotted-border) 1.25px, transparent 1.25px);
-  background-size: 10px 2.5px;
-  background-repeat: repeat-x;
-  background-position: center;
-  margin: 0 auto 2.5rem;
-  border: none;
+  margin-top: 0 !important;
+  margin-bottom: 2.5rem !important;
 }
 
 /* ==========================================================================
@@ -283,25 +275,6 @@ html.dark .post-back-link {
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-}
-
-/* Thumbnail Box */
-.article-thumbnail-box {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-sm);
-  background: #09090b;
-  margin-bottom: 2.25rem;
-}
-
-.article-thumbnail-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 /* Article Prose */

@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, ExternalLink, Users, Zap } from "lucide-react";
+import { ChevronRight, ExternalLink, Users } from "lucide-react";
 import { IconBrandGithub as Github } from "@tabler/icons-react";
 import projects from "@/data/projectsData";
 import { SITE_URL } from "@/lib/config";
@@ -10,6 +10,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { ImageCarousel } from "@/components/ui/image-carousel";
 import { FolderStructure } from "@/components/ui/folder-structure";
 import { FeaturesAccordion } from "@/components/ui/features-accordion";
+import { skillCategories } from "@/data/skillCategories";
 import Image from "next/image";
 
 type Props = {
@@ -23,10 +24,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const project = projects.find((p) => p.id === id);
-  if (!project) return {
-    title: "Project Not Found - Gyanranjan Priyam",
-    description: "The project you're looking for doesn't exist.",
-  };
+  if (!project)
+    return {
+      title: "Project Not Found - Gyanranjan Priyam",
+      description: "The project you're looking for doesn't exist.",
+    };
 
   const ogImageUrl = `${SITE_URL}/projects/${project.id}/opengraph-image`;
 
@@ -96,28 +98,28 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound();
 
   const projectSchema = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",      
-  name: project.title,
-  description: project.desc[0],
-  url: project.liveLink || `${SITE_URL}${project.link}`,
-  image: project.img,
-  dateCreated: project.date,
-  applicationCategory: "WebApplication",
-  operatingSystem: "Web Browser",
-  creator: {
-    "@type": "Person",
-    name: "Gyanranjan Priyam",
-    url: SITE_URL,
-    sameAs: [
-      "https://github.com/gyanranjan-priyam",   
-      "https://linkedin.com/in/gyanranjan-priyam",
-    ],
-  },
-  keywords: project.tech.join(", "),
-  ...(project.github && { codeRepository: project.github }),
-  ...(project.liveLink && { installUrl: project.liveLink }),
-};
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.desc[0],
+    url: project.liveLink || `${SITE_URL}${project.link}`,
+    image: project.img,
+    dateCreated: project.date,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web Browser",
+    creator: {
+      "@type": "Person",
+      name: "Gyanranjan Priyam",
+      url: SITE_URL,
+      sameAs: [
+        "https://github.com/gyanranjan-priyam",
+        "https://linkedin.com/in/gyanranjan-priyam",
+      ],
+    },
+    keywords: project.tech.join(", "),
+    ...(project.github && { codeRepository: project.github }),
+    ...(project.liveLink && { installUrl: project.liveLink }),
+  };
 
   const mediaItems = project.images;
   const hasRichContent =
@@ -132,310 +134,334 @@ export default async function ProjectPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
       {/* Breadcrumb */}
-        <BlurFade delay={0.04}>
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-8 flex items-center gap-1 text-sm text-muted-foreground"
+      <BlurFade delay={0.04}>
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-8 flex items-center gap-1 text-sm text-muted-foreground"
+        >
+          <Link href="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          <ChevronRight className="size-3.5" />
+          <Link
+            href="/projects"
+            className="transition-colors hover:text-foreground"
           >
-            <Link href="/" className="transition-colors hover:text-foreground">
-              Home
-            </Link>
-            <ChevronRight className="size-3.5" />
-            <Link
-              href="/projects"
-              className="transition-colors hover:text-foreground"
-            >
-              Projects
-            </Link>
-            <ChevronRight className="size-3.5" />
-            <span className="truncate text-foreground font-medium">
-              {project.title}
-            </span>
-          </nav>
-        </BlurFade>
+            Projects
+          </Link>
+          <ChevronRight className="size-3.5" />
+          <span className="truncate text-foreground font-medium">
+            {project.title}
+          </span>
+        </nav>
+      </BlurFade>
 
-        {/* Header */}
-        <BlurFade delay={0.12}>
-          <div className="mb-6">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h1
-                  className="text-3xl font-bold tracking-tight sm:text-4xl"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  {project.title}
-                </h1>
-                <p
-                  className="mt-1 text-sm text-muted-foreground"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  {project.company} &middot; {project.date}
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                {project.liveLink && (
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <ExternalLink className="size-3.5" />
-                    Live Demo
-                  </a>
-                )}
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <Github className="size-4" />
-                    Source
-                  </a>
-                )}
-              </div>
+      {/* Header */}
+      <BlurFade delay={0.12}>
+        <div className="mb-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight font-sans text-foreground sm:text-4xl">
+                {project.title}
+              </h1>
+              <p className="mt-1 text-xs sm:text-sm font-mono text-muted-foreground">
+                {project.company} &middot; {project.date}
+              </p>
             </div>
-
-            {/* Tech badges */}
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {project.tech.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+            <div className="flex items-center gap-3">
+              {project.liveLink && (
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs sm:text-sm font-mono font-medium transition-colors hover:bg-muted"
                 >
-                  {t}
-                </span>
-              ))}
+                  <ExternalLink className="size-3.5" />
+                  Live Demo
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs sm:text-sm font-mono font-medium transition-colors hover:bg-muted"
+                >
+                  <Github className="size-4" />
+                  Source
+                </a>
+              )}
             </div>
           </div>
-        </BlurFade>
 
-        {/*Image Section*/}
-        {project.img && (
-          <BlurFade delay={0.15}>
-            <div className="relative w-full aspect-video mb-5 overflow-hidden rounded-lg">
-              <Image
-                src={project.img}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 672px"
-                priority
-              />
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Role */}
-        {"role" in project && project.role && (
-          <BlurFade delay={0.14}>
-            <div className="mb-8 flex items-start gap-3 rounded-lg border bg-muted/30 p-4">
-              <Users className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-              <p
-                className="text-sm tracking-tight leading-relaxed text-muted-foreground"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          {/* Tech badges */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border px-2.5 py-0.5 text-xs font-mono font-medium text-muted-foreground"
               >
-                <span className="font-semibold text-foreground">My Role: </span>
-                {project.role}
-              </p>
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Description */}
-        <BlurFade delay={0.16}>
-          <div className="mb-10 space-y-4">
-            <h2
-              className="text-2xl font-semibold"
-              style={{ fontFamily: "var(--font-ibm)" }}
-            >
-              Overview
-            </h2>
-            {project.desc.map((paragraph, i) => (
-              <p
-                key={i}
-                className="text-sm font-medium leading-relaxed text-muted-foreground"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
-                {paragraph}
-              </p>
+                {t}
+              </span>
             ))}
           </div>
-        </BlurFade>
-
-        {/* Key Highlights */}
-        {"highlights" in project && (project as any).highlights?.length > 0 && (
-          <BlurFade delay={0.18} inView>
-            <div className="mb-10">
-              <h2
-                className="mb-4 text-2xl font-semibold"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Key Highlights
-              </h2>
-              <div className="grid gap-2.5 sm:grid-cols-2">
-                {(project as any).highlights.map((item: string, i: number) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2.5 rounded-lg border p-3 tracking-tight font-medium"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <Zap className="mt-0.5 size-3.5 shrink-0 text-amber-500" />
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Features by category */}
-        {"features" in project && (project as any).features?.length > 0 && (
-          <BlurFade delay={0.2} inView>
-            <div className="mb-10">
-              <h2
-                className="mb-4 text-2xl font-semibold"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Features
-              </h2>
-              <FeaturesAccordion features={(project as any).features} />
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Tech stack table */}
-        {"techDetailed" in project &&
-          (project as any).techDetailed?.length > 0 && (
-            <BlurFade delay={0.22} inView>
-              <div className="mb-10">
-                <h2
-                  className="mb-4 text-2xl font-semibold"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  Tech Stack
-                </h2>
-                <div className="overflow-hidden rounded-lg border">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr
-                        className="border-b bg-muted/40"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                      >
-                        <th className="px-4 py-2.5 text-left font-semibold">
-                          Layer
-                        </th>
-                        <th className="px-4 py-2.5 text-left font-semibold">
-                          Technology
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody
-                      className="divide-y"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      {(project as any).techDetailed.map(
-                        (row: { layer: string; value: string }, i: number) => (
-                          <tr
-                            key={i}
-                            className="transition-colors hover:bg-muted/20"
-                          >
-                            <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">
-                              {row.layer}
-                            </td>
-                            <td className="px-4 py-2.5 text-muted-foreground">
-                              {row.value}
-                            </td>
-                          </tr>
-                        ),
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </BlurFade>
-          )}
-
-        {/* Folder Structure */}
-        {"folderStructure" in project &&
-          (project as any).folderStructure?.length > 0 && (
-            <BlurFade delay={hasRichContent ? 0.23 : 0.19} inView>
-              <div className="mb-10">
-                <h2
-                  className="mb-4 text-2xl font-semibold"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
-                  Project Structure
-                </h2>
-                <FolderStructure structure={(project as any).folderStructure} />
-              </div>
-            </BlurFade>
-          )}
-
-        {/* Gallery */}
-        {mediaItems.length > 0 && (
-          <BlurFade delay={hasRichContent ? 0.24 : 0.2} inView>
-            <div className="mb-10">
-              <h2
-                className="mb-4 text-2xl font-semibold"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Screenshots
-              </h2>
-              <ImageCarousel images={mediaItems} title={project.title} />
-            </div>
-          </BlurFade>
-        )}
-
-        {/* Next project */}
-        <BlurFade delay={hasRichContent ? 0.28 : 0.24} inView>
-          <div className="border-t pt-8">
-            {(() => {
-              const idx = projects.findIndex((p) => p.id === project.id);
-              const next = projects[(idx + 1) % projects.length];
-              return (
-                <Link
-                  href={`/projects/${next.id}`}
-                  className="group flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
-                >
-                  <div>
-                    <p
-                      className="text-xs text-muted-foreground"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      Next Project
-                    </p>
-                    <p
-                      className="text-md font-semibold group-hover:underline"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      {next.title}
-                    </p>
-                  </div>
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </Link>
-              );
-            })()}
+        </div>
+      </BlurFade>
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/*Image Section*/}
+      {project.img && (
+        <BlurFade delay={0.15}>
+          <div className="-mx-4 mt-6 mb-4 sm:-mx-6 overflow-hidden p-4">
+            <Image
+              src={project.img}
+              alt={project.title}
+              width={1200}
+              height={700}
+              className="w-full h-auto block rounded-none"
+              priority
+            />
           </div>
         </BlurFade>
-      </div>
+      )}
+
+      {/* Role */}
+      {"role" in project && project.role && (
+        <BlurFade delay={0.14}>
+          <div className="mb-8 flex items-start gap-3 rounded-lg border bg-muted/30 p-4">
+            <Users className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+            <p className="text-xs sm:text-sm font-mono tracking-tight leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground">My Role: </span>
+              {project.role}
+            </p>
+          </div>
+        </BlurFade>
+      )}
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Description */}
+      <BlurFade delay={0.16}>
+        <div className="mb-10 mt-8 space-y-4">
+          <div className="mb-4 flex items-baseline gap-2">
+            <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+              Overview
+            </h2>
+          </div>
+          {project.desc.map((paragraph, i) => (
+            <p
+              key={i}
+              className="text-xs sm:text-sm font-mono leading-relaxed text-muted-foreground"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </BlurFade>
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Key Highlights */}
+      {"highlights" in project && (project as any).highlights?.length > 0 && (
+        <BlurFade delay={0.18} inView>
+          <div className="mb-10 mt-8">
+            <div className="mb-4 flex items-baseline gap-2">
+              <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                Key Highlights
+              </h2>
+              <span className="text-xs font-mono text-muted-foreground/70">
+                ({(project as any).highlights.length})
+              </span>
+            </div>
+
+            <div className="-mx-4 sm:-mx-6 border-t border-b border-border">
+              <div className="grid grid-cols-1 sm:grid-cols-2">
+                {(project as any).highlights.map((item: string, i: number) => {
+                  const num = String(i + 1).padStart(2, "0");
+                  const total = (project as any).highlights.length;
+                  const isEven = i % 2 === 0;
+                  const isLastRowDesktop = i >= total - (total % 2 === 0 ? 2 : 1);
+                  const isLastItem = i === total - 1;
+
+                  const borderBottomClass = isLastItem
+                    ? ""
+                    : isLastRowDesktop
+                      ? "border-b sm:border-b-0"
+                      : "border-b";
+
+                  const borderRightClass = isEven ? "sm:border-r" : "";
+
+                  return (
+                    <div
+                      key={i}
+                      className={`group flex items-start gap-3.5 px-4 sm:px-6 py-3.5 sm:py-4 transition-colors hover:bg-muted/30 border-border ${borderBottomClass} ${borderRightClass}`}
+                    >
+                      {/* Minimalist Keycap Badge */}
+                      <div className="size-7 shrink-0 mt-0.5 rounded-md border border-border/80 bg-muted/40 dark:bg-neutral-900 flex items-center justify-center text-[11px] font-mono font-medium text-muted-foreground group-hover:text-foreground group-hover:border-foreground/40 transition-colors select-none shadow-2xs">
+                        {num}
+                      </div>
+
+                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                        {item}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </BlurFade>
+      )}
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Features by category */}
+      {"features" in project && (project as any).features?.length > 0 && (
+        <BlurFade delay={0.2} inView>
+          <div className="mb-10 mt-8">
+            <div className="mb-4 flex items-baseline gap-2">
+              <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                Features
+              </h2>
+              <span className="text-xs font-mono text-muted-foreground/70">
+                ({(project as any).features.reduce((acc: number, f: any) => acc + f.items.length, 0)})
+              </span>
+            </div>
+            <FeaturesAccordion features={(project as any).features} />
+          </div>
+        </BlurFade>
+      )}
+<div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Tech stack table */}
+      {"techDetailed" in project &&
+        (project as any).techDetailed?.length > 0 && (
+          <BlurFade delay={0.22} inView>
+            <div className="mb-10 mt-8">
+              <div className="mb-4 flex items-baseline gap-2">
+                <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                  Tech Stack
+                </h2>
+                <span className="text-xs font-mono text-muted-foreground/70">
+                  ({(project as any).techDetailed.length})
+                </span>
+              </div>
+
+              <div className="-mx-4 sm:-mx-6 border-t border-border/70">
+                {(project as any).techDetailed.map(
+                  (row: { layer: string; value: string }, i: number) => {
+                    const num = String(i + 1).padStart(2, "0");
+                    const items = row.value
+                      .split(/\s*\+\s*|\s*,\s*/)
+                      .map((s: string) => s.trim())
+                      .filter(Boolean);
+
+                    return (
+                      <div
+                        key={i}
+                        className="grid grid-cols-1 md:grid-cols-[180px_1fr] border-b border-border/70"
+                      >
+                        {/* Left Column: Number & Layer Title */}
+                        <div className="px-4 sm:px-6 py-3.5 sm:py-4 md:border-r md:border-dashed md:border-border/70 flex items-center gap-3 font-mono text-xs sm:text-sm select-none">
+                          <span className="text-muted-foreground/60">{num}</span>
+                          <span className="font-medium text-foreground">{row.layer}</span>
+                        </div>
+
+                        {/* Right Column: Pill Badges */}
+                        <div className="px-4 sm:px-6 py-3 sm:py-3.5 flex flex-wrap items-center gap-2">
+                          {items.map((techName: string, j: number) => {
+                            const matchedSkill = skillCategories
+                              .flatMap((c) => c.skills)
+                              .find(
+                                (s) =>
+                                  s.name.toLowerCase() === techName.toLowerCase() ||
+                                  techName.toLowerCase().includes(s.name.toLowerCase()) ||
+                                  s.name.toLowerCase().includes(techName.toLowerCase())
+                              );
+
+                            return (
+                              <div
+                                key={j}
+                                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 text-xs sm:text-[13px] font-mono text-foreground transition-all duration-150 select-none"
+                              >
+                                {matchedSkill?.icon}
+                                <span>{techName}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+          </BlurFade>
+        )}
+        <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Folder Structure */}
+      {"folderStructure" in project &&
+        (project as any).folderStructure?.length > 0 && (
+          <BlurFade delay={hasRichContent ? 0.23 : 0.19} inView>
+            <div className="mb-10 mt-8">
+              <div className="mb-4 flex items-baseline gap-2">
+                <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                  Project Structure
+                </h2>
+                <span className="text-xs font-mono text-muted-foreground/70">
+                  (Directory Tree)
+                </span>
+              </div>
+              <FolderStructure structure={(project as any).folderStructure} />
+            </div>
+          </BlurFade>
+        )}
+        <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Gallery */}
+      {mediaItems.length > 0 && (
+        <BlurFade delay={hasRichContent ? 0.24 : 0.2} inView>
+          <div className="mb-10 mt-8">
+            <div className="mb-4 flex items-baseline gap-2">
+              <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
+                Screenshots
+              </h2>
+              <span className="text-xs font-mono text-muted-foreground/70">
+                ({mediaItems.length})
+              </span>
+            </div>
+            <ImageCarousel images={mediaItems} title={project.title} />
+          </div>
+        </BlurFade>
+      )}
+  <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      {/* Next project */}
+      <BlurFade delay={hasRichContent ? 0.28 : 0.24} inView>
+        <div className="mt-8">
+          {(() => {
+            const idx = projects.findIndex((p) => p.id === project.id);
+            const next = projects[(idx + 1) % projects.length];
+            return (
+              <Link
+                href={`/projects/${next.id}`}
+                className="group flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
+              >
+                <div>
+                  <p className="text-xs font-mono text-muted-foreground">
+                    Next Project
+                  </p>
+                  <p className="text-base font-sans font-semibold text-foreground group-hover:underline">
+                    {next.title}
+                  </p>
+                </div>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </Link>
+            );
+          })()}
+        </div>
+      </BlurFade>
+    </div>
   );
 }

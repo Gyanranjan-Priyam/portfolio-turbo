@@ -1,7 +1,20 @@
----
 import FormattedDate from './FormattedDate.astro';
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import placeholder2 from '../assets/blog-placeholder-2.jpg';
+import placeholder3 from '../assets/blog-placeholder-3.jpg';
+import placeholder4 from '../assets/blog-placeholder-4.jpg';
+import placeholder5 from '../assets/blog-placeholder-5.jpg';
+
+const placeholders = [placeholder2, placeholder3, placeholder4, placeholder5];
+
+const getPlaceholderImage = (id: string) => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return placeholders[Math.abs(hash) % placeholders.length].src;
+};
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -14,11 +27,31 @@ const { title, description, pubDate, heroImage, tags = [], readingTime = '5 min 
 
 <article class:list={['blog-card', 'glass-card', { 'blog-card-featured': featured }]}>
   <a href={`/${post.id}`} class="card-link">
-    {heroImage && (
-      <div class="image-wrapper">
-        <Image width={featured ? 920 : 640} height={featured ? 460 : 340} src={heroImage} alt={title} class="card-image" />
-      </div>
-    )}
+    <div class="image-wrapper">
+      {heroImage ? (
+        <img
+          src={typeof heroImage === 'string' ? heroImage : heroImage.src}
+          alt={title}
+          class="card-image"
+          loading="lazy"
+        />
+      ) : (
+        <div class="post-cover-fallback">
+          <img src={getPlaceholderImage(post.id)} alt="" class="fallback-backdrop" aria-hidden="true" />
+          <div class="fallback-overlay"></div>
+          <div class="fallback-content">
+            <div class="fallback-badge">
+              <span class="fallback-badge-icon">✦</span>
+              <span>{category || 'BLOG'}</span>
+            </div>
+            <h4 class="fallback-title">{title}</h4>
+            {description && (
+              <p class="fallback-subtitle">{description}</p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
 
     <div class="card-content">
       <div class="card-meta">
@@ -72,19 +105,17 @@ const { title, description, pubDate, heroImage, tags = [], readingTime = '5 min 
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
   }
 
   .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .blog-card:hover .card-image {
-    transform: scale(1.05);
+    object-position: center;
+    display: block;
   }
 
 
@@ -116,6 +147,11 @@ const { title, description, pubDate, heroImage, tags = [], readingTime = '5 min 
     line-height: 1.35;
     color: var(--text-primary);
     transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.7em;
   }
 
   .blog-card:hover .card-title {
@@ -131,6 +167,7 @@ const { title, description, pubDate, heroImage, tags = [], readingTime = '5 min 
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: 3.1em;
   }
 
   .card-footer {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
+import { Separator } from "../ui/separator";
 
 const navLinks = [
   { label: "About", href: "/#about" },
@@ -101,10 +102,10 @@ export function Footer() {
         <div className="flex justify-center">
           <Link
             href="/"
-            className="text-lg flex flex-col items-center justify-center gap-2 font-bold tracking-widest"
+            className="flex flex-col items-center justify-center gap-1.5 transition-opacity hover:opacity-85"
           >
-            <Image src="/logo.png" alt="Logo" width={40} height={40} />
-            <span style={{ fontFamily: "var(--font-mokoto)" }}>
+            <Image src="/logo.png" alt="Logo" width={36} height={36} />
+            <span className="font-caveat text-3xl font-bold text-foreground">
               Gyanranjan Priyam
             </span>
           </Link>
@@ -118,8 +119,7 @@ export function Footer() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+              className="text-xs font-mono text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
@@ -127,14 +127,14 @@ export function Footer() {
         </nav>
       </BlurFade>
 
-      {/* Divider */}
-      <div className="separator-dotted-h mt-8" />
+      {/* Angled Striped Pattern Divider */}
+      <Separator />
 
       {/* Bottom row */}
       <BlurFade delay={0.12} inView>
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-y-3">
-          <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Gyanranjan Priyam
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-y-3 font-mono text-xs text-muted-foreground">
+          <p className="text-center">
+            &copy; {new Date().getFullYear()} <span className="text-xs font-geist text-foreground">Gyanranjan Priyam</span>
           </p>
 
           <Link href="/privacy" className="text-xs text-muted-foreground transition-colors hover:text-foreground">

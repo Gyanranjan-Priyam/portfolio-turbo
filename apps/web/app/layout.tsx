@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import {
-  DM_Sans,
-  IBM_Plex_Mono,
-  JetBrains_Mono,
-  Josefin_Sans,
-  Comic_Neue,
+  Geist,
+  Geist_Mono,
+  IBM_Plex_Serif,
+  Caveat,
 } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeSync } from "@/components/theme-sync";
@@ -13,7 +12,6 @@ import "./globals.css";
 import "@/components/loader-component/styles/globals.scss";
 import { Footer } from "@/components/sections/footer";
 import { Separator } from "@/components/ui/separator";
-import localFont from "next/font/local";
 import ClickSpark from "@/components/ClickSpark";
 import { PwaRegister } from "@/components/pwa-register";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
@@ -26,42 +24,26 @@ import { Analytics } from "@vercel/analytics/next";
 const OG_IMAGE =
   "https://res.cloudinary.com/dw47ib0sh/image/upload/v1766402986/ls67mu0pkqalizjmvuyf.png";
 
-const dmSans = DM_Sans({
-  variable: "--font-sans",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const comicNeue = Comic_Neue({
-  variable: "--font-comic",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "700"],
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  variable: "--font-ibm-plex-serif",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
 
-const josefinSans = Josefin_Sans({
-  variable: "--font-js",
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
-});
-
-const ibmMono = IBM_Plex_Mono({
-  variable: "--font-ibm",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
-
-const mokoto = localFont({
-  src: "../public/fonts/mokoto.regular.ttf",
-  variable: "--font-mokoto",
-});
-
-const gta = localFont({
-  src: "../public/fonts/pricedown.otf",
-  variable: "--font-gta",
 });
 
 export const metadata: Metadata = {
@@ -172,7 +154,7 @@ export default function RootLayout({
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
       </head>
       <body
-        className={`${dmSans.variable} ${josefinSans.variable} ${ibmMono.variable} ${jetbrainsMono.variable} ${comicNeue.variable} ${mokoto.variable} ${gta.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} ${caveat.variable} font-sans antialiased`}
       >
         <ThemeSync />
         <PwaRegister />

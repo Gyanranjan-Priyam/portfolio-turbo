@@ -6,8 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Home, LayoutGrid, List, Calendar, ArrowRight, Search, X } from "lucide-react";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "motion/react";
+import { useLoaderStore } from "@/components/loader-component";
 import {
   Pagination,
   PaginationContent,
@@ -134,15 +134,16 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (
-        e.key === "/" &&
-        !isSearchOpen &&
-        !(
-          e.target instanceof HTMLInputElement ||
-          e.target instanceof HTMLTextAreaElement
-        )
+        (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) ||
+        (e.key === "/" &&
+          !isSearchOpen &&
+          !(
+            e.target instanceof HTMLInputElement ||
+            e.target instanceof HTMLTextAreaElement
+          ))
       ) {
         e.preventDefault();
-        setIsSearchOpen(true);
+        setIsSearchOpen((prev) => !prev);
       }
       if (e.key === "Escape" && isSearchOpen) {
         setIsSearchOpen(false);
@@ -162,13 +163,20 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
   }, [isSearchOpen]);
 
   useEffect(() => {
+    const lenis = useLoaderStore.getState().lenis;
     if (isSearchOpen) {
+      lenis?.stop();
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
+      lenis?.start();
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
+      lenis?.start();
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [isSearchOpen]);
 
@@ -198,153 +206,159 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
   return (
     <div className="py-8 sm:py-12">
       <BlurFade delay={0.04}>
-          <div className="flex items-start justify-between mb-10">
-            <div>
-              <h1
-                className="mb-2 text-2xl sm:text-3xl font-bold tracking-tight"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Website Templates
-              </h1>
-              <p
-                className="text-muted-foreground font-medium tracking-tight"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
-                Pre-built website templates ready to customize and deploy for your projects.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 shrink-0 ml-4 mt-1">
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                aria-label="Search templates"
-                className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
-              >
-                <Search className="size-4" />
-              </button>
-              <button
-                onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-                aria-label={viewMode === "grid" ? "Switch to list view" : "Switch to grid view"}
-                className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
-              >
-                {viewMode === "grid" ? (
-                  <List className="size-4" />
-                ) : (
-                  <LayoutGrid className="size-4" />
-                )}
-              </button>
-              <Link
-                href="/"
-                aria-label="Home"
-                className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <Home className="size-4" />
-              </Link>
-            </div>
+        <div className="flex items-start justify-between mb-10">
+          <div>
+            <h1 className="mb-2 text-2xl sm:text-3xl font-bold tracking-tight font-sans text-foreground">
+              Website Templates
+            </h1>
+            <p className="text-xs sm:text-sm font-mono text-muted-foreground leading-relaxed">
+              Pre-built website templates ready to customize and deploy for your projects.
+            </p>
           </div>
-        </BlurFade>
+          <div className="flex items-center gap-2 shrink-0 ml-4 mt-1">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Search templates"
+              title="Search templates (Ctrl+K)"
+              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+            >
+              <Search className="size-4" />
+            </button>
+            <button
+              onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+              aria-label={viewMode === "grid" ? "Switch to list view" : "Switch to grid view"}
+              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+            >
+              {viewMode === "grid" ? (
+                <List className="size-4" />
+              ) : (
+                <LayoutGrid className="size-4" />
+              )}
+            </button>
+            <Link
+              href="/"
+              aria-label="Home"
+              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <Home className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </BlurFade>
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border mb-8" />
 
-        {viewMode === "grid" ? (
-          <div className="grid gap-4 sm:grid-cols-2">
-            {paginatedTemplates.map((template, i) => (
-              <BlurFade key={template.id} delay={0.12 + i * 0.05} inView>
-                <Link
-                  href={`/templates/${template.id}`}
-                  className="group block overflow-hidden rounded-lg border bg-card transition-colors hover:bg-muted/50"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden bg-muted">
-                    <Image
-                      src={template.img}
-                      alt={template.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center justify-between gap-2">
-                      <h2
-                        className="text-md font-semibold group-hover:underline"
-                        style={{ fontFamily: "var(--font-ibm)" }}
-                      >
-                        {template.title}
-                      </h2>
-                      <span
-                        className="shrink-0 text-xs text-muted-foreground"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                      >
-                        {template.date}
-                      </span>
-                    </div>
-                    <p
-                      className="mt-1.5 text-sm leading-relaxed text-muted-foreground line-clamp-2 tracking-tight"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      {template.desc[0]}
-                    </p>
-                  </div>
-                </Link>
-              </BlurFade>
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {paginatedTemplates.map((template, i) => (
-              <BlurFade key={template.id} delay={0.12 + i * 0.05} inView>
-                <Link
-                  href={`/templates/${template.id}`}
-                  className="group block overflow-hidden rounded-lg border bg-card p-4 sm:p-5 transition-colors hover:bg-muted/50"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
+      {viewMode === "grid" ? (
+        <div className="grid gap-4 sm:grid-cols-2 items-stretch">
+          {paginatedTemplates.map((template, i) => (
+            <BlurFade key={template.id} delay={0.12 + i * 0.05} inView className="h-full">
+              <Link
+                href={`/templates/${template.id}`}
+                className="group flex flex-col justify-between h-full overflow-hidden rounded-sm border border-border/70 bg-card/40 dark:bg-neutral-900/30 transition-all hover:bg-muted/20 hover:border-foreground/30"
+              >
+                <div className="relative aspect-video w-full overflow-hidden bg-muted shrink-0">
+                  <Image
+                    src={template.img}
+                    alt={template.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 min-h-[48px] sm:min-h-[52px]">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h2
-                          className="text-base sm:text-lg font-semibold group-hover:underline"
-                          style={{ fontFamily: "var(--font-ibm)" }}
-                        >
+                        <h2 className="text-sm sm:text-base font-bold font-sans tracking-tight text-foreground uppercase group-hover:text-foreground">
                           {template.title}
                         </h2>
                         {template.company && (
-                          <Badge variant="secondary" className="text-xs">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-muted/60 dark:bg-neutral-800/80 text-muted-foreground border border-border/50">
                             {template.company}
-                          </Badge>
+                          </span>
                         )}
                       </div>
-                      <p
-                        className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2 tracking-tight"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                      >
-                        {template.desc[0]}
-                      </p>
-                      <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                        <Calendar className="size-3.5" />
-                        <span style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
-                          {template.date}
-                        </span>
-                      </div>
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {template.tech.slice(0, 6).map((tech) => (
-                          <Badge
-                            key={tech}
-                            variant="outline"
-                            className="text-xs font-normal"
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                        {template.tech.length > 6 && (
-                          <Badge variant="outline" className="text-xs font-normal">
-                            +{template.tech.length - 6} more
-                          </Badge>
-                        )}
-                      </div>
+                      <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground mt-0.5" />
                     </div>
-                    <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 mt-1" />
+                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-muted-foreground line-clamp-2 font-mono min-h-[2.5rem] sm:min-h-[2.75rem]">
+                      {template.desc[0]}
+                    </p>
                   </div>
-                </Link>
-              </BlurFade>
-            ))}
-          </div>
-        )}
+                  <div className="mt-auto pt-3">
+                    <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+                      <Calendar className="size-3.5 text-muted-foreground/80" />
+                      <span>{template.date}</span>
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center gap-1.5 min-h-[52px] content-start">
+                      {template.tech.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2.5 py-0.5 text-[11px] font-mono font-medium text-muted-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {template.tech.length > 4 && (
+                        <span className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2 py-0.5 text-[11px] font-mono font-medium text-muted-foreground">
+                          +{template.tech.length - 4} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </BlurFade>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {paginatedTemplates.map((template, i) => (
+            <BlurFade key={template.id} delay={0.12 + i * 0.05} inView>
+              <Link
+                href={`/templates/${template.id}`}
+                className="group block overflow-hidden rounded-xl border border-border/70 bg-card/40 dark:bg-neutral-900/30 p-5 sm:p-6 transition-all hover:bg-muted/20 hover:border-foreground/30"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <h2 className="text-base sm:text-lg font-bold font-sans tracking-tight text-foreground uppercase">
+                        {template.title}
+                      </h2>
+                      {template.company && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-muted/60 dark:bg-neutral-800/80 text-muted-foreground border border-border/50">
+                          {template.company}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2.5 text-xs sm:text-[13px] leading-relaxed text-muted-foreground line-clamp-2 font-mono">
+                      {template.desc[0]}
+                    </p>
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+                      <Calendar className="size-3.5 text-muted-foreground/80" />
+                      <span>{template.date}</span>
+                    </div>
+                    <div className="mt-3.5 flex flex-wrap items-center gap-2">
+                      {template.tech.slice(0, 6).map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-3 py-1 text-xs font-mono font-medium text-foreground/80 group-hover:text-foreground transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {template.tech.length > 6 && (
+                        <span className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2.5 py-1 text-xs font-mono font-medium text-muted-foreground">
+                          +{template.tech.length - 6} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <ArrowRight className="size-4.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground mt-1" />
+                </div>
+              </Link>
+            </BlurFade>
+          ))}
+        </div>
+      )}
 
         {totalPages > 1 && (
           <BlurFade delay={0.3} inView>
@@ -415,14 +429,16 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+                data-lenis-prevent
+                className="fixed inset-0 z-50 bg-background/80 backdrop-blur-md touch-none overscroll-none"
                 onClick={() => setIsSearchOpen(false)}
               />
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="fixed left-1/2 top-20 z-50 w-[min(95vw,36rem)] -translate-x-1/2 rounded-xl border bg-background p-4 shadow-2xl"
+                data-lenis-prevent
+                className="fixed left-1/2 top-20 z-50 w-[min(95vw,36rem)] -translate-x-1/2 rounded-xl border bg-card p-4 shadow-2xl overscroll-contain"
               >
                 <div className="relative mb-4">
                   <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -432,8 +448,7 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search templates..."
-                    className="w-full rounded-lg border bg-background py-2 pl-10 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                    className="w-full rounded-lg border bg-background py-2 pl-10 pr-10 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {hasActivity && (
                     <button
@@ -446,7 +461,7 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                 </div>
 
                 <div className="mb-3">
-                  <p className="mb-2 text-xs font-medium text-muted-foreground">
+                  <p className="mb-2 text-xs font-mono font-medium text-muted-foreground">
                     Filter by category
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -454,12 +469,11 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                       <button
                         key={category}
                         onClick={() => setActiveCategory(activeCategory === category ? null : category)}
-                        className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                        className={`rounded-full border px-3 py-1 text-xs font-mono transition-colors ${
                           activeCategory === category
                             ? "border-foreground bg-foreground text-background"
                             : "hover:bg-muted"
                         }`}
-                        style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                       >
                         {category}
                       </button>
@@ -477,23 +491,17 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                           onClick={() => setIsSearchOpen(false)}
                           className="block rounded-lg border p-3 transition-colors hover:bg-muted"
                         >
-                          <h3
-                            className="text-sm font-semibold"
-                            style={{ fontFamily: "var(--font-ibm)" }}
-                          >
+                          <h3 className="text-sm font-bold font-sans tracking-tight text-foreground uppercase">
                             <HighlightText text={template.title} query={debouncedQuery} />
                           </h3>
-                          <p
-                            className="mt-1 line-clamp-1 text-xs text-muted-foreground"
-                            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                          >
+                          <p className="mt-1 line-clamp-1 text-xs font-mono text-muted-foreground">
                             <HighlightText text={template.desc[0]} query={debouncedQuery} />
                           </p>
                         </Link>
                       ))}
                     </div>
                   ) : (
-                    <p className="py-8 text-center text-sm text-muted-foreground">
+                    <p className="py-8 text-center text-sm font-mono text-muted-foreground">
                       No templates found
                     </p>
                   )}

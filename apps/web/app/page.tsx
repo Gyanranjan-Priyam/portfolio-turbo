@@ -49,20 +49,22 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
       <HeroSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <AboutSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <EducationSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ExperienceSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <SkillsSection />
+            <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
       <GitHubCalendarSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ProjectsSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <TemplatesSection />
-      <Separator />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ContactSection />
     </>
   );
