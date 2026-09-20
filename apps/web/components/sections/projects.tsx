@@ -11,6 +11,7 @@ import projects from "@/data/projectsData";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
+import { TechBadge } from "@/components/tech-icons";
 
 import { useLoaderStore } from "@/components/loader-component";
 
@@ -86,12 +87,14 @@ function ExpandedCard({
                   {active.company} · {active.date}
                 </motion.p>
               </div>
-              <Link
-                href={active.link}
-                className="px-3.5 py-1.5 text-xs font-mono font-medium rounded-full bg-foreground text-background hover:bg-foreground/90 transition-colors flex-shrink-0 inline-flex items-center gap-1"
-              >
-                Details <ArrowRight className="size-3" />
-              </Link>
+              <motion.div layoutId={`button-${active.title}-${id}`} className="shrink-0">
+                <Link
+                  href={active.link}
+                  className="px-3.5 py-1.5 text-xs font-mono font-medium rounded-full bg-foreground text-background hover:bg-foreground/90 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                >
+                  Details <ArrowRight className="size-3" />
+                </Link>
+              </motion.div>
             </div>
 
             <motion.div
@@ -108,12 +111,7 @@ function ExpandedCard({
               {active.tech && active.tech.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {active.tech.map((t: string) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-border/70 bg-muted/20 px-2.5 py-0.5 text-[11px] font-mono font-medium text-muted-foreground"
-                    >
-                      {t}
-                    </span>
+                    <TechBadge key={t} name={t} size="sm" />
                   ))}
                 </div>
               )}
@@ -211,7 +209,7 @@ export function ProjectsSection() {
           >
             {/* Mobile layout – direct link */}
             <Link href={project.link} className="block md:hidden">
-              <div className="group flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/40 dark:bg-neutral-900/30 hover:bg-muted/20 hover:border-foreground/30 transition-all">
+              <div className="group flex items-center justify-between p-3.5 rounded-sm border border-border/70 bg-card/40 dark:bg-neutral-900/30 hover:bg-muted/20 hover:border-foreground/30 transition-all">
                 <div className="flex items-center gap-3.5 min-w-0">
                   <Image
                     src={project.img}
@@ -241,7 +239,7 @@ export function ProjectsSection() {
               onClick={() => setActive(project)}
               className="cursor-pointer hidden md:block"
             >
-              <div className="group flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-border/70 bg-card/40 dark:bg-neutral-900/30 hover:bg-muted/20 hover:border-foreground/30 transition-all">
+              <div className="group flex items-center justify-between p-3.5 sm:p-4 rounded-md border border-border/70 bg-card/40 dark:bg-neutral-900/30 hover:bg-muted/20 hover:border-foreground/30 transition-all">
                 <div className="flex items-center gap-4 min-w-0">
                   <motion.div layoutId={`image-${project.title}-${id}`} className="shrink-0">
                     <Image
@@ -267,12 +265,14 @@ export function ProjectsSection() {
                     </motion.p>
                   </div>
                 </div>
-                <motion.button
+                <motion.div
                   layoutId={`button-${project.title}-${id}`}
-                  className="px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-border/70 bg-muted/30 group-hover:bg-foreground group-hover:text-background text-foreground transition-all shrink-0 cursor-pointer ml-3"
+                  className="shrink-0 ml-3"
                 >
-                  Details
-                </motion.button>
+                  <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-border/70 bg-muted/30 group-hover:bg-foreground group-hover:text-background text-foreground transition-all inline-flex items-center cursor-pointer">
+                    Details
+                  </span>
+                </motion.div>
               </div>
             </motion.div>
           </BlurFade>

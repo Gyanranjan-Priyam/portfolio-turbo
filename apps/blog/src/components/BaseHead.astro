@@ -122,6 +122,51 @@ const structuredData = article
         url: AUTHOR_PORTFOLIO,
       },
     };
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: article
+    ? [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: SITE_URL,
+        },
+        ...(category
+          ? [
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: category,
+                item: `${SITE_URL}/tags/${encodeURIComponent(category)}/`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: title,
+                item: canonicalURL.toString(),
+              },
+            ]
+          : [
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: title,
+                item: canonicalURL.toString(),
+              },
+            ]),
+      ]
+    : [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: SITE_URL,
+        },
+      ],
+};
 ---
 
 <!-- Global Metadata -->
@@ -137,11 +182,24 @@ const structuredData = article
 <link rel="image_src" href="/logo.png" />
 <meta name="msapplication-TileImage" content="/logo.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href="/sitemap.xml" />
 <link
   rel="alternate"
   type="application/rss+xml"
   title={SITE_TITLE}
   href={new URL("rss.xml", Astro.site || SITE_URL)}
+/>
+<link
+  rel="alternate"
+  type="text/plain"
+  title="LLMs.txt"
+  href={new URL("llms.txt", Astro.site || SITE_URL)}
+/>
+<link
+  rel="alternate"
+  type="text/plain"
+  title="Full Markdown for LLMs"
+  href={new URL("llms-full.txt", Astro.site || SITE_URL)}
 />
 <meta name="generator" content={Astro.generator} />
 
@@ -210,7 +268,7 @@ const structuredData = article
 <meta name="twitter:image:alt" content={title} />
 
 <!-- JSON-LD Structured Data Schema -->
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify([structuredData, breadcrumbSchema])} />
 
 <!-- Theme Initialization & Service Worker Script -->
 <script is:inline>

@@ -188,7 +188,7 @@ export function ExperienceSection() {
               layoutId={`card-${exp.id}-${id}`}
               key={exp.id}
               onClick={() => setActive(exp)}
-              className="flex cursor-pointer items-center gap-4 rounded-xl p-3 transition-colors hover:bg-muted/50"
+              className="flex cursor-pointer items-center gap-4 rounded-sm p-3 transition-colors hover:bg-muted/50"
             >
               <motion.div layoutId={`avatar-${exp.id}-${id}`}>
                 <Avatar className="size-10 border">

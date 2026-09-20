@@ -5,12 +5,12 @@
 <button
   type="button"
   aria-label="Toggle theme"
-  class="theme-toggle-btn"
+  class="theme-toggle-btn inline-flex items-center justify-center w-9 h-9 rounded-full bg-transparent border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-glow)] hover:bg-[var(--bg-tag-hover)] transition-all duration-200 cursor-pointer relative overflow-hidden"
   title="Toggle dark/light theme"
 >
   <!-- Sun Icon (shown in dark mode) -->
   <svg
-    class="theme-icon sun-icon"
+    class="sun-icon hidden dark:block transition-transform duration-200"
     xmlns="http://www.w3.org/2000/svg"
     width="18"
     height="18"
@@ -34,7 +34,7 @@
 
   <!-- Moon Icon (shown in light mode) -->
   <svg
-    class="theme-icon moon-icon"
+    class="moon-icon block dark:hidden transition-transform duration-200"
     xmlns="http://www.w3.org/2000/svg"
     width="18"
     height="18"
@@ -48,57 +48,6 @@
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
   </svg>
 </button>
-
-<style>
-  .theme-toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .theme-toggle-btn:hover {
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-    background: var(--bg-hover);
-  }
-
-  .theme-icon {
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  /* Light mode defaults */
-  .sun-icon {
-    display: none;
-  }
-  .moon-icon {
-    display: block;
-  }
-
-  /* Dark mode */
-  :global(html.dark) .sun-icon {
-    display: block !important;
-  }
-  :global(html.dark) .moon-icon {
-    display: none !important;
-  }
-
-  :global(html:not(.dark)) .sun-icon {
-    display: none !important;
-  }
-  :global(html:not(.dark)) .moon-icon {
-    display: block !important;
-  }
-</style>
 
 <script is:inline>
   if (!window.__themeToggleInitialized) {

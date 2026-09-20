@@ -1,5 +1,6 @@
 import { skillCategories } from "@/data/skillCategories";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { TechBadge } from "@/components/tech-icons";
 
 export function SkillsSection() {
   return (
@@ -26,13 +27,7 @@ export function SkillsSection() {
               {/* Right Column: Pill Badges */}
               <div className="px-4 sm:px-6 py-3 sm:py-3.5 flex flex-wrap items-center gap-2">
                 {cat.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 text-xs sm:text-[13px] font-mono text-foreground transition-all duration-150 select-none"
-                  >
-                    {skill.icon}
-                    <span>{skill.name}</span>
-                  </div>
+                  <TechBadge key={skill.name} name={skill.name} />
                 ))}
               </div>
             </div>

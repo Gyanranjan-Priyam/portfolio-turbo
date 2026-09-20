@@ -5,11 +5,11 @@ import Link from "next/link";
 import { ChevronRight, ExternalLink } from "lucide-react";
 import { IconBrandGithub as Github } from "@tabler/icons-react";
 import templates from "@/data/templateData";
-import { skillCategories } from "@/data/skillCategories";
 import { SITE_URL } from "@/lib/config";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
 import { TemplatePreview } from "./TemplatePreview";
+import { TechBadge } from "@/components/tech-icons";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -223,12 +223,7 @@ export default async function TemplatePage({ params }: Props) {
           {/* Tech badges */}
           <div className="mt-4 flex flex-wrap gap-1.5">
             {template.tech.map((t) => (
-              <span
-                key={t}
-                className="rounded-full border px-2.5 py-0.5 text-xs font-mono font-medium text-muted-foreground"
-              >
-                {t}
-              </span>
+              <TechBadge key={t} name={t} size="sm" />
             ))}
           </div>
         </div>
@@ -406,26 +401,9 @@ export default async function TemplatePage({ params }: Props) {
 
           <div className="-mx-4 sm:-mx-6 border-y border-border/70 p-4 sm:p-6 bg-card/10">
             <div className="flex flex-wrap items-center gap-2">
-              {template.tech.map((techName, j) => {
-                const matchedSkill = skillCategories
-                  .flatMap((c) => c.skills)
-                  .find(
-                    (s) =>
-                      s.name.toLowerCase() === techName.toLowerCase() ||
-                      techName.toLowerCase().includes(s.name.toLowerCase()) ||
-                      s.name.toLowerCase().includes(techName.toLowerCase())
-                  );
-
-                return (
-                  <div
-                    key={j}
-                    className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 text-xs sm:text-[13px] font-mono text-foreground transition-all duration-150 select-none"
-                  >
-                    {matchedSkill?.icon}
-                    <span>{techName}</span>
-                  </div>
-                );
-              })}
+              {template.tech.map((techName, j) => (
+                <TechBadge key={j} name={techName} />
+              ))}
             </div>
           </div>
         </div>

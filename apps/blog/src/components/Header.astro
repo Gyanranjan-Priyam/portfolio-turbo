@@ -4,38 +4,38 @@ import ThemeToggle from "./ThemeToggle.astro";
 import { AUTHOR_PORTFOLIO } from "../consts";
 ---
 
-<header class="site-header">
-  <div class="header-container">
-    <div class="brand">
-      <a href="/" class="logo-link">
+<header class="sticky top-0 z-50 w-full py-3 backdrop-blur-xl bg-[var(--bg-glass)] border-b border-[var(--border-subtle)] transition-all duration-300">
+  <div class="max-w-[1160px] mx-auto px-6 flex items-center justify-between">
+    <div class="flex items-center">
+      <a href="/" class="flex items-center gap-3 no-underline">
         <img
           src="/logo.png"
           alt="Logo"
           width="34"
           height="34"
-          class="header-logo-img"
+          class="w-[34px] h-[34px] object-contain shrink-0"
         />
-        <div class="logo-text">
-          <span class="brand-title">Priyam's Blog</span>
-          <span class="brand-subtitle">Tech, Design & Systems</span>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-[1.05rem] text-[var(--text-primary)] leading-tight">Priyam's Blog</span>
+          <span class="text-xs text-[var(--text-muted)] leading-none hidden sm:block">Tech, Design & Systems</span>
         </div>
       </a>
     </div>
 
-    <nav class="nav-menu">
+    <nav class="flex items-center gap-1 bg-[var(--bg-tag)] p-1 rounded-full border border-[var(--border-subtle)]">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
     </nav>
 
-    <div class="header-actions">
+    <div class="flex items-center gap-3">
       <ThemeToggle />
       <a
         href={AUTHOR_PORTFOLIO}
         target="_blank"
         rel="noopener noreferrer"
-        class="portfolio-link-btn"
+        class="inline-flex items-center gap-1.5 px-4 py-2 sm:px-4 sm:py-2 text-[0.85rem] font-semibold text-[var(--text-primary)] bg-[var(--bg-tag)] border border-[var(--border-subtle)] rounded-full no-underline transition-all duration-200 hover:bg-[var(--bg-tag-hover)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] hover:-translate-y-0.5"
       >
-        <span>Portfolio</span>
+        <span class="hidden sm:inline">Portfolio</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -54,115 +54,3 @@ import { AUTHOR_PORTFOLIO } from "../consts";
     </div>
   </div>
 </header>
-
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    width: 100%;
-    padding: 0.75rem 0;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: var(--bg-glass);
-    border-bottom: 1px solid var(--border-subtle);
-    transition: all 0.3s ease;
-  }
-
-  .header-container {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-  }
-
-  .logo-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-  }
-
-  .header-logo-img {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .brand-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: var(--text-primary);
-    line-height: 1.2;
-  }
-
-  .brand-subtitle {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    line-height: 1;
-  }
-
-  .nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    background: var(--bg-tag);
-    padding: 0.25rem;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border-subtle);
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .portfolio-link-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.45rem 0.95rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .portfolio-link-btn:hover {
-    background: var(--bg-tag-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 640px) {
-    .brand-subtitle {
-      display: none;
-    }
-    .portfolio-link-btn span {
-      display: none;
-    }
-    .portfolio-link-btn {
-      padding: 0.5rem;
-    }
-  }
-</style>

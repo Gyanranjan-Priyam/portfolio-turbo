@@ -4,7 +4,10 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import SearchModal from "../../components/SearchModal.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import HatchDivider from "../../components/HatchDivider.astro";
 import { AUTHOR_PORTFOLIO } from "../../consts";
+
 import placeholder2 from "../../assets/blog-placeholder-2.jpg";
 import placeholder3 from "../../assets/blog-placeholder-3.jpg";
 import placeholder4 from "../../assets/blog-placeholder-4.jpg";
@@ -51,8 +54,18 @@ allPosts.forEach((post) => {
 const otherPopularTags = Object.entries(tagCounts)
   .filter(([t]) => t !== tag)
   .sort((a, b) => b[1] - a[1])
-  .slice(0, 4)
+  .slice(0, 5)
   .map(([t]) => t);
+
+// Color mapping helper for category badges
+const getCategoryColorClass = (cat: string) => {
+  const c = cat.toLowerCase();
+  if (c.includes('engineering') || c.includes('tech')) return 'text-sky-600 dark:text-sky-400 [&_.cat-bar]:bg-sky-600 dark:[&_.cat-bar]:bg-sky-400';
+  if (c.includes('career') || c.includes('journey')) return 'text-orange-600 dark:text-orange-400 [&_.cat-bar]:bg-orange-600 dark:[&_.cat-bar]:bg-orange-400';
+  if (c.includes('web') || c.includes('dev')) return 'text-purple-600 dark:text-purple-400 [&_.cat-bar]:bg-purple-600 dark:[&_.cat-bar]:bg-purple-400';
+  if (c.includes('guide') || c.includes('tutorial')) return 'text-green-600 dark:text-green-400 [&_.cat-bar]:bg-green-600 dark:[&_.cat-bar]:bg-green-400';
+  return 'text-rose-600 dark:text-rose-400 [&_.cat-bar]:bg-rose-600 dark:[&_.cat-bar]:bg-rose-400';
+};
 ---
 
 <!doctype html>
@@ -63,757 +76,169 @@ const otherPopularTags = Object.entries(tagCounts)
       description={`Articles, engineering notes, and technical deep dives tagged #${tag}.`}
     />
   </head>
-  <body>
-    <main class="blogs-page-main">
-      <div id="blogs-page-wrap" class="blogs-page-wrap">
-        <!-- Header -->
-        <header class="blogs-header">
-          <div class="blogs-header-top-row">
-            <div class="blogs-brand-group">
-              <a href="/" class="blogs-brand-logo-link" aria-label="Home">
-                <img
-                  src="/logo.png"
-                  alt="Priyam's Blog"
-                  class="blogs-brand-logo"
-                  width="40"
-                  height="40"
-                />
-              </a>
-              <a href="/" class="blogs-title-link">
-                <h1 class="blogs-title">Priyam's Blog</h1>
-              </a>
-            </div>
+  <body class="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen flex flex-col font-sans">
+    <main class="min-h-screen p-0 bg-[var(--bg-primary)] w-full flex flex-col">
+      <div class="max-w-[1080px] mx-auto w-full px-5 sm:px-9 pt-8 pb-18 min-h-screen flex flex-col border-dotted-side">
+        <div class="flex-1 flex flex-col w-full">
+          
+          <!-- MINIMAL TOP BAR -->
+          <header class="flex items-center justify-between pb-2 w-full">
+            <a href="/" class="group inline-flex items-center gap-2.5 text-inherit no-underline text-[var(--text-primary)]" aria-label="Priyam's Blog Home">
+              <img src="/logo.png" alt="Logo" class="w-7 h-7 object-contain group-hover:scale-105 transition-transform duration-200" width="28" height="28" />
+              <span class="font-display font-bold text-[0.95rem] tracking-tight text-[var(--text-primary)]">Priyam's Blog</span>
+            </a>
 
-            <!-- Controls (Search, View Mode, Theme Toggle, Home) -->
-            <div class="blogs-controls">
-              <!-- Search -->
-              <button
-                id="search-trigger-btn"
-                class="icon-btn search-trigger"
-                aria-label="Search posts"
-                title="Search posts (Ctrl+K)"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </svg>
-              </button>
-
-              <!-- View Mode Toggle -->
-              <button
-                id="view-toggle-btn"
-                class="icon-btn view-toggle"
-                aria-label="Toggle layout view mode"
-                title="Toggle layout view mode"
-              >
-                <svg
-                  id="list-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="8" y1="6" x2="21" y2="6"></line>
-                  <line x1="8" y1="12" x2="21" y2="12"></line>
-                  <line x1="8" y1="18" x2="21" y2="18"></line>
-                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                </svg>
-                <svg
-                  id="grid-icon"
-                  style="display: none;"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="14" width="7" height="7"></rect>
-                  <rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-              </button>
-
+            <div class="flex items-center gap-2">
               <!-- Theme Toggle -->
-              <button
-                id="theme-toggle-btn"
-                class="icon-btn theme-toggle"
-                aria-label="Toggle dark/light theme"
-                title="Toggle dark/light theme"
-              >
-                <svg
-                  id="theme-moon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-                </svg>
-                <svg
-                  id="theme-sun"
-                  style="display: none;"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <path d="M12 2v2"></path>
-                  <path d="M12 20v2"></path>
-                  <path d="m4.93 4.93 1.41 1.41"></path>
-                  <path d="m17.66 17.66 1.41 1.41"></path>
-                  <path d="M2 12h2"></path>
-                  <path d="M20 12h2"></path>
-                  <path d="m6.34 17.66-1.41 1.41"></path>
-                  <path d="m19.07 4.93-1.41 1.41"></path>
-                </svg>
-              </button>
+              <ThemeToggle />
 
-              <!-- Home -->
+              <!-- Portfolio Link -->
               <a
                 href={AUTHOR_PORTFOLIO}
-                class="icon-btn"
-                aria-label="Home"
-                title="Portfolio Home"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg-tag)] hover:bg-[var(--bg-tag-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-glow)] font-sans text-[0.8rem] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] no-underline cursor-pointer transition-all duration-150"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                  ></path>
-                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                <span>Portfolio</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </a>
             </div>
-          </div>
+          </header>
 
-          <!-- Tag Header Banner -->
-          <div class="tag-banner">
-            <a href="/" class="back-link">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg
+          <!-- Hatch Pattern Separator below Top Bar -->
+          <HatchDivider class="!mt-0 !mb-7" />
+
+          <!-- TAG HERO SECTION -->
+          <section class="flex flex-col items-center text-center my-2 mb-8 w-full">
+            <div class="mb-3">
+              <a
+                href="/"
+                class="inline-flex items-center gap-1.5 font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] no-underline transition-colors duration-150 px-3 py-1 rounded-full bg-[var(--bg-tag)] hover:bg-[var(--bg-tag-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-glow)]"
               >
-              All Articles
-            </a>
-            <div class="tag-banner-title-row">
-              <h2 class="tag-heading">
-                Articles tagged <span class="tag-highlight">#{tag}</span>
-              </h2>
-              <span class="tag-count-badge"
-                >{posts.length}
-                {posts.length === 1 ? "article" : "articles"}</span
-              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+                <span>All Articles</span>
+              </a>
             </div>
 
-            {
-              otherPopularTags.length > 0 && (
-                <div class="other-tags-row">
-                  <span class="other-tags-label">Other tags:</span>
-                  <div class="other-tags-chips">
-                    {otherPopularTags.map((t) => (
-                      <a
-                        href={`/tags/${encodeURIComponent(t)}`}
-                        class="other-tag-chip"
-                      >
-                        #{t}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )
-            }
-          </div>
-        </header>
+            <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-[var(--text-primary)] mb-2.5">
+              Articles tagged <span class="font-cooper italic font-bold tracking-tight px-1 inline-block text-[var(--text-primary)]">#{tag}</span>
+            </h1>
 
-        <!-- Blog Posts List / Tiles -->
-        <div id="blogs-container" class="blogs-list-mode">
-          {
-            posts.map((post) => (
-              <a href={`/${post.id}`} class="blog-entry-card">
-                <div class="blog-entry-image">
-                  {post.data.heroImage ? (
-                    <img
-                      src={
-                        typeof post.data.heroImage === "string"
-                          ? post.data.heroImage
-                          : post.data.heroImage.src
-                      }
-                      alt={post.data.title}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div class="post-cover-fallback">
-                      <img src={getPlaceholderImage(post.id)} alt="" class="fallback-backdrop" aria-hidden="true" />
-                      <div class="fallback-overlay"></div>
-                      <div class="fallback-content">
-                        <div class="fallback-badge">
-                          <span class="fallback-badge-icon">✦</span>
-                          <span>{post.data.category || 'BLOG'}</span>
+            <p class="font-sans text-sm sm:text-base text-[var(--text-secondary)] max-w-[540px] mx-auto mb-6 leading-relaxed">
+              Browsing {posts.length} {posts.length === 1 ? 'article' : 'articles'} filed under <span class="font-mono text-[var(--text-primary)] font-semibold">#{tag}</span>.
+            </p>
+
+            <!-- Other Topics / Popular Tags Navigation -->
+            {otherPopularTags.length > 0 && (
+              <div class="flex items-center justify-center gap-2 flex-wrap max-w-[680px] mx-auto pt-1">
+                <span class="font-mono text-xs text-[var(--text-muted)]">Other tags:</span>
+                <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                  {otherPopularTags.map((t) => (
+                    <a
+                      href={`/tags/${encodeURIComponent(t)}`}
+                      class="inline-flex items-center px-3 py-1 rounded-full font-mono text-[0.74rem] font-medium border bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border-[var(--border-subtle)] hover:border-[var(--border-glow)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-150 no-underline"
+                    >
+                      #{t}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          <!-- Hatch Pattern Separator between Hero and Posts Feed -->
+          <HatchDivider class="!mt-0 !mb-10" />
+
+          <!-- POSTS FEED SECTION -->
+          <section class="w-full" id="tag-posts-section">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-7 mb-10 w-full">
+              {posts.map((post) => {
+                const imageSrc = post.data.heroImage
+                  ? typeof post.data.heroImage === 'string'
+                    ? post.data.heroImage
+                    : post.data.heroImage.src
+                  : null;
+                const cat = post.data.category || 'Engineering';
+                const colorClass = getCategoryColorClass(cat);
+                const fallbackBg = getPlaceholderImage(post.id);
+
+                return (
+                  <article class="group flex flex-col rounded-[var(--radius-lg)] w-full">
+                    <a href={`/${post.id}`} class="flex flex-col h-full no-underline text-inherit" aria-label={post.data.title}>
+                      <!-- Visual Cover / Thumbnail -->
+                      <div class="relative w-full aspect-video rounded-[var(--radius-md)] overflow-hidden border border-[var(--border-subtle)] group-hover:border-[var(--border-glow)] mb-3.5 transition-all duration-200">
+                        {imageSrc ? (
+                          <img
+                            src={imageSrc}
+                            alt={post.data.title}
+                            loading="lazy"
+                            class="w-full h-full object-cover object-center block"
+                          />
+                        ) : (
+                          <div class="relative w-full h-full aspect-video flex flex-col items-center justify-center p-5 overflow-hidden text-center bg-[#0c0d12]">
+                            <img src={fallbackBg} alt="" class="absolute inset-0 w-full h-full object-cover z-1 opacity-90 brightness-85 contrast-110 group-hover:scale-105 transition-transform duration-350" aria-hidden="true" />
+                            <div class="absolute inset-0 z-2 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(12,13,18,0.45)_0%,rgba(8,8,12,0.88)_100%)]"></div>
+                            <div class="relative z-3 flex flex-col items-center justify-center gap-1.5 max-w-[90%]">
+                              <div class="inline-flex items-center gap-1.5 font-mono text-[0.62rem] font-bold tracking-[0.14em] uppercase text-white/85 drop-shadow-md">
+                                <span class="text-[0.7rem] text-yellow-300">✦</span>
+                                <span>{post.data.category || 'BLOG'}</span>
+                              </div>
+                              <h3 class="font-serif text-base sm:text-lg font-semibold leading-snug text-white tracking-tight line-clamp-2 drop-shadow-lg m-0">{post.data.title}</h3>
+                              {post.data.description && (
+                                <p class="font-sans text-[0.72rem] text-white/70 line-clamp-1 max-w-[90%] m-0 drop-shadow">{post.data.description}</p>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        <div class="absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2 py-0.5 bg-[rgba(10,10,12,0.75)] backdrop-blur-md border border-white/15 rounded-[var(--radius-sm)] font-mono text-[0.68rem] font-medium text-slate-100">
+                          <span class="text-[0.55rem] opacity-85">▶</span>
+                          <span>{post.data.readingTime || '5 min read'}</span>
                         </div>
-                        <h4 class="fallback-title">{post.data.title}</h4>
                       </div>
-                    </div>
-                  )}
-                </div>
-                <div class="blog-entry-content">
-                  <div class="blog-entry-top">
-                    <h3 class="blog-entry-title">{post.data.title}</h3>
-                    <span class="blog-entry-date">
-                      <FormattedDate date={post.data.pubDate} />
-                    </span>
-                  </div>
-                  <p class="blog-entry-desc">{post.data.description}</p>
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="blog-entry-tags">
-                      {post.data.tags.slice(0, 3).map((t) => (
-                        <span
-                          class={`blog-tag-pill ${t === tag ? "active-tag" : ""}`}
-                        >
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </a>
-            ))
-          }
+
+                      <!-- Post Info -->
+                      <div class="flex flex-col flex-1">
+                        <div class={`inline-flex items-center gap-1.5 font-mono text-[0.68rem] font-bold tracking-wider uppercase mb-1.5 ${colorClass}`}>
+                          <span class="cat-bar inline-block w-[3px] h-2.5 rounded-xs"></span>
+                          <span>{cat}</span>
+                        </div>
+
+                        <h2 class="font-display text-[1.15rem] font-bold leading-snug tracking-tight text-[var(--text-primary)] mb-1.5 group-hover:text-[var(--accent-primary)] transition-colors duration-150 line-clamp-2 min-h-[2.7em]">
+                          {post.data.title}
+                        </h2>
+
+                        <p class="font-sans text-[0.85rem] leading-relaxed text-[var(--text-secondary)] mb-3 line-clamp-2 min-h-[3.1em]">
+                          {post.data.description}
+                        </p>
+
+                        <div class="flex items-center gap-1.5 font-mono text-xs text-[var(--text-muted)] mt-auto">
+                          <span>
+                            <FormattedDate date={post.data.pubDate} />
+                          </span>
+                          <span class="opacity-50">·</span>
+                          <span>{post.data.readingTime || '5 min read'}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
         </div>
+
+        <!-- Dotted Separator before Footer -->
+        <div class="separator-dotted-h"></div>
+        <Footer />
       </div>
     </main>
 
-    <!-- Search Modal -->
+    <!-- Spotlight Search Modal -->
     <SearchModal posts={allPosts.length > 0 ? allPosts : posts} />
-    <Footer />
-
-    <script is:inline>
-      (function () {
-        const wrap = document.getElementById("blogs-page-wrap");
-        const container = document.getElementById("blogs-container");
-        const toggleBtn = document.getElementById("view-toggle-btn");
-        const listIcon = document.getElementById("list-icon");
-        const gridIcon = document.getElementById("grid-icon");
-        const searchBtn = document.getElementById("search-trigger-btn");
-        const themeBtn = document.getElementById("theme-toggle-btn");
-        const moonIcon = document.getElementById("theme-moon");
-        const sunIcon = document.getElementById("theme-sun");
-
-        // Search trigger
-        if (searchBtn) {
-          searchBtn.addEventListener("click", () => {
-            if (typeof window.openSpotlightSearch === "function") {
-              window.openSpotlightSearch();
-            }
-          });
-        }
-
-        // View Mode Toggle (List vs Tiles) with localStorage
-        let currentMode = localStorage.getItem("blogs_view_mode") || "list";
-        renderMode(currentMode);
-
-        function renderMode(mode) {
-          if (!wrap || !container) return;
-
-          if (mode === "tiles") {
-            wrap.classList.add("tiles-mode");
-            container.className = "blogs-tiles-mode";
-            if (listIcon) listIcon.style.display = "block";
-            if (gridIcon) gridIcon.style.display = "none";
-            toggleBtn?.setAttribute("title", "Switch to list view");
-            localStorage.setItem("blogs_view_mode", "tiles");
-            currentMode = "tiles";
-          } else {
-            wrap.classList.remove("tiles-mode");
-            container.className = "blogs-list-mode";
-            if (listIcon) listIcon.style.display = "none";
-            if (gridIcon) gridIcon.style.display = "block";
-            toggleBtn?.setAttribute("title", "Switch to tiles view");
-            localStorage.setItem("blogs_view_mode", "list");
-            currentMode = "list";
-          }
-        }
-
-        if (toggleBtn) {
-          toggleBtn.addEventListener("click", () => {
-            const next = currentMode === "list" ? "tiles" : "list";
-            renderMode(next);
-          });
-        }
-
-        // Theme Toggle
-        function updateThemeIcons(theme) {
-          if (theme === "dark") {
-            if (moonIcon) moonIcon.style.display = "none";
-            if (sunIcon) sunIcon.style.display = "block";
-          } else {
-            if (moonIcon) moonIcon.style.display = "block";
-            if (sunIcon) sunIcon.style.display = "none";
-          }
-        }
-
-        const isDark =
-          document.documentElement.classList.contains("dark") ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-          localStorage.getItem("theme") === "dark";
-
-        updateThemeIcons(isDark ? "dark" : "light");
-
-        if (themeBtn) {
-          themeBtn.addEventListener("click", () => {
-            const currentIsDark =
-              document.documentElement.classList.contains("dark");
-            const newTheme = currentIsDark ? "light" : "dark";
-            if (newTheme === "dark") {
-              document.documentElement.classList.add("dark");
-            } else {
-              document.documentElement.classList.remove("dark");
-            }
-            localStorage.setItem("theme", newTheme);
-            updateThemeIcons(newTheme);
-          });
-        }
-      })();
-    </script>
   </body>
 </html>
-
-<style>
-  .blogs-page-main {
-    flex: 1;
-    min-height: 100vh;
-    padding: 2.5rem 1rem 5rem;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-  }
-
-  .blogs-page-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    transition: max-width 0.25s ease;
-  }
-
-  .blogs-page-wrap.tiles-mode {
-    max-width: 980px;
-  }
-
-  /* ── Header ── */
-  .blogs-header {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .blogs-header-top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    width: 100%;
-  }
-
-  .blogs-brand-group {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-width: 0;
-  }
-
-  .blogs-brand-logo-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .blogs-brand-logo {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.2s ease;
-  }
-
-  .blogs-brand-logo-link:hover .blogs-brand-logo {
-    transform: scale(1.05);
-  }
-
-  .blogs-title-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .blogs-title {
-    font-size: 1.65rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  @media (min-width: 640px) {
-    .blogs-brand-logo {
-      width: 44px;
-      height: 44px;
-    }
-    .blogs-title {
-      font-size: 2.15rem;
-    }
-  }
-
-  .blogs-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    flex-shrink: 0;
-  }
-
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.15s ease;
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 640px) {
-    .icon-btn {
-      width: 30px;
-      height: 30px;
-    }
-    .icon-btn svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  .icon-btn:hover {
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-    background: var(--bg-hover);
-  }
-
-  /* ── Tag Banner ── */
-  .tag-banner {
-    padding: 1.15rem 1.35rem;
-    border-radius: 12px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.15s ease;
-    width: fit-content;
-  }
-
-  .back-link:hover {
-    color: var(--accent-primary);
-  }
-
-  .tag-banner-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .tag-heading {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text-primary);
-    letter-spacing: -0.01em;
-  }
-
-  .tag-highlight {
-    font-family: var(--font-mono);
-    color: var(--accent-primary);
-  }
-
-  .tag-count-badge {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    padding: 0.15rem 0.55rem;
-    border-radius: 9999px;
-  }
-
-  .other-tags-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 0.25rem;
-    padding-top: 0.65rem;
-    border-top: 1px dashed var(--border-subtle);
-  }
-
-  .other-tags-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-  }
-
-  .other-tags-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .other-tag-chip {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    padding: 0.15rem 0.55rem;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-  }
-
-  .other-tag-chip:hover {
-    color: var(--accent-primary);
-    border-color: var(--accent-primary);
-    background: var(--bg-card);
-    transform: translateY(-1px);
-  }
-
-  /* ── LIST MODE (Default) ── */
-  .blogs-list-mode {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .blog-entry-card {
-    display: block;
-    text-decoration: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1.25rem 1.4rem;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.15s ease;
-  }
-
-  .blog-entry-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-glow);
-  }
-
-  /* In list mode, images are hidden */
-  .blogs-list-mode .blog-entry-image {
-    display: none !important;
-  }
-
-  .blog-entry-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.45rem;
-  }
-
-  .blog-entry-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.35;
-    color: var(--text-primary);
-    margin: 0;
-    letter-spacing: -0.01em;
-    transition: color 0.15s ease;
-  }
-
-  .blog-entry-card:hover .blog-entry-title {
-    text-decoration: underline;
-  }
-
-  .blog-entry-date {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .blog-entry-desc {
-    font-family: var(--font-mono);
-    font-size: 0.825rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin: 0 0 0.85rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .blog-entry-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .blog-tag-pill {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-    letter-spacing: 0.02em;
-  }
-
-  .blog-tag-pill.active-tag {
-    color: var(--accent-primary);
-    border-color: var(--accent-primary);
-    background: var(--bg-tag-hover, var(--bg-card));
-    font-weight: 600;
-  }
-
-  /* ── TILES / GRID MODE ── */
-  .blogs-tiles-mode {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .blogs-tiles-mode {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .blogs-tiles-mode .blog-entry-card {
-    display: flex;
-    flex-direction: column;
-    padding: 1.15rem;
-  }
-
-  .blogs-tiles-mode .blog-entry-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-subtle);
-  }
-
-  .blogs-tiles-mode .blog-entry-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  .blogs-tiles-mode .blog-entry-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .blogs-tiles-mode .blog-entry-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-
-  .blogs-tiles-mode .blog-entry-title {
-    font-size: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 2.7em;
-  }
-
-  .blogs-tiles-mode .blog-entry-desc {
-    flex: 1;
-    -webkit-line-clamp: 2;
-    min-height: 3.1em;
-  }
-</style>

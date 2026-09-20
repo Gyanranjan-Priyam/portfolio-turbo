@@ -25,12 +25,12 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
 ---
 
 <!-- Spotlight Search Modal & Overlay -->
-<div id="search-modal-backdrop" class="search-modal-backdrop" style="display: none;">
-  <div class="search-modal-container">
-    <div class="search-modal-box">
+<div id="search-modal-backdrop" class="fixed inset-0 z-[9999] bg-black/75 backdrop-blur-xl flex justify-center items-start pt-[10vh] animate-[fadeIn_0.15s_ease-out]" style="display: none;">
+  <div class="w-full max-w-[620px] px-4 animate-[slideDown_0.2s_cubic-bezier(0.16,1,0.3,1)]">
+    <div class="w-full max-w-[600px] bg-[var(--bg-card)] border border-[var(--border-glow)] rounded-2xl shadow-[var(--shadow-lg)] overflow-hidden">
       <!-- Input Row -->
-      <div class="search-input-row">
-        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="flex items-center gap-3 px-5 py-3.5">
+        <svg class="text-[var(--text-muted)] shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </svg>
@@ -41,294 +41,43 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
           placeholder="Search posts by title, tag, or topic..."
           autocomplete="off"
           spellcheck="false"
+          class="grow bg-transparent border-none outline-none font-mono text-[0.95rem] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
         />
 
-        <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear search" style="display: none;">
+        <button id="search-clear-btn" class="bg-transparent border-none text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer p-1 flex items-center justify-center rounded transition-colors" aria-label="Clear search" style="display: none;">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6 6 18"></path>
             <path d="m6 6 12 12"></path>
           </svg>
         </button>
 
-        <kbd class="esc-badge" id="search-close-kbd">ESC</kbd>
+        <kbd class="font-mono text-[0.68rem] font-semibold text-[var(--text-muted)] bg-[var(--bg-tag)] border border-[var(--border-subtle)] px-2 py-0.5 rounded cursor-pointer" id="search-close-kbd">ESC</kbd>
       </div>
 
       <!-- Tag Filter Pills (shown when search is active) -->
-      <div id="search-tags-row" class="search-tags-row" style="display: none;">
+      <div id="search-tags-row" class="flex flex-wrap gap-1.5 px-5 py-2.5 border-t border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]" style="display: none;">
         {allTags.map((tag) => (
-          <button class="search-tag-chip" data-tag={tag}>
+          <button class="search-tag-chip font-mono text-xs text-[var(--text-secondary)] bg-[var(--bg-tag)] hover:bg-[var(--bg-tag-hover)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-full px-2.5 py-0.5 cursor-pointer transition-all duration-150" data-tag={tag}>
             #{tag}
           </button>
         ))}
       </div>
 
       <!-- Results List -->
-      <div id="search-results-list" class="search-results-list" style="display: none;">
+      <div id="search-results-list" class="max-h-[50vh] overflow-y-auto scrollbar-thin" style="display: none;">
         <!-- Results rendered dynamically by JS -->
       </div>
     </div>
 
     <!-- Keyboard Shortcut Hint -->
-    <p class="search-keyboard-hint">
-      Press <kbd class="kbd-hint">/</kbd> to search · <kbd class="kbd-hint">ESC</kbd> to close
+    <p class="text-center font-mono text-xs text-[var(--text-muted)] mt-3.5">
+      Press <kbd class="inline-block bg-[var(--bg-tag)] border border-[var(--border-subtle)] rounded px-1.5 py-0.5 text-[0.7rem] text-[var(--text-muted)]">/</kbd> to search · <kbd class="inline-block bg-[var(--bg-tag)] border border-[var(--border-subtle)] rounded px-1.5 py-0.5 text-[0.7rem] text-[var(--text-muted)]">ESC</kbd> to close
     </p>
   </div>
 </div>
 
 <!-- Serialized posts data for search script -->
 <script id="search-posts-data" type="application/json" is:inline set:html={JSON.stringify(searchablePosts)}></script>
-
-<style>
-  .search-modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 10vh;
-    animation: modalFadeIn 0.15s ease-out;
-  }
-
-  @keyframes modalFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .search-modal-container {
-    width: 100%;
-    max-width: 620px;
-    padding: 0 1rem;
-    animation: modalSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @keyframes modalSlideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-16px) scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .search-modal-box {
-    width: 100%;
-    max-width: 600px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-glow);
-    border-radius: 16px;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-  }
-
-  .search-input-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.9rem 1.25rem;
-  }
-
-  .search-icon {
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
-
-  #spotlight-search-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: var(--text-primary);
-  }
-
-  #spotlight-search-input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .search-clear-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 0.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: color 0.15s ease;
-  }
-
-  .search-clear-btn:hover {
-    color: var(--text-primary);
-  }
-
-  .esc-badge {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .search-tags-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.6rem 1.25rem;
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-    background: var(--bg-secondary);
-  }
-
-  .search-tag-chip {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 9999px;
-    padding: 0.15rem 0.55rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .search-tag-chip:hover {
-    color: var(--text-primary);
-    background: var(--bg-tag-hover);
-  }
-
-  .search-tag-chip.active {
-    color: var(--text-inverted);
-    background: var(--text-primary);
-    border-color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  .search-results-list {
-    max-height: 50vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-subtle) transparent;
-  }
-
-  :global(.search-result-item) {
-    display: block;
-    text-decoration: none;
-    padding: 0.85rem 1.25rem;
-    border-bottom: 1px solid var(--border-subtle);
-    transition: background-color 0.15s ease;
-  }
-
-  :global(.search-result-item:last-child) {
-    border-bottom: none;
-  }
-
-  :global(.search-result-item:hover),
-  :global(.search-result-item.selected) {
-    background-color: var(--bg-card-hover);
-  }
-
-  :global(.search-result-header) {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.75rem;
-    margin-bottom: 0.35rem;
-  }
-
-  :global(.search-result-title) {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0;
-  }
-
-  :global(.search-result-date) {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  :global(.search-result-desc) {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-    margin: 0 0 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  :global(.search-result-tags) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  :global(.search-result-tag-pill) {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 3px;
-    padding: 0.1rem 0.4rem;
-  }
-
-  :global(.search-no-results) {
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-  }
-
-  :global(.search-highlight) {
-    background-color: rgba(251, 191, 36, 0.25);
-    color: #b45309;
-    border-radius: 2px;
-    padding: 0 2px;
-    font-weight: 600;
-  }
-
-  :global(html.dark .search-highlight) {
-    background-color: rgba(251, 191, 36, 0.3);
-    color: #fbbf24;
-  }
-
-  .search-keyboard-hint {
-    text-align: center;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.85rem;
-  }
-
-  .kbd-hint {
-    display: inline-block;
-    background: var(--bg-tag);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    padding: 0.1rem 0.4rem;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-  }
-</style>
 
 <script is:inline>
   (function () {
@@ -369,7 +118,9 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
       document.body.style.overflow = '';
       if (input) input.value = '';
       activeTag = null;
-      document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.search-tag-chip').forEach(c => {
+        c.classList.remove('!bg-[var(--text-primary)]', '!text-[var(--text-inverted)]', '!border-[var(--text-primary)]', 'font-semibold');
+      });
       if (clearBtn) clearBtn.style.display = 'none';
       if (tagsRow) tagsRow.style.display = 'none';
       if (resultsList) resultsList.style.display = 'none';
@@ -379,7 +130,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
       if (!query || !query.trim()) return text;
       const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(`(${escaped})`, 'gi');
-      return text.replace(regex, '<span class="search-highlight">$1</span>');
+      return text.replace(regex, '<span class="bg-amber-400/25 dark:bg-amber-400/30 text-amber-700 dark:text-amber-300 rounded-xs px-0.5 font-semibold">$1</span>');
     }
 
     function renderResults() {
@@ -406,7 +157,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
 
         if (filtered.length === 0) {
           resultsList.innerHTML = `
-            <div class="search-no-results">
+            <div class="py-10 px-6 text-center text-[var(--text-muted)] font-mono text-sm">
               <p>No posts found for "${query || activeTag}"</p>
             </div>
           `;
@@ -417,17 +168,17 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
               const highlightedDesc = highlightText(post.description, query);
               const tagsHtml = post.tags
                 .slice(0, 3)
-                .map((t) => `<span class="search-result-tag-pill">#${highlightText(t, query)}</span>`)
+                .map((t) => `<span class="font-mono text-[0.68rem] text-[var(--text-secondary)] bg-[var(--bg-tag)] border border-[var(--border-subtle)] rounded px-1.5 py-0.5">#${highlightText(t, query)}</span>`)
                 .join('');
 
               return `
-                <a href="/${post.slug}" class="search-result-item">
-                  <div class="search-result-header">
-                    <h3 class="search-result-title">${highlightedTitle}</h3>
-                    <span class="search-result-date">${post.date}</span>
+                <a href="/${post.slug}" class="block no-underline px-5 py-3.5 border-b border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] transition-colors duration-150">
+                  <div class="flex items-start justify-between gap-3 mb-1.5">
+                    <h3 class="text-[0.92rem] font-semibold text-[var(--text-primary)] m-0">${highlightedTitle}</h3>
+                    <span class="font-mono text-xs text-[var(--text-muted)] whitespace-nowrap shrink-0">${post.date}</span>
                   </div>
-                  <p class="search-result-desc">${highlightedDesc}</p>
-                  <div class="search-result-tags">${tagsHtml}</div>
+                  <p class="font-mono text-xs text-[var(--text-secondary)] leading-relaxed mb-2 line-clamp-2">${highlightedDesc}</p>
+                  <div class="flex flex-wrap gap-1.5">${tagsHtml}</div>
                 </a>
               `;
             })
@@ -444,13 +195,14 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
     document.querySelectorAll('.search-tag-chip').forEach((chip) => {
       chip.addEventListener('click', () => {
         const tag = chip.getAttribute('data-tag');
+        const activeClasses = ['!bg-[var(--text-primary)]', '!text-[var(--text-inverted)]', '!border-[var(--text-primary)]', 'font-semibold'];
         if (activeTag === tag) {
           activeTag = null;
-          chip.classList.remove('active');
+          chip.classList.remove(...activeClasses);
         } else {
-          document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+          document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove(...activeClasses));
           activeTag = tag;
-          chip.classList.add('active');
+          chip.classList.add(...activeClasses);
         }
         renderResults();
       });
@@ -464,7 +216,9 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
       clearBtn.addEventListener('click', () => {
         if (input) input.value = '';
         activeTag = null;
-        document.querySelectorAll('.search-tag-chip').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.search-tag-chip').forEach(c => {
+          c.classList.remove('!bg-[var(--text-primary)]', '!text-[var(--text-inverted)]', '!border-[var(--text-primary)]', 'font-semibold');
+        });
         renderResults();
         if (input) input.focus();
       });
@@ -482,7 +236,6 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
 
     // Global keyboard shortcuts: Ctrl+K / Cmd+K / "/" to open, "Escape" to close
     window.addEventListener('keydown', (e) => {
-      // Ctrl+K or Cmd+K
       if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
         const isOpen = backdrop && backdrop.style.display && backdrop.style.display !== 'none';
@@ -494,7 +247,6 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
         return;
       }
 
-      // "/" shortcut when not focused on an input/editable field
       if (
         e.key === '/' &&
         (!backdrop || backdrop.style.display === 'none' || backdrop.style.display === '') &&
@@ -505,14 +257,12 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags || []))].sort();
         return;
       }
 
-      // Escape to close
       if (e.key === 'Escape' && backdrop && backdrop.style.display !== 'none' && backdrop.style.display !== '') {
         e.preventDefault();
         closeSearch();
       }
     });
 
-    // Expose openSearch to global for search trigger buttons
     window.openSpotlightSearch = openSearch;
   })();
 </script>

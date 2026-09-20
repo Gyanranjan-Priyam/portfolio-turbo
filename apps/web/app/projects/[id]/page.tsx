@@ -10,8 +10,8 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { ImageCarousel } from "@/components/ui/image-carousel";
 import { FolderStructure } from "@/components/ui/folder-structure";
 import { FeaturesAccordion } from "@/components/ui/features-accordion";
-import { skillCategories } from "@/data/skillCategories";
 import Image from "next/image";
+import { TechBadge } from "@/components/tech-icons";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -257,12 +257,7 @@ export default async function ProjectPage({ params }: Props) {
           {/* Tech badges */}
           <div className="mt-4 flex flex-wrap gap-1.5">
             {project.tech.map((t) => (
-              <span
-                key={t}
-                className="rounded-full border px-2.5 py-0.5 text-xs font-mono font-medium text-muted-foreground"
-              >
-                {t}
-              </span>
+              <TechBadge key={t} name={t} size="sm" />
             ))}
           </div>
         </div>
@@ -421,26 +416,9 @@ export default async function ProjectPage({ params }: Props) {
 
                         {/* Right Column: Pill Badges */}
                         <div className="px-4 sm:px-6 py-3 sm:py-3.5 flex flex-wrap items-center gap-2">
-                          {items.map((techName: string, j: number) => {
-                            const matchedSkill = skillCategories
-                              .flatMap((c) => c.skills)
-                              .find(
-                                (s) =>
-                                  s.name.toLowerCase() === techName.toLowerCase() ||
-                                  techName.toLowerCase().includes(s.name.toLowerCase()) ||
-                                  s.name.toLowerCase().includes(techName.toLowerCase())
-                              );
-
-                            return (
-                              <div
-                                key={j}
-                                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 text-xs sm:text-[13px] font-mono text-foreground transition-all duration-150 select-none"
-                              >
-                                {matchedSkill?.icon}
-                                <span>{techName}</span>
-                              </div>
-                            );
-                          })}
+                          {items.map((techName: string, j: number) => (
+                            <TechBadge key={j} name={techName} />
+                          ))}
                         </div>
                       </div>
                     );

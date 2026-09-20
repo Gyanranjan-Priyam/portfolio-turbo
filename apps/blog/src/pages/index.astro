@@ -7,7 +7,6 @@ import FormattedDate from '../components/FormattedDate.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import HatchDivider from '../components/HatchDivider.astro';
 import { SITE_DESCRIPTION, AUTHOR_PORTFOLIO } from '../consts';
-import '../styles/home.css';
 
 import placeholder2 from '../assets/blog-placeholder-2.jpg';
 import placeholder3 from '../assets/blog-placeholder-3.jpg';
@@ -36,11 +35,11 @@ const categories = ['All', ...new Set(posts.map((p) => p.data.category || 'Engin
 // Color mapping helper for category badges
 const getCategoryColorClass = (cat: string) => {
   const c = cat.toLowerCase();
-  if (c.includes('engineering') || c.includes('tech')) return 'cat-cyan';
-  if (c.includes('career') || c.includes('journey')) return 'cat-orange';
-  if (c.includes('web') || c.includes('dev')) return 'cat-purple';
-  if (c.includes('guide') || c.includes('tutorial')) return 'cat-green';
-  return 'cat-rose';
+  if (c.includes('engineering') || c.includes('tech')) return 'text-sky-600 dark:text-sky-400 [&_.cat-bar]:bg-sky-600 dark:[&_.cat-bar]:bg-sky-400';
+  if (c.includes('career') || c.includes('journey')) return 'text-orange-600 dark:text-orange-400 [&_.cat-bar]:bg-orange-600 dark:[&_.cat-bar]:bg-orange-400';
+  if (c.includes('web') || c.includes('dev')) return 'text-purple-600 dark:text-purple-400 [&_.cat-bar]:bg-purple-600 dark:[&_.cat-bar]:bg-purple-400';
+  if (c.includes('guide') || c.includes('tutorial')) return 'text-green-600 dark:text-green-400 [&_.cat-bar]:bg-green-600 dark:[&_.cat-bar]:bg-green-400';
+  return 'text-rose-600 dark:text-rose-400 [&_.cat-bar]:bg-rose-600 dark:[&_.cat-bar]:bg-rose-400';
 };
 ---
 
@@ -49,19 +48,19 @@ const getCategoryColorClass = (cat: string) => {
   <head>
     <BaseHead title="The Priyam's Blog | Gyanranjan Priyam" description={SITE_DESCRIPTION} />
   </head>
-  <body>
-    <main class="blogs-main-wrapper">
-      <div class="blogs-container border-dotted-side">
-        <div style="flex: 1; display: flex; flex-direction: column; width: 100%;">
+  <body class="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen flex flex-col font-sans">
+    <main class="min-h-screen p-0 bg-[var(--bg-primary)] w-full flex flex-col">
+      <div class="max-w-[1080px] mx-auto w-full px-5 sm:px-9 pt-8 pb-18 min-h-screen flex flex-col border-dotted-side">
+        <div class="flex-1 flex flex-col w-full">
         
         <!-- MINIMAL TOP BAR -->
-        <header class="blogs-minimal-topbar">
-          <a href="/" class="topbar-brand" aria-label="Priyam's Blog Home">
-            <img src="/logo.png" alt="Logo" class="topbar-logo" width="28" height="28" />
-            <span class="topbar-name">Priyam's Blog</span>
+        <header class="flex items-center justify-between pb-2 w-full">
+          <a href="/" class="group inline-flex items-center gap-2.5 text-inherit no-underline text-[var(--text-primary)]" aria-label="Priyam's Blog Home">
+            <img src="/logo.png" alt="Logo" class="w-7 h-7 object-contain group-hover:scale-105 transition-transform duration-200" width="28" height="28" />
+            <span class="font-display font-bold text-[0.95rem] tracking-tight text-[var(--text-primary)]">Priyam's Blog</span>
           </a>
 
-          <div class="topbar-actions">
+          <div class="flex items-center gap-2">
             <!-- Theme Toggle -->
             <ThemeToggle />
 
@@ -70,7 +69,7 @@ const getCategoryColorClass = (cat: string) => {
               href={AUTHOR_PORTFOLIO}
               target="_blank"
               rel="noopener noreferrer"
-              class="topbar-action-btn"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg-tag)] hover:bg-[var(--bg-tag-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-glow)] font-sans text-[0.8rem] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] no-underline cursor-pointer transition-all duration-150"
             >
               <span>Portfolio</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,30 +80,29 @@ const getCategoryColorClass = (cat: string) => {
         </header>
 
         <!-- Hatch Pattern Separator below Top Bar -->
-        <HatchDivider class="home-topbar-separator" />
+        <HatchDivider class="!mt-0 !mb-7" />
 
         <!-- HERO SECTION -->
-        <section class="blog-hero">
-          <h1 class="hero-brand-title">
-            The <span class="font-brand-cooper">Priyam's</span> Blog
+        <section class="flex flex-col items-center text-center my-2 mb-8 w-full">
+          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight text-[var(--text-primary)] mb-2.5">
+            The <span class="font-cooper italic font-bold tracking-tight px-1 inline-block text-[var(--text-primary)]">Priyam's</span> Blog
           </h1>
 
-          <p class="hero-subtitle">
+          <p class="font-sans text-sm sm:text-base text-[var(--text-secondary)] max-w-[520px] mx-auto mb-7 leading-relaxed">
             Articles, tutorials, and practical insights on web development and engineering.
           </p>
 
           <!-- Search Bar Pill -->
-          <div class="hero-search-box">
+          <div class="w-full max-w-[380px] mx-auto mb-7">
             <button
               id="hero-search-trigger-btn"
-              class="hero-search-pill-btn"
+              class="w-full flex items-center justify-between gap-2.5 px-4 py-2 bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-glow)] rounded-full shadow-[var(--shadow-sm)] cursor-pointer transition-all duration-200 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               type="button"
               aria-label="Search articles"
               title="Search articles (Ctrl+K)"
             >
-              <div class="search-pill-left">
+              <div class="flex items-center gap-2 text-[var(--text-muted)]">
                 <svg
-                  class="search-icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="16" height="16"
                   viewBox="0 0 24 24"
@@ -117,22 +115,23 @@ const getCategoryColorClass = (cat: string) => {
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
                 </svg>
-                <span class="search-placeholder-text">Search articles...</span>
+                <span class="font-sans text-[0.85rem]">Search articles...</span>
               </div>
-              <div class="search-pill-right">
-                <kbd class="search-kbd-chip">Ctrl K</kbd>
+              <div>
+                <kbd class="font-mono text-[0.68rem] font-semibold px-1.5 py-0.5 rounded bg-[var(--bg-tag)] border border-[var(--border-subtle)] text-[var(--text-muted)]">Ctrl K</kbd>
               </div>
             </button>
           </div>
 
           <!-- Category Filter Tabs -->
-          <nav class="category-tabs-nav" aria-label="Filter posts by category">
-            <div class="category-tabs-scroll" id="category-tabs-container">
+          <nav class="w-full max-w-[720px] mx-auto" aria-label="Filter posts by category">
+            <div class="flex items-center justify-start sm:justify-center flex-nowrap sm:flex-wrap gap-1.5 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 scrollbar-none" id="category-tabs-container">
               {categories.map((cat, idx) => (
                 <button
                   type="button"
-                  class={`cat-tab-btn ${idx === 0 ? 'active' : ''}`}
+                  class="cat-tab-btn inline-flex items-center px-3.5 py-1.5 rounded-full font-sans text-[0.78rem] font-medium border cursor-pointer transition-all duration-150 whitespace-nowrap shrink-0 text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] border-[var(--border-subtle)] hover:border-[var(--border-glow)] aria-selected:text-[var(--text-inverted)] aria-selected:bg-[var(--text-primary)] aria-selected:border-[var(--text-primary)] aria-selected:font-semibold"
                   data-category={cat}
+                  aria-selected={idx === 0 ? "true" : "false"}
                 >
                   {cat}
                 </button>
@@ -142,11 +141,11 @@ const getCategoryColorClass = (cat: string) => {
         </section>
 
         <!-- Hatch Pattern Separator between Hero/Filters and Posts Feed -->
-        <HatchDivider class="home-hero-separator" />
+        <HatchDivider class="!mt-0 !mb-10" />
 
         <!-- POSTS FEED SECTION -->
-        <section class="posts-feed-section" id="posts-feed-section">
-          <div class="featured-posts-grid" id="featured-posts-grid">
+        <section class="w-full" id="posts-feed-section">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-7 mb-10 w-full" id="featured-posts-grid">
             {posts.map((post) => {
               const imageSrc = post.data.heroImage
                 ? typeof post.data.heroImage === 'string'
@@ -155,71 +154,70 @@ const getCategoryColorClass = (cat: string) => {
                 : null;
               const cat = post.data.category || 'Engineering';
               const colorClass = getCategoryColorClass(cat);
-
               const fallbackBg = getPlaceholderImage(post.id);
 
               return (
                 <article
-                  class="featured-post-card"
+                  class="group flex flex-col rounded-[var(--radius-lg)] w-full"
                   data-post-card
                   data-category={cat}
                   data-tags={JSON.stringify(post.data.tags || [])}
                   data-title={post.data.title.toLowerCase()}
                   data-desc={post.data.description.toLowerCase()}
                 >
-                  <a href={`/${post.id}`} class="card-link-wrapper" aria-label={post.data.title}>
+                  <a href={`/${post.id}`} class="flex flex-col h-full no-underline text-inherit" aria-label={post.data.title}>
                     <!-- Visual Cover / Thumbnail -->
-                    <div class="post-cover-frame">
+                    <div class="relative w-full aspect-video rounded-[var(--radius-md)] overflow-hidden border border-[var(--border-subtle)] group-hover:border-[var(--border-glow)] mb-3.5 transition-all duration-200">
                       {imageSrc ? (
                         <img
                           src={imageSrc}
                           alt={post.data.title}
                           loading="lazy"
-                          class="post-cover-img"
+                          class="w-full h-full object-cover object-center block"
                         />
                       ) : (
-                        <div class="post-cover-fallback">
-                          <img src={fallbackBg} alt="" class="fallback-backdrop" aria-hidden="true" />
-                          <div class="fallback-overlay"></div>
-                          <div class="fallback-content">
-                            <div class="fallback-badge">
-                              <span class="fallback-badge-icon">✦</span>
+                        <div class="relative w-full h-full aspect-video flex flex-col items-center justify-center p-5 overflow-hidden text-center bg-[#0c0d12]">
+                          <img src={fallbackBg} alt="" class="absolute inset-0 w-full h-full object-cover z-1 opacity-90 brightness-85 contrast-110 group-hover:scale-105 transition-transform duration-350" aria-hidden="true" />
+                          <div class="absolute inset-0 z-2 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(12,13,18,0.45)_0%,rgba(8,8,12,0.88)_100%)]"></div>
+                          <div class="relative z-3 flex flex-col items-center justify-center gap-1.5 max-w-[90%]">
+                            <div class="inline-flex items-center gap-1.5 font-mono text-[0.62rem] font-bold tracking-[0.14em] uppercase text-white/85 drop-shadow-md">
+                              <span class="text-[0.7rem] text-yellow-300">✦</span>
                               <span>{post.data.category || 'BLOG'}</span>
                             </div>
-                            <h3 class="fallback-title">{post.data.title}</h3>
+                            <h3 class="font-serif text-base sm:text-lg font-semibold leading-snug text-white tracking-tight line-clamp-2 drop-shadow-lg m-0">{post.data.title}</h3>
                             {post.data.description && (
-                              <p class="fallback-subtitle">{post.data.description}</p>
+                              <p class="font-sans text-[0.72rem] text-white/70 line-clamp-1 max-w-[90%] m-0 drop-shadow">{post.data.description}</p>
                             )}
                           </div>
                         </div>
                       )}
-                      <div class="cover-overlay-badge">
-                        <span class="play-icon">▶</span>
+                      <div class="absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2 py-0.5 bg-[rgba(10,10,12,0.75)] backdrop-blur-md border border-white/15 rounded-[var(--radius-sm)] font-mono text-[0.68rem] font-medium text-slate-100">
+                        <span class="text-[0.55rem] opacity-85">▶</span>
                         <span>{post.data.readingTime || '5 min read'}</span>
                       </div>
                     </div>
 
                     <!-- Post Info -->
-                    <div class="featured-post-body">
-                      <div class={`post-cat-label ${colorClass}`}>
-                        <span class="cat-bar"></span>
-                        <span class="cat-text">{cat}</span>
+                    <div class="flex flex-col flex-1">
+                      <div class={`inline-flex items-center gap-1.5 font-mono text-[0.68rem] font-bold tracking-wider uppercase mb-1.5 ${colorClass}`}>
+                        <span class="cat-bar inline-block w-[3px] h-2.5 rounded-xs"></span>
+                        <span>{cat}</span>
                       </div>
 
-                      <h2 class="featured-post-title">
+                      <h2 class="font-display text-[1.15rem] font-bold leading-snug tracking-tight text-[var(--text-primary)] mb-1.5 group-hover:text-[var(--accent-primary)] transition-colors duration-150 line-clamp-2 min-h-[2.7em]">
                         {post.data.title}
                       </h2>
 
-                      <p class="featured-post-excerpt">
+                      <p class="font-sans text-[0.85rem] leading-relaxed text-[var(--text-secondary)] mb-3 line-clamp-2 min-h-[3.1em]">
                         {post.data.description}
                       </p>
 
-                      <div class="post-meta-row">
-                        <span class="post-meta-date">
+                      <div class="flex items-center gap-1.5 font-mono text-xs text-[var(--text-muted)] mt-auto">
+                        <span>
                           <FormattedDate date={post.data.pubDate} />
                         </span>
-                        <span class="meta-dot">·</span>
-                        <span class="post-meta-reading-time">{post.data.readingTime || '5 min read'}</span>
+                        <span class="opacity-50">·</span>
+                        <span>{post.data.readingTime || '5 min read'}</span>
                       </div>
                     </div>
                   </a>
@@ -229,22 +227,22 @@ const getCategoryColorClass = (cat: string) => {
           </div>
 
           <!-- Empty State when filtering yields 0 items -->
-          <div id="no-posts-found" class="no-posts-empty-state" style="display: none;">
-            <div class="empty-icon">🔍</div>
-            <h3 class="empty-title">No articles found</h3>
-            <p class="empty-desc">Try selecting another category or clear your search term.</p>
-            <button id="reset-filter-btn" class="reset-filter-btn" type="button">
+          <div id="no-posts-found" class="text-center py-12 px-6 bg-[var(--bg-card)] border border-dashed border-[var(--border-subtle)] rounded-[var(--radius-lg)] my-8" style="display: none;">
+            <div class="text-3xl mb-3">🔍</div>
+            <h3 class="text-lg font-bold text-[var(--text-primary)] mb-1.5">No articles found</h3>
+            <p class="text-sm text-[var(--text-muted)] mb-5">Try selecting another category or clear your search term.</p>
+            <button id="reset-filter-btn" class="inline-flex items-center px-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--text-inverted)] border-none text-xs font-semibold cursor-pointer" type="button">
               Reset Filters
             </button>
           </div>
         </section>
 
         <!-- PAGINATION SECTION -->
-        <div class="pagination-section" id="pagination-section">
-          <nav class="pagination-controls" aria-label="Pagination">
+        <div class="flex flex-col items-center gap-2 mt-10 mb-4" id="pagination-section">
+          <nav class="inline-flex items-center gap-1.5" aria-label="Pagination">
             <button
               id="pg-prev-btn"
-              class="pg-btn pg-arrow disabled"
+              class="pg-btn inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-[var(--radius-sm)] font-mono text-[0.78rem] bg-transparent border border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tag-hover)] hover:border-[var(--border-subtle)] cursor-pointer transition-all duration-150 disabled:opacity-35 disabled:cursor-not-allowed"
               type="button"
               disabled
               aria-label="Previous page"
@@ -252,13 +250,13 @@ const getCategoryColorClass = (cat: string) => {
               &lt; Prev
             </button>
 
-            <div id="pg-numbers-container" class="pg-numbers-wrap">
-              <button type="button" class="pg-btn pg-num active" data-page="1">1</button>
+            <div id="pg-numbers-container" class="inline-flex items-center gap-1">
+              <button type="button" class="pg-btn pg-num inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-[var(--radius-sm)] font-mono text-[0.78rem] bg-transparent border border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tag-hover)] hover:border-[var(--border-subtle)] cursor-pointer transition-all duration-150 aria-[current=page]:bg-[var(--bg-card)] aria-[current=page]:text-[var(--text-primary)] aria-[current=page]:border-[var(--border-glow)] aria-[current=page]:font-bold" data-page="1" aria-current="page">1</button>
             </div>
 
             <button
               id="pg-next-btn"
-              class="pg-btn pg-arrow disabled"
+              class="pg-btn inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-[var(--radius-sm)] font-mono text-[0.78rem] bg-transparent border border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tag-hover)] hover:border-[var(--border-subtle)] cursor-pointer transition-all duration-150 disabled:opacity-35 disabled:cursor-not-allowed"
               type="button"
               disabled
               aria-label="Next page"
@@ -266,7 +264,7 @@ const getCategoryColorClass = (cat: string) => {
               Next &gt;
             </button>
           </nav>
-          <p id="pg-summary-text" class="pg-summary-text">
+          <p id="pg-summary-text" class="font-mono text-xs text-[var(--text-muted)] m-0">
             Showing all {posts.length} posts
           </p>
         </div>
@@ -284,7 +282,6 @@ const getCategoryColorClass = (cat: string) => {
 
     <script is:inline>
       (function () {
-        // Search Trigger Integration
         const searchTriggerBtn = document.getElementById('hero-search-trigger-btn');
         if (searchTriggerBtn) {
           searchTriggerBtn.addEventListener('click', () => {
@@ -294,7 +291,6 @@ const getCategoryColorClass = (cat: string) => {
           });
         }
 
-        // Category Tab Filtering & Pagination
         const categoryTabs = document.querySelectorAll('.cat-tab-btn');
         const postCards = Array.from(document.querySelectorAll('[data-post-card]'));
         const featuredGrid = document.getElementById('featured-posts-grid');
@@ -344,11 +340,9 @@ const getCategoryColorClass = (cat: string) => {
 
           if (prevBtn) {
             prevBtn.disabled = currentPage <= 1;
-            prevBtn.classList.toggle('disabled', currentPage <= 1);
           }
           if (nextBtn) {
             nextBtn.disabled = currentPage >= totalPages;
-            nextBtn.classList.toggle('disabled', currentPage >= totalPages);
           }
 
           if (numbersContainer) {
@@ -356,7 +350,11 @@ const getCategoryColorClass = (cat: string) => {
             for (let i = 1; i <= totalPages; i++) {
               const btn = document.createElement('button');
               btn.type = 'button';
-              btn.className = `pg-btn pg-num ${i === currentPage ? 'active' : ''}`;
+              const isActive = i === currentPage;
+              btn.className = 'pg-btn pg-num inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-[var(--radius-sm)] font-mono text-[0.78rem] bg-transparent border border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tag-hover)] hover:border-[var(--border-subtle)] cursor-pointer transition-all duration-150 aria-[current=page]:bg-[var(--bg-card)] aria-[current=page]:text-[var(--text-primary)] aria-[current=page]:border-[var(--border-glow)] aria-[current=page]:font-bold';
+              if (isActive) {
+                btn.setAttribute('aria-current', 'page');
+              }
               btn.textContent = String(i);
               btn.setAttribute('data-page', String(i));
               btn.addEventListener('click', () => {
@@ -382,8 +380,9 @@ const getCategoryColorClass = (cat: string) => {
 
         categoryTabs.forEach((tab) => {
           tab.addEventListener('click', () => {
-            categoryTabs.forEach((t) => t.classList.remove('active'));
-            tab.classList.add('active');
+            categoryTabs.forEach((t) => {
+              t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            });
             currentCategory = tab.getAttribute('data-category') || 'All';
             currentPage = 1;
             renderPagination(getFilteredPosts());
@@ -395,7 +394,8 @@ const getCategoryColorClass = (cat: string) => {
             currentCategory = 'All';
             currentPage = 1;
             categoryTabs.forEach((t) => {
-              t.classList.toggle('active', t.getAttribute('data-category') === 'All');
+              const isAll = t.getAttribute('data-category') === 'All';
+              t.setAttribute('aria-selected', isAll ? 'true' : 'false');
             });
             renderPagination(getFilteredPosts());
           });
@@ -422,7 +422,6 @@ const getCategoryColorClass = (cat: string) => {
           });
         }
 
-        // Initial render
         renderPagination(getFilteredPosts());
       })();
     </script>

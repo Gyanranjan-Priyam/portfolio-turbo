@@ -1,32 +1,6 @@
 import type { ReactNode } from "react";
 import { createElement } from "react";
-
-function svg(props: {
-  viewBox: string;
-  className?: string;
-  children: ReactNode | ReactNode[];
-}) {
-  const kids = Array.isArray(props.children)
-    ? props.children
-    : [props.children];
-  return createElement(
-    "svg",
-    { viewBox: props.viewBox, className: props.className ?? "size-3.5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors" },
-    ...kids,
-  );
-}
-
-function path(props: Record<string, string>) {
-  return createElement("path", props);
-}
-
-function circle(props: Record<string, string>) {
-  return createElement("circle", props);
-}
-
-function rect(props: Record<string, string>) {
-  return createElement("rect", props);
-}
+import { TechIcon } from "@/components/tech-icons";
 
 export type Skill = {
   name: string;
@@ -44,368 +18,58 @@ export const skillCategories: SkillCategory[] = [
     number: "01",
     title: "Language",
     skills: [
-      {
-        name: "TypeScript",
-        icon: svg({
-          viewBox: "0 0 256 256",
-          children: [
-            rect({ width: "256", height: "256", rx: "32", fill: "currentColor", opacity: "0.2" }),
-            path({
-              d: "M150.5 200.5v27.6c4.5 2.3 9.8 4 15.9 5.2 6.1 1.2 12.6 1.7 19.4 1.7 6.6 0 12.9-.6 18.9-1.9 6-1.3 11.2-3.4 15.7-6.3 4.5-2.9 8-6.8 10.7-11.7 2.6-4.9 3.9-10.9 3.9-18.2 0-5.2-1-9.7-2.9-13.5-1.9-3.8-4.5-7.2-7.7-10.1-3.2-3-7-5.6-11.2-8-4.2-2.4-8.7-4.6-13.4-6.7-3.5-1.6-6.7-3.1-9.5-4.5-2.9-1.5-5.3-3-7.3-4.5-2-1.5-3.6-3.1-4.7-4.9-1.1-1.7-1.7-3.7-1.7-5.9 0-2 .5-3.8 1.5-5.5 1-1.6 2.4-3.1 4.2-4.3 1.8-1.2 3.9-2.1 6.4-2.8 2.5-.6 5.2-1 8.3-1 2.2 0 4.5.2 6.9.5 2.4.3 4.8.9 7.2 1.7 2.4.8 4.7 1.8 6.9 3 2.2 1.2 4.1 2.6 5.8 4.3v-25.6c-4-1.6-8.4-2.8-13.2-3.6-4.8-.8-10.3-1.1-16.4-1.1-6.6 0-12.8.7-18.7 2.1-5.9 1.4-11.1 3.6-15.6 6.5-4.5 3-8 6.9-10.7 11.7-2.6 4.8-3.9 10.6-3.9 17.5 0 8.7 2.6 16.1 7.7 22.2 5.1 6.1 12.7 11.3 22.7 15.4 4 1.6 7.7 3.2 11 4.8 3.4 1.6 6.3 3.2 8.8 5 2.5 1.7 4.5 3.6 5.9 5.7 1.4 2.1 2.1 4.4 2.1 7 0 1.9-.5 3.6-1.4 5.2-.9 1.6-2.3 3-4 4.1-1.7 1.2-3.9 2.1-6.4 2.7-2.5.6-5.4 1-8.6 1-5.6 0-11.2-1-16.6-3-5.4-2-10.3-5.1-14.7-9.2ZM103.5 119.6h30v-23.4h-82v23.4h30V232h22V119.6Z",
-              fill: "currentColor",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "JavaScript",
-        icon: svg({
-          viewBox: "0 0 256 256",
-          children: [
-            rect({ width: "256", height: "256", rx: "32", fill: "currentColor", opacity: "0.2" }),
-            path({
-              d: "M67.3 214.3c5.3 8.8 13.5 14.5 24.3 14.5 14.1 0 22.9-7.1 22.9-27.9v-76.3H95.2v75.9c0 8.8-3.5 12.8-9.4 12.8-5.3 0-8.5-3.3-11.1-8.5l-7.4 9.5ZM139.5 220.8c8.8 5.6 20.3 9.4 32.1 9.4 18.2 0 30-8.8 30-22.9 0-13.8-9.7-19.4-23.8-25.3l-5.6-2.4c-9.1-3.8-13.8-7.9-13.8-14.4 0-6.8 5.3-11.8 14.7-11.8 8.8 0 16.5 3.5 21.8 7.9l6.5-11.8c-6.8-5-16.2-7.9-26.8-7.9-17.6 0-28.5 9.7-28.5 22.9 0 14.1 9.4 19.7 22.1 25l5.3 2.4c9.7 4.1 15.3 8.2 15.3 15.3 0 7.9-7.1 12.9-16.8 12.9-11.5 0-20.9-4.7-27.4-11.2l-5.3 11.9Z",
-              fill: "currentColor",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Python",
-        icon: svg({
-          viewBox: "0 0 256 255",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M126.9.1C62.1.1 66.1 28.2 66.1 28.2l.1 29.1h61.9v8.7H41.6S.1 61.4.1 126.8c0 65.4 36.2 63.1 36.2 63.1h21.6v-30.4s-1.2-36.2 35.6-36.2h61.4s34.5.6 34.5-33.3V34S194.7.1 126.9.1ZM92.8 19.7a11.1 11.1 0 1 1 0 22.3 11.1 11.1 0 0 1 0-22.3ZM128.8 254.1c64.8 0 60.8-28.1 60.8-28.1l-.1-29.1h-61.9v-8.7h86.4s41.5 4.7 41.5-60.7c0-65.4-36.2-63.1-36.2-63.1h-21.6v30.4s1.2 36.2-35.6 36.2h-61.4s-34.5-.6-34.5 33.3v56s-5.2 33.9 62.5 33.9Zm34.1-19.6a11.1 11.1 0 1 1 0-22.3 11.1 11.1 0 0 1 0 22.3Z",
-            }),
-          ],
-        }),
-      },
+      { name: "TypeScript", icon: createElement(TechIcon, { name: "TypeScript" }) },
+      { name: "JavaScript", icon: createElement(TechIcon, { name: "JavaScript" }) },
+      { name: "Python", icon: createElement(TechIcon, { name: "Python" }) },
     ],
   },
   {
     number: "02",
     title: "Frontend",
     skills: [
-      {
-        name: "React",
-        icon: svg({
-          viewBox: "0 0 256 228",
-          children: [
-            circle({ cx: "128", cy: "114", r: "20", fill: "currentColor" }),
-            path({
-              d: "M210.5 73.8a171.5 171.5 0 0 0-8.2-2.6 171.2 171.2 0 0 0-10.5-56.7c-13.4-7.7-35.2.3-57.3 19.5a171.2 171.2 0 0 0-6.4 5.8 155.9 155.9 0 0 0-6.2-5.7C100.4 4 78.7-4 65.6 3.7 52.9 11 48.9 34.6 54.9 64.2a171.6 171.6 0 0 0-6.9 10.5C19.6 84.9 0 97.5 0 114.2c0 17.1 20.4 30.2 49.5 40.3 2.2.8 4.5 1.5 6.9 2.2a172.5 172.5 0 0 0 7.4 48c13 7.5 35.8-.6 58.2-20.2a173 173 0 0 0 6-5.5 175.2 175.2 0 0 0 6.5 5.9c22.1 19.1 44.1 26.8 56.9 19.4 13.2-7.6 17.5-31.7 11.5-61.4a175 175 0 0 0 5.6-9.7c27.8-10.6 44.4-23.3 44.4-40.3 0-16.4-15.8-28.8-45.5-40.4ZM128.2 163.5c-27.3 0-49.5-22.1-49.5-49.4 0-27.3 22.2-49.4 49.5-49.4 27.3 0 49.5 22.1 49.5 49.4 0 27.3-22.2 49.4-49.5 49.4Z",
-              fill: "none",
-              stroke: "currentColor",
-              strokeWidth: "12",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Next.js",
-        icon: svg({
-          viewBox: "0 0 256 256",
-          children: [
-            circle({ cx: "128", cy: "128", r: "128", fill: "currentColor" }),
-            path({
-              d: "M212.6 193.8L105 52.2H82v151.7h18.5V79.6l98.3 130.6a128.9 128.9 0 0 0 13.9-16.4Z",
-              fill: "var(--background)",
-            }),
-            rect({ x: "163.8", y: "52.2", width: "18.4", height: "151.7", fill: "var(--background)" }),
-          ],
-        }),
-      },
-      {
-        name: "Tailwind CSS",
-        icon: svg({
-          viewBox: "0 0 256 154",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M128 0Q84.3 0 64 42.7q28.8-21.4 60.8-10.7 10.5 3.5 26.4 19.7Q164.9 65.7 224 82.7q43.7 0 64-42.7-28.8 21.3-60.8 10.7-10.5-3.5-18.1-11.2C195.4 25.5 179.1 8.5 136.3 0ZM32 82.7Q-11.7 82.7-32 125.3q28.8-21.3 60.8-10.7 10.5 3.6 26.4 19.7Q68.9 148.4 128 165.3q43.7 0 64-42.6Q163.2 144 131.2 133.3q-10.5-3.5-26.4-19.7Q91.1 99.6 32 82.7Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "shadcn/ui",
-        icon: svg({
-          viewBox: "0 0 256 256",
-          children: [
-            path({
-              d: "M208 128l-80 80M192 40L40 192",
-              stroke: "currentColor",
-              strokeWidth: "26",
-              strokeLinecap: "round",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Radix UI",
-        icon: svg({
-          viewBox: "0 0 25 25",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M6.5 6.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm6 0h4.5a4.5 4.5 0 0 1 0 9H12.5v-9Zm0 11h4.5a4.5 4.5 0 0 1 0 9H12.5v-9Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Base UI",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            circle({ cx: "12", cy: "12", r: "8", fill: "none", stroke: "currentColor", strokeWidth: "2.5" }),
-          ],
-        }),
-      },
-      {
-        name: "Motion",
-        icon: svg({
-          viewBox: "0 0 256 384",
-          children: [
-            path({ fill: "currentColor", d: "M0 0h256v128H128z" }),
-            path({ fill: "currentColor", opacity: "0.8", d: "M0 128h128l128 128H128z" }),
-            path({ fill: "currentColor", opacity: "0.6", d: "M0 256l128 128V256z" }),
-          ],
-        }),
-      },
-      {
-        name: "Expo",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 2L2 19.5h4.5L12 9.5l5.5 10H22L12 2z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "TanStack",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 2l9 5.2v10.4L12 22.8 3 17.6V7.2L12 2z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "GSAP",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 2L2 7l10 5 10-5-10-5zm0 9l-10-5v6l10 5 10-5v-6l-10 5zm0 6l-10-5v6l10 5 10-5v-6l-10 5z",
-            }),
-          ],
-        }),
-      },
+      { name: "React", icon: createElement(TechIcon, { name: "React" }) },
+      { name: "Next.js", icon: createElement(TechIcon, { name: "Next.js" }) },
+      { name: "Tailwind CSS", icon: createElement(TechIcon, { name: "Tailwind CSS" }) },
+      { name: "shadcn/ui", icon: createElement(TechIcon, { name: "shadcn/ui" }) },
+      { name: "Radix UI", icon: createElement(TechIcon, { name: "Radix UI" }) },
+      { name: "Base UI", icon: createElement(TechIcon, { name: "Base UI" }) },
+      { name: "Motion", icon: createElement(TechIcon, { name: "Motion" }) },
+      { name: "Expo", icon: createElement(TechIcon, { name: "Expo" }) },
+      { name: "TanStack", icon: createElement(TechIcon, { name: "TanStack" }) },
+      { name: "GSAP", icon: createElement(TechIcon, { name: "GSAP" }) },
     ],
   },
   {
     number: "03",
     title: "Backend & Database",
     skills: [
-      {
-        name: "Node.js",
-        icon: svg({
-          viewBox: "0 0 256 289",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M128 288.5c-4 0-7.7-1.1-11.1-2.9l-35.2-21c-5.3-2.9-2.7-4-1.1-4.5 7.2-2.4 8.5-2.9 15.9-7.2.8-.5 1.9-.3 2.7.3l27 16.2c1.1.5 2.4.5 3.2 0l105.7-61.2c1.1-.5 1.6-1.6 1.6-2.9V83.3c0-1.3-.5-2.4-1.6-2.9L129.6 19.2c-1.1-.5-2.4-.5-3.2 0L20.7 80.4c-1.1.5-1.6 1.9-1.6 2.9v122.2c0 1.1.5 2.4 1.6 2.9l28.9 16.7c15.6 8 25.4-1.3 25.4-10.6V93.7c0-1.6 1.3-3.2 3.2-3.2h13.5c1.6 0 3.2 1.3 3.2 3.2v120.8c0 21-11.4 33.1-31.3 33.1-6.1 0-10.9 0-24.4-6.6l-27.8-15.9C4.2 220.6 0 213.2 0 205.2V83.1C0 75.1 4.2 67.7 11.4 63.7L117.1 2.5c6.6-3.7 15.6-3.7 22.3 0l105.7 61c7.2 4 11.4 11.4 11.4 19.3v122.2c0 8-4.2 15.4-11.4 19.3L139.4 285.5c-3.4 1.9-7.4 3-11.4 3Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Bun",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            circle({ cx: "12", cy: "12", r: "8", fill: "currentColor" }),
-          ],
-        }),
-      },
-      {
-        name: "PostgreSQL",
-        icon: svg({
-          viewBox: "0 0 256 264",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M255 158.1c-1.5-4.6-5.5-7.9-10.7-8.7-2.5-.4-5.3-.2-8.6.5-5.8 1.2-10.1 1.6-13.2 1.7 11.8-20 21.5-42.8 27-64.2 9-34.7 4.2-50.5-1.4-57.6C233.2 10.8 211.6.7 185.6.1c-13.7-.3-25.8 2.6-33.8 5.7-6.6-3-20.7-8.4-38.1-7.4C95.4-.4 78.6 7 65.3 20.8 52.6 33.8 44.1 52.4 40.5 75.6c-1.7 11-2.1 21-1.9 29.5-.4 10.1 0 22.3 2.5 36.3 3.1 17.7 8.6 32.4 16.3 43.6 5.9 8.5 13 14.7 20.7 18.2-1.1 9.2-1.6 19.2.2 28.9 1.8 10.1 6.4 19.1 13.6 26.7 12.6 13.2 32.2 20.2 56.9 20.2 6.1 0 12.6-.4 19.5-1.4 17.7-2.3 32.5-8.9 42.7-19.2 9.4-9.5 14.7-21.6 15.8-36.1.4-5.7.1-11.4-.3-16.2 9.9-9 18.5-20.2 25.2-32.6 7.7-14.3 9.6-25.4 7.3-32.5Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "MongoDB",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 0C11.5 3.5 8 7 8 11.5c0 3.3 2.2 6.2 4 7.5 1.8-1.3 4-4.2 4-7.5C16 7 12.5 3.5 12 0Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Redis",
-        icon: svg({
-          viewBox: "0 0 256 220",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M246 143.2c-13.7 7.1-84.4 36.2-99.5 44.1-15.1 7.8-23.4 7.8-35.3 2.1-11.9-5.7-87.2-36.1-100.8-42.6-13.6-6.5-13.8-11-.5-16.2 13.3-5.2 88.2-34.6 104.1-40.4 15.8-5.8 21.3-6 35.5-.6 14.2 5.3 82.9 32.6 94.4 36.6 11.6 4 15.8 10 2.1 17Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "nginx",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1.5 16.5H8.3V7.5h2.2l5 6.8V7.5h2.2v9h-2.2l-5-6.8v6.8z",
-            }),
-          ],
-        }),
-      },
+      { name: "Node.js", icon: createElement(TechIcon, { name: "Node.js" }) },
+      { name: "Bun", icon: createElement(TechIcon, { name: "Bun" }) },
+      { name: "PostgreSQL", icon: createElement(TechIcon, { name: "PostgreSQL" }) },
+      { name: "MongoDB", icon: createElement(TechIcon, { name: "MongoDB" }) },
+      { name: "Redis", icon: createElement(TechIcon, { name: "Redis" }) },
+      { name: "nginx", icon: createElement(TechIcon, { name: "nginx" }) },
     ],
   },
   {
     number: "04",
     title: "Workflow & AI",
     skills: [
-      {
-        name: "Claude",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z",
-            }),
-          ],
-        }),
-      },
-
-      {
-        name: "Gemini",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 0C12 6.6 6.6 12 0 12c6.6 0 12 5.4 12 12 0-6.6 5.4-12 12-12-6.6 0-12-5.4-12-12Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "ChatGPT",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073ZM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Git",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M23.546 10.93L13.067.452a1.5 1.5 0 0 0-2.126 0L8.808 2.585l3.548 3.548a2.38 2.38 0 0 1 2.99 2.99l3.414 3.414a2.38 2.38 0 0 1 2.822 2.844l1.964 1.964a1.5 1.5 0 0 0 0-2.126l.001-.001-.001-4.288ZM1.454 13.07l10.479 10.478a1.5 1.5 0 0 0 2.126 0l2.133-2.133-3.548-3.548a2.38 2.38 0 0 1-2.99-2.99L6.24 11.463a2.38 2.38 0 0 1-2.822-2.844L1.454 6.655a1.5 1.5 0 0 0 0 2.126l-.001.001.001 4.288Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "GitHub",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Docker",
-        icon: svg({
-          viewBox: "0 0 256 185",
-          children: [
-            path({
-              fill: "currentColor",
-              d: "M250.7 70.5c-5.3-3.6-17.6-5-27-3.1-1.3-9.1-6.4-17.1-15.6-24.3l-5.3-3.6-3.6 5.3c-4.6 7-6.9 16.6-6.2 25.8a34 34 0 0 0 2.4 10.7c-3.5 1.9-10.3 4.5-19.4 4.3H.3l-.1.6c-1.5 8.6-1.4 35.4 16 55.9 13.3 15.7 33.1 23.6 59 23.6 56.2 0 97.8-25.9 117.3-73 7.7.1 24.2.1 32.7-16.2.2-.4 3-5.3 3.5-6.9ZM142.7 51.1h-23.4v22.3h23.4V51.1Zm0-28h-23.4v22.3h23.4V23Zm-28.7 28H90.6v22.3h23.4V51.1Zm-28.7 0H62v22.3h23.4V51.1ZM56.7 79.1H33.3v22.3h23.4V79.1Zm28.7-28H62v22.3h23.4V51.1Zm28.6 0H90.6v22.3h23.4V51.1Zm28.7 0h-23.4v22.3h23.4V51.1Zm28.7 0h-23.4v22.3h23.4V51.1Z",
-            }),
-          ],
-        }),
-      },
-      {
-        name: "Vercel",
-        icon: svg({
-          viewBox: "0 0 256 222",
-          children: [
-            path({ fill: "currentColor", d: "M128 0 256 221.7H0z" }),
-          ],
-        }),
-      },
+      { name: "Claude", icon: createElement(TechIcon, { name: "Claude" }) },
+      { name: "Gemini", icon: createElement(TechIcon, { name: "Gemini" }) },
+      { name: "ChatGPT", icon: createElement(TechIcon, { name: "ChatGPT" }) },
+      { name: "Git", icon: createElement(TechIcon, { name: "Git" }) },
+      { name: "GitHub", icon: createElement(TechIcon, { name: "GitHub" }) },
+      { name: "Docker", icon: createElement(TechIcon, { name: "Docker" }) },
+      { name: "Vercel", icon: createElement(TechIcon, { name: "Vercel" }) },
     ],
   },
   {
     number: "05",
     title: "Design",
     skills: [
-      {
-        name: "Figma",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            path({ fill: "currentColor", d: "M8 2h4v5H8a2.5 2.5 0 1 1 0-5z" }),
-            path({ fill: "currentColor", opacity: "0.8", d: "M12 2h4a2.5 2.5 0 1 1 0 5h-4V2z" }),
-            path({ fill: "currentColor", opacity: "0.6", d: "M8 7h4v5H8a2.5 2.5 0 1 1 0-5z" }),
-            path({ fill: "currentColor", opacity: "0.4", d: "M12 7h4a2.5 2.5 0 1 1 0 5h-4V7z" }),
-            path({ fill: "currentColor", opacity: "0.2", d: "M8 12h4v2.5a2.5 2.5 0 1 1-4 0V12z" }),
-          ],
-        }),
-      },
-      {
-        name: "Photoshop",
-        icon: svg({
-          viewBox: "0 0 24 24",
-          children: [
-            rect({ width: "24", height: "24", rx: "4", fill: "currentColor", opacity: "0.15" }),
-            path({
-              fill: "currentColor",
-              d: "M8.5 7h4a3 3 0 0 1 0 6H10v4H8.5V7zm1.5 4.5h2.5a1.5 1.5 0 0 0 0-3H10v3zM15 11.5c.5-.3 1.2-.5 2-.5 1.2 0 2 .5 2 1.5 0 .8-.5 1.2-1.5 1.5l-.8.2c-.8.2-1.2.5-1.2 1 0 .6.5 1 1.5 1 .6 0 1.2-.2 1.7-.5v1.3c-.6.3-1.2.4-1.8.4-1.8 0-2.8-.8-2.8-2 0-.9.6-1.5 1.7-1.8l.8-.2c.6-.2.9-.4.9-.8 0-.5-.4-.8-1.1-.8-.5 0-1 .1-1.5.4v-1.5z",
-            }),
-          ],
-        }),
-      },
+      { name: "Figma", icon: createElement(TechIcon, { name: "Figma" }) },
+      { name: "Photoshop", icon: createElement(TechIcon, { name: "Photoshop" }) },
     ],
   },
 ];

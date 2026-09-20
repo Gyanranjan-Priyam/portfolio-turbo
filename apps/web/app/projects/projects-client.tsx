@@ -16,6 +16,7 @@ import {
 import { BlurFade } from "@/components/ui/blur-fade";
 import { motion, AnimatePresence } from "motion/react";
 import { useLoaderStore } from "@/components/loader-component";
+import { TechBadge } from "@/components/tech-icons";
 import {
   Pagination,
   PaginationContent,
@@ -317,12 +318,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
                     </div>
                     <div className="mt-3 flex flex-wrap items-center gap-1.5 min-h-[52px] content-start">
                       {project.tech.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2.5 py-0.5 text-[11px] font-mono font-medium text-muted-foreground"
-                        >
-                          {tech}
-                        </span>
+                        <TechBadge key={tech} name={tech} size="sm" />
                       ))}
                       {project.tech.length > 4 && (
                         <span className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2 py-0.5 text-[11px] font-mono font-medium text-muted-foreground">
@@ -365,12 +361,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
                     </div>
                     <div className="mt-3.5 flex flex-wrap items-center gap-2">
                       {project.tech.slice(0, 6).map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-3 py-1 text-xs font-mono font-medium text-foreground/80 group-hover:text-foreground transition-colors"
-                        >
-                          {tech}
-                        </span>
+                        <TechBadge key={tech} name={tech} size="sm" />
                       ))}
                       {project.tech.length > 6 && (
                         <span className="rounded-full border border-border/70 bg-muted/20 dark:bg-neutral-900/50 px-2.5 py-1 text-xs font-mono font-medium text-muted-foreground">

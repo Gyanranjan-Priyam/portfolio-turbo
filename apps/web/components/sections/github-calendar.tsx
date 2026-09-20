@@ -150,7 +150,7 @@ export function GitHubCalendarSection() {
 
       {/* Main Blueprint Heatmap Card */}
       <BlurFade delay={0.08} inView>
-        <div className="rounded-xl border border-border bg-card/60 backdrop-blur-xs p-4 sm:p-5 shadow-xs transition-all">
+        <div className="rounded-md border border-border bg-card/60 backdrop-blur-xs p-4 sm:p-5 shadow-xs transition-all">
           {/* Scrollable Heatmap */}
           <div
             ref={(el) => {
