@@ -1,6 +1,6 @@
 export const education = [
   {
-    degree: "Bachelor of Science in Computer Science",
+    degree: "Bachelor of Technology in Electrical Engineering",
     school: "Government College of Engineering Kalahandi, Bhawanipatna",
     period: "2024 - present",
     marks: "CGPA: 8.2",

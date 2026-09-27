@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
+import { Signature } from "@/components/ui/signature";
 import { Separator } from "../ui/separator";
 import { BLOG_URL } from "@/lib/config";
 
@@ -106,9 +107,14 @@ export function Footer() {
             className="flex flex-col items-center justify-center gap-1.5 transition-opacity hover:opacity-85"
           >
             <Image src="/logo.png" alt="Logo" width={36} height={36} />
-            <span className="font-caveat text-3xl font-bold text-foreground">
-              Gyanranjan Priyam
-            </span>
+            <Signature
+              text="Gyanranjan Priyam"
+              fontSize={22}
+              duration={1.5}
+              inView
+              color="currentColor"
+              className="h-9 sm:h-10 w-auto max-w-[260px] text-foreground"
+            />
           </Link>
         </div>
       </BlurFade>
