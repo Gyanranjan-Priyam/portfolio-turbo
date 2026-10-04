@@ -9,80 +9,119 @@ export const revalidate = 3600;
 export async function GET() {
   const formatDescription = (descriptionParts: string[]) => descriptionParts.join(" ");
 
-  const content = `# Gyanranjan Priyam
+  const content = `# Gyanranjan Priyam — Full Stack Developer & AI Engineer
 
-> Electrical Engineer by degree, Full-Stack Developer by passion. I build scalable products and mentor the next generation of developers.
+> Full Stack Developer and AI Engineer specializing in Next.js, React, TypeScript, Node.js, and AI/ML integrations. Building scalable products, modern web experiences, and developer tools.
 
-- Website: ${SITE_URL}
-- Email: info@priyam.tech
+- Canonical URL: ${SITE_URL}
+- Blog: ${BLOG_URL}
 - GitHub: https://github.com/gyanranjan-priyam
 - LinkedIn: https://linkedin.com/in/gyanranjan-priyam
-- Twitter: https://x.com/gr_priyam
+- Twitter/X: https://x.com/gr_priyam
 - Instagram: https://instagram.com/gyanranjanpriyam
+- Contact Email: info@priyam.tech
 - Resume: https://assets.priyam.tech/resume/resume.pdf
 
-## About
+---
 
-I'm an electrical engineering student at GCE Kalahandi with a passion for technology and web development. Alongside my core studies I am also a software developer focused on building seamless, efficient, and user-centric digital experiences across both front-end and back-end technologies.
+## Core Documentation & LLM Endpoints
 
-Open to internships, freelance projects, and full-time roles. If you're building something meaningful, I'd love to be part of it.
+- [Full Site Context (Consolidated)](${SITE_URL}/llms-full.txt): Complete technical portfolio documentation including all projects, architecture breakdowns, templates, experience, and education in a single file.
+- [About & Biography (Markdown)](${SITE_URL}/about.md): Detailed personal bio, developer philosophy, background, and contact points.
+- [Projects Index (Markdown)](${SITE_URL}/projects.md): Complete list of production projects, case studies, and engineering highlights.
+- [Templates Index (Markdown)](${SITE_URL}/templates.md): Open-source boilerplates, UI kits, and starter templates.
+- [Privacy Policy (Markdown)](${SITE_URL}/privacy.md): Website privacy policy and data governance.
+- [Engineering Blog (LLMs.txt)](${BLOG_URL}/llms.txt): Machine-readable index of all technical articles on web performance, Next.js, and system architecture.
 
-## Hobbies & Interests
+---
 
-- Reading books — expanding imagination, improving thinking, and gaining new perspectives
-- Web development — building websites, learning new web technologies, hands-on projects
-- Open source contributions — 10+ contributions on Google Gemini CLI project, collaborating with developers globally
-- Research — exploring emerging fields and staying updated with advancements
-
-## Work Experience
-
-${experiences
-  .map((e) => `- **${e.title}** at ${e.company} (${e.period})`)
-  .join("\n")}
-
-## Education
-
-${education
-  .map((e) => `- **${e.degree}** — ${e.school} (${e.period}) ${e.marks ? `| ${e.marks}` : ""}`)
-  .join("\n")}
-
-## Certifications
-
-${certifications
-  .map((c) => `- ${c.name} — ${c.issuer} (${c.year})`)
-  .join("\n")}
-  
-## Skills & Stack
-
-- Frontend: React, Next.js, TypeScript, Tailwind CSS, GSAP Animations, Framer Motion
-- Backend: Node.js, Prisma, PostgreSQL, REST APIs
-- Tools: Git, Vercel, Cloudinary, Prisma ORM
-- Other: AI/ML integration, PWA, SEO optimization
-
-## Blog
-
-Technical articles on web development, React, Next.js, TypeScript, and AI/ML are published on the official blog: ${BLOG_URL}
-
-## Projects
+## Featured Projects (${projects.length})
 
 ${projects
-  .map((p) => `- [${p.title}](${SITE_URL}/projects/${p.id}): ${formatDescription(p.desc)}`)
-  .join("\n")}
+  .map((p) => {
+    const desc = formatDescription(p.desc);
+    const tech = p.tech.join(", ");
+    return `### [${p.title}](${SITE_URL}/projects/${p.id}.md)
+- **Live URL**: ${p.liveLink || "N/A"}
+- **Source Code**: ${p.github || "Private / Proprietary"}
+- **Tech Stack**: ${tech}
+- **Role & Company**: ${p.role || p.company} (${p.date})
+- **Summary**: ${desc}
+- **Markdown Version**: ${SITE_URL}/projects/${p.id}.md`;
+  })
+  .join("\n\n")}
 
-## Templates
+---
+
+## Developer Templates & Starters (${templates.length})
 
 ${templates
-  .map((t) => `- [${t.title}](${SITE_URL}/templates/${t.id}): ${formatDescription(t.desc)}`)
+  .map((t) => {
+    const desc = formatDescription(t.desc);
+    const tech = t.tech.join(", ");
+    return `### [${t.title}](${SITE_URL}/templates/${t.id}.md)
+- **Live Demo**: ${t.liveLink || "N/A"}
+- **Source Code**: ${t.github || "N/A"}
+- **Tech Stack**: ${tech}
+- **Category**: ${t.category} (${t.date})
+- **Summary**: ${desc}
+- **Markdown Version**: ${SITE_URL}/templates/${t.id}.md`;
+  })
+  .join("\n\n")}
+
+---
+
+## Professional Work Experience
+
+${experiences
+  .map(
+    (e) => `### ${e.title} at ${e.company}
+- **Period**: ${e.period}
+- **Responsibilities**:
+${e.content.map((d: string) => `  - ${d}`).join("\n")}`
+  )
+  .join("\n\n")}
+
+---
+
+## Education & Academic Background
+
+${education
+  .map(
+    (ed) => `### ${ed.degree}
+- **Institution**: ${ed.school} (${ed.period})
+- **Score/Marks**: ${ed.marks || "In Progress"}`
+  )
+  .join("\n\n")}
+
+---
+
+## Certifications & Accreditations
+
+${certifications
+  .map((c) => `- **${c.name}** — ${c.issuer} (${c.year})`)
   .join("\n")}
 
+---
 
-## Pages
+## Core Technical Skills
 
-- [Home](${SITE_URL}): Portfolio homepage with hero, experience, education, about sections
-- [Blog](${BLOG_URL}): All technical blog posts
-- [Projects](${SITE_URL}/projects): Showcase of built projects
-- [Templates](${SITE_URL}/templates): Free developer templates
+- **Languages**: TypeScript, JavaScript (ESNext), Python, SQL, HTML5, CSS3/SCSS
+- **Frontend Frameworks & UI**: Next.js 16 (App Router, Server Components), React 19, Tailwind CSS, shadcn/ui, Radix UI, Base UI, Framer Motion, GSAP, Lenis, Three.js
+- **Backend & Databases**: Node.js, Bun, PostgreSQL, MongoDB, Redis, Prisma ORM, Better Auth, REST APIs, GraphQL
+- **AI & Emerging Tech**: Gemini API, OpenAI / OpenRouter, Claude integrations, LLM RAG pipelines, Prompt Engineering, Agentic Workflows
+- **DevOps & Infrastructure**: Docker, Git, GitHub Actions, Vercel, Cloudflare Pages/Workers, AWS S3, Nginx, Linux
+- **SEO & Web Optimization**: ASEO (AI Search Engine Optimization), Schema.org JSON-LD, Core Web Vitals, Responsive Design, PWA
 
+---
+
+## Main Site Navigation
+
+- [Home / Portfolio](${SITE_URL}): Interactive showcase with hero, career timeline, education, certifications, and live contact dock.
+- [Projects](${SITE_URL}/projects): Filterable grid of all featured client, commercial, and open-source projects.
+- [Templates](${SITE_URL}/templates): Production-grade boilerplates and design templates.
+- [Blog](${BLOG_URL}): High-depth technical writing on engineering, systems, and developer career.
+- [Privacy Policy](${SITE_URL}/privacy): User privacy details.
 `.trim();
 
   return new Response(content, {

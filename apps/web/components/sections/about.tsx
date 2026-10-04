@@ -35,7 +35,7 @@ export function AboutSection() {
             My hobbies include{" "}
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="font-semibold text-foreground underline decoration-dotted decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
+                <span className="font-semibold text-foreground underline decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
                   reading books
                 </span>
               </TooltipTrigger>
@@ -46,7 +46,7 @@ export function AboutSection() {
             ,{" "}
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="font-semibold text-foreground underline decoration-dotted decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
+                <span className="font-semibold text-foreground underline decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
                   web development
                 </span>
               </TooltipTrigger>
@@ -57,7 +57,7 @@ export function AboutSection() {
             , and{" "}
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="font-semibold text-foreground underline decoration-dotted decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
+                <span className="font-semibold text-foreground underline decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
                   open source contributions
                 </span>
               </TooltipTrigger>
@@ -68,7 +68,7 @@ export function AboutSection() {
             . I also have a strong interest in{" "}
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="font-semibold text-foreground underline decoration-dotted decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
+                <span className="font-semibold text-foreground underline decoration-muted-foreground/50 underline-offset-4 cursor-pointer hover:text-foreground/80 transition-colors">
                   researching
                 </span>
               </TooltipTrigger>

@@ -30,12 +30,12 @@ portfolio-turbo/
 ### `apps/web` (Portfolio)
 - **Framework**: Next.js 16 (App Router, Turbopack)
 - **UI & Styling**: React 19, Tailwind CSS 4, Radix UI, Framer Motion, GSAP, Lenis
-- **Features**: Interactive Showcase, Dynamic OG Images, Offline PWA, Structured Schema.org JSON-LD
+- **Features**: Interactive Showcase, Dynamic OG Images, Structured Schema.org JSON-LD
 
 ### `apps/blog` (Technical Blog)
 - **Framework**: Astro v7 (Static Site Generation / SSG)
 - **Content**: MDX, Content Collections, Shiki syntax highlighting
-- **Features**: Offline PWA & Byte Runner game, RSS feed, sitemap index, auto-redirects from `/blogs`
+- **Features**: RSS feed, sitemap index, auto-redirects from `/blogs`
 
 ---
 

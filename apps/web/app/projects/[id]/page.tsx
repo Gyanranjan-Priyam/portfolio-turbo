@@ -409,7 +409,7 @@ export default async function ProjectPage({ params }: Props) {
                         className="grid grid-cols-1 md:grid-cols-[180px_1fr] border-b border-border/70"
                       >
                         {/* Left Column: Number & Layer Title */}
-                        <div className="px-4 sm:px-6 py-3.5 sm:py-4 md:border-r md:border-dashed md:border-border/70 flex items-center gap-3 font-mono text-xs sm:text-sm select-none">
+                        <div className="px-4 sm:px-6 py-3.5 sm:py-4 md:border-r md:border-border/70 flex items-center gap-3 font-mono text-xs sm:text-sm select-none">
                           <span className="text-muted-foreground/60">{num}</span>
                           <span className="font-medium text-foreground">{row.layer}</span>
                         </div>

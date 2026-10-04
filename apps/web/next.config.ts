@@ -28,6 +28,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  rewrites: async () => [
+    {
+      source: "/projects/:id.md",
+      destination: "/api/md/projects/:id",
+    },
+    {
+      source: "/templates/:id.md",
+      destination: "/api/md/templates/:id",
+    },
+  ],
   headers: async () => [
     {
       source: "/(.*)",

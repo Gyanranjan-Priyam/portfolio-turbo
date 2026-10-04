@@ -576,7 +576,7 @@ export function NavigationDock() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-4 z-50 flex items-end justify-center px-3 transition-all duration-300 ease-out md:bottom-6 ${
+      className={`fixed inset-x-0 bottom-4 z-50 flex sm:hidden items-end justify-center px-3 transition-all duration-300 ease-out ${
         hideBar
           ? "translate-y-12 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"

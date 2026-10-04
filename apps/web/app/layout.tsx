@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  IBM_Plex_Serif,
-  Caveat,
-} from "next/font/google";
+import { Geist, Geist_Mono, IBM_Plex_Serif, Caveat } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeSync } from "@/components/theme-sync";
 import { LoaderWrapper } from "@/components/loader-wrapper";
@@ -13,13 +8,14 @@ import "@/components/loader-component/styles/globals.scss";
 import { Footer } from "@/components/sections/footer";
 import { Separator } from "@/components/ui/separator";
 import ClickSpark from "@/components/ClickSpark";
-import { PwaRegister } from "@/components/pwa-register";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationDock } from "@/components/sections/NavigationDock";
 import { SITE_URL } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
+import { NavMain } from "@/components/navbar/nav-main";
 
 const OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
@@ -131,16 +127,63 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Gyanranjan Priyam",
+    url: SITE_URL,
+    jobTitle: "Full Stack Developer & AI Engineer",
+    image: `${SITE_URL}/logo.png`,
+    sameAs: [
+      "https://github.com/gyanranjan-priyam",
+      "https://linkedin.com/in/gyanranjan-priyam",
+      "https://x.com/gr_priyam",
+      "https://instagram.com/gyanranjanpriyam",
+    ],
+    knowsAbout: [
+      "Full Stack Development",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Node.js",
+      "Artificial Intelligence",
+      "Machine Learning Integration",
+      "Web Performance Optimization",
+    ],
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Government College of Engineering, Kalahandi",
+    },
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Gyanranjan Priyam — Portfolio",
+    url: SITE_URL,
+    description:
+      "Full Stack Developer working at the intersection of web development, app development, and AI/ML.",
+    author: {
+      "@type": "Person",
+      name: "Gyanranjan Priyam",
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#f0f4f1" />
-        <script
+        <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="HFM9ucf4ebY4chd5hRuhqA"
-          async
+          strategy="lazyOnload"
         />
-        <script
+        <Script
+          id="theme-loader-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}else if(t==='light'){document.documentElement.classList.remove('dark');}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}if(window.location.pathname==='/'&&!sessionStorage.getItem('loader-intro-shown')){document.documentElement.classList.add('loader-active');}})();`,
           }}
@@ -150,28 +193,48 @@ export default function RootLayout({
             __html: `html.loader-active main{opacity:0!important;pointer-events:none}`,
           }}
         />
-        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="LLMs.txt"
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms-full.txt"
+          title="Full LLM Context"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personJsonLd, websiteJsonLd]),
+          }}
+          suppressHydrationWarning
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} ${caveat.variable} font-sans antialiased`}
       >
         <ThemeSync />
-        <PwaRegister />
         <ScrollIndicator />
         <ScrollToTopButton />
         <NavigationDock />
         <SmoothScroll>
           <LoaderWrapper />
           <ClickSpark>
-            <main id="layout" className="min-h-screen bg-background text-foreground">
-              <div className="border-dotted-side mx-auto max-w-3xl px-4 sm:px-6 bg-background min-h-screen flex flex-col">
-                <div className="flex-1">
-                  {children}
-                </div>
+            <main
+              id="layout"
+              className="min-h-screen bg-background text-foreground flex flex-col"
+            >
+              <NavMain />
+
+              <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+                <div className="flex-1">{children}</div>
                 <Toaster />
-                <Separator />
-                <Footer />
               </div>
+
+              <Footer />
             </main>
           </ClickSpark>
         </SmoothScroll>

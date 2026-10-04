@@ -58,12 +58,12 @@ export function EducationSection() {
               className="grid grid-cols-[48px_1fr_auto] sm:grid-cols-[56px_1fr_auto] md:grid-cols-[64px_1fr_90px] border-b border-border/70"
             >
               {/* Column 1: SL No */}
-              <div className="px-2 sm:px-4 py-3 sm:py-3.5 border-r border-dashed border-border/70 flex items-center justify-center font-mono text-xs sm:text-sm select-none text-muted-foreground/60">
+              <div className="px-2 sm:px-4 py-3 sm:py-3.5 border-r border-border/70 flex items-center justify-center font-mono text-xs sm:text-sm select-none text-muted-foreground/60">
                 {String(i + 1).padStart(2, "0")}
               </div>
 
               {/* Column 2: Certificate Details (Title & Organization) */}
-              <div className="px-3 sm:px-5 py-3 sm:py-3.5 flex flex-col justify-center min-w-0 md:border-r md:border-dashed md:border-border/70">
+              <div className="px-3 sm:px-5 py-3 sm:py-3.5 flex flex-col justify-center min-w-0 md:border-r md:border-border/70">
                 <p className="text-xs sm:text-sm font-medium font-mono text-foreground leading-snug">
                   {cert.name}
                 </p>
