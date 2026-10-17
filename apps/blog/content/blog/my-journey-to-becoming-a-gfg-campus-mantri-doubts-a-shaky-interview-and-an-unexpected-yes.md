@@ -2,7 +2,8 @@
 title: "My Journey to Becoming a GFG Campus Mantri: Doubts, a Shaky Interview, and an Unexpected Yes"
 description: "I applied on a whim, waited four months, stumbled through a telephonic interview, and fully convinced myself I had not made it. Then the welcome email arrived. This is the honest, unfiltered story of how I became a GFG Campus Mantri—and what the whole experience quietly taught me about showing up even when you are not sure you are ready."
 pubDate: 2026-03-10
-heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1774535938152-pzd4eusl4jq.png"
+heroImage: "/blog-placeholder-3.jpg"
+coverText: "My Journey to Becoming a GFG Campus Mantri"
 tags: ["Personal","GFG","Career","Learning","Campus","GeeksforGeeks"]
 keywords:
   - "how to become GeeksforGeeks Campus Mantri"

@@ -2,7 +2,8 @@
 title: "From Electrical Engineering to Web Development: My Unexpected Journey into Coding"
 description: "If someone had asked me during my first year of college whether I would ever lead the technical team of a coding club, I would have laughed. This is the story of how curiosity slowly turned into passion."
 pubDate: 2026-02-22
-heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1774538786672-cibb9pd91dp.png"
+heroImage: "/blog-placeholder-5.jpg"
+coverText: "From Electrical Engineering to Web Development: My Unexpected Journey"
 tags: ["Personal","Web Development","React","Career","Learning"]
 keywords:
   - "electrical engineering to web development"

@@ -2,7 +2,8 @@
 title: "Successfully Completing My GeeksforGeeks Campus Mantri Journey: Months of Growth and Leadership"
 description: "I am thrilled to share the successful completion of my one-year journey as a GeeksforGeeks Campus Mantri. This experience provided me with invaluable opportunities to develop leadership skills, build a strong professional network, organize impactful initiatives, and contribute to one of India's largest tech communities."
 pubDate: 2026-06-02
-heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1780425753802-ej9luzx416p.png"
+heroImage: "/blog-placeholder-4.jpg"
+coverText: "Completing My GeeksforGeeks Campus Mantri Journey"
 tags: ["GeeksforGeeks","Campus Mantri","Student Ambassador","Leadership","Community Building","Career Growth","Learning Journey","Campus Leadership","Professional Development","Networking","Technology Community","Achievement"]
 keywords:
   - "GeeksforGeeks Campus Mantri completion"

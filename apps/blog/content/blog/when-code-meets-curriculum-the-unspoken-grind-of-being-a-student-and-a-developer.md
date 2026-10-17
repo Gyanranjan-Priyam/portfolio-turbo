@@ -2,7 +2,8 @@
 title: "When Code Meets Curriculum: The Unspoken Grind of Being a Student and a Developer"
 description: "Assignments on one tab, a half-broken project on the other. Attendance shortages, mid-sem panic, and a side project that refuses to compile. If you are a student who also builds things — especially from a non-CSE branch — you already know this life. This is the honest, unfiltered story of what it actually feels like to carry both worlds at once, and why that struggle quietly makes you better than you realise."
 pubDate: 2026-03-22
-heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1774383588576-6c6e11xbcvw.png"
+heroImage: "/blog-placeholder-3.jpg"
+coverText: "When Code Meets Curriculum: The Unspoken Grind"
 tags: ["Student Life","Developer","Non-CSE","College","Coding","Personal Essay","Career","Learning","Problem Solving","Campus"]
 keywords:
   - "balancing college and software development"

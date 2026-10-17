@@ -2,7 +2,8 @@
 title: "The Tools I Actually Use to Build Production-Level Websites"
 description: "A practical, experience-driven breakdown of the tools I rely on to build real-world websites that don’t break in production—and why simplicity beats trends every time."
 pubDate: 2026-04-01
-heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1775028532977-ld5gyfj58wo.png"
+heroImage: "/blog-placeholder-4.jpg"
+coverText: "The Tools I Actually Use to Build Production-Level Websites"
 tags: ["WEB DEVELOPMENT","FULL STACK DEVELOPMENT","PRODUCTION LEVEL WEBSITES","MODERN TECH STACK","GITHUB COPILOT"]
 keywords:
   - "production web development tools"
