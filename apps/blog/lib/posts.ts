@@ -43,7 +43,7 @@ let highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
 async function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
-      themes: ['github-light', 'github-dark'],
+      themes: ['dark-plus', 'light-plus'],
       langs: [
         'javascript',
         'typescript',
@@ -58,6 +58,11 @@ async function getHighlighter() {
         'yaml',
         'sql',
         'python',
+        'verilog',
+        'c',
+        'cpp',
+        'rust',
+        'go',
       ],
     });
   }
@@ -70,17 +75,42 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   // Process custom code fences with shiki
   const codeBlockRegex = /```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g;
   const processedMarkdown = markdown.replace(codeBlockRegex, (match, lang, code) => {
-    const language = lang || 'text';
+    const rawLanguage = (lang || '').toLowerCase().trim();
+    const language = rawLanguage || 'text';
     try {
       const isSupported = highlighter.getLoadedLanguages().includes(language);
       const highlighted = highlighter.codeToHtml(code.trimEnd(), {
         lang: isSupported ? language : 'text',
         themes: {
-          light: 'github-light',
-          dark: 'github-dark',
+          light: 'light-plus',
+          dark: 'dark-plus',
         },
       });
-      return `\n<div class="shiki-container">${highlighted}</div>\n`;
+      const encodedCode = encodeURIComponent(code.trimEnd());
+      const displayLang = language === 'text' ? 'CODE' : language.toUpperCase();
+
+      return `\n<div class="code-block-wrapper not-prose my-6 rounded-lg overflow-hidden border border-border shadow-xs">
+  <div class="code-header flex items-center justify-between px-3.5 py-2 border-b border-border text-xs font-mono select-none">
+    <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-1.5" aria-hidden="true">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+      </div>
+      <span class="text-[11px] font-mono tracking-wider text-muted-foreground font-semibold">${displayLang}</span>
+    </div>
+    <button type="button" class="copy-code-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-sans font-medium text-muted-foreground hover:text-foreground bg-background hover:bg-muted border border-border transition-colors cursor-pointer" data-raw-code="${encodedCode}" title="Copy code" aria-label="Copy code">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+      </svg>
+      <span>Copy</span>
+    </button>
+  </div>
+  <div class="shiki-container">
+    ${highlighted}
+  </div>
+</div>\n`;
     } catch {
       return match;
     }
@@ -129,6 +159,12 @@ export function getAllPosts(): BlogPostData[] {
 
       const readingTime = data.readingTime || calculateReadingTime(content);
       const headings = extractHeadings(content);
+      const tags = Array.isArray(data.tags) ? data.tags : [];
+      const keywords = Array.isArray(data.keywords)
+        ? data.keywords
+        : typeof data.keywords === 'string'
+        ? data.keywords.split(',').map((k: string) => k.trim())
+        : tags;
 
       return {
         id: slug,
@@ -139,7 +175,8 @@ export function getAllPosts(): BlogPostData[] {
         updatedDate,
         heroImage: data.heroImage,
         coverText: data.coverText,
-        tags: Array.isArray(data.tags) ? data.tags : [],
+        tags,
+        keywords,
         category: data.category || 'Engineering',
         author: data.author || 'Gyanranjan Priyam',
         authorImage: data.authorImage,

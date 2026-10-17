@@ -10,6 +10,7 @@ import { ShareButtons } from '@/components/share-buttons';
 import { SearchModal } from '@/components/search-modal';
 import { BlogCard } from '@/components/blog-card';
 import { ArticleActionButtons } from '@/components/article-action-buttons';
+import { CodeCopyHandler } from '@/components/code-copy-handler';
 import { getAllPosts, getPostBySlug, getPlaceholderImage } from '@/lib/posts';
 import {
   SITE_URL,
@@ -47,8 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : `${SITE_URL}/android-chrome-512x512.png`;
 
   const canonicalUrl = `${SITE_URL}/${post.slug}`;
+  const dedicatedKeywords = post.keywords && post.keywords.length > 0 ? post.keywords : [];
   const keywords = Array.from(
-    new Set([...(post.tags || []), post.category, ...GLOBAL_SEO_KEYWORDS])
+    new Set([...dedicatedKeywords, ...(post.tags || []), post.category, ...GLOBAL_SEO_KEYWORDS])
   );
 
   return {
@@ -70,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.pubDate,
       modifiedTime: post.updatedDate || post.pubDate,
       authors: [post.author || AUTHOR_NAME],
-      tags: post.tags,
+      tags: dedicatedKeywords.length > 0 ? dedicatedKeywords : post.tags,
       images: [
         {
           url: ogImage,
@@ -106,11 +108,19 @@ export default async function BlogPostPage({ params }: Props) {
   const isPlaceholder = !heroImageSrc || heroImageSrc.includes('blog-placeholder');
   const bgImage = heroImageSrc && heroImageSrc.includes('blog-placeholder') ? heroImageSrc : fallbackBg;
 
+  const dedicatedKeywords = post.keywords && post.keywords.length > 0 ? post.keywords : post.tags;
+  const wordCount = post.content ? post.content.trim().split(/\s+/).length : 0;
+  const minutes = Math.max(1, Math.ceil(wordCount / 200));
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     headline: post.title,
     description: post.description,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    wordCount,
+    timeRequired: `PT${minutes}M`,
     image: [
       heroImageSrc
         ? heroImageSrc.startsWith('http')
@@ -123,6 +133,7 @@ export default async function BlogPostPage({ params }: Props) {
     author: {
       '@type': 'Person',
       name: post.author || AUTHOR_NAME,
+      jobTitle: 'Full Stack Software Engineer & Technical Writer',
       url: AUTHOR_PORTFOLIO,
       sameAs: [
         AUTHOR_GITHUB,
@@ -142,7 +153,20 @@ export default async function BlogPostPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/${post.slug}`,
     },
-    keywords: post.tags.join(', '),
+    isPartOf: {
+      '@type': 'Blog',
+      '@id': `${SITE_URL}/#blog`,
+      name: "Priyam's Blog",
+    },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'header p'],
+    },
+    about: dedicatedKeywords.slice(0, 8).map((keyword) => ({
+      '@type': 'Thing',
+      name: keyword,
+    })),
+    keywords: dedicatedKeywords.join(', '),
     articleSection: post.category || 'Technology',
   };
 
@@ -180,6 +204,7 @@ export default async function BlogPostPage({ params }: Props) {
         }}
         suppressHydrationWarning
       />
+      <CodeCopyHandler />
       <Header />
 
       <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">

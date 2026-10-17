@@ -4,6 +4,19 @@ description: "A practical, experience-driven breakdown of the tools I rely on to
 pubDate: 2026-04-01
 heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1775028532977-ld5gyfj58wo.png"
 tags: ["WEB DEVELOPMENT","FULL STACK DEVELOPMENT","PRODUCTION LEVEL WEBSITES","MODERN TECH STACK","GITHUB COPILOT"]
+keywords:
+  - "production web development tools"
+  - "modern full stack tech stack"
+  - "Next.js production architecture"
+  - "best web developer tools 2026"
+  - "how to build production ready websites"
+  - "developer tooling stack"
+  - "pragmatic software engineering"
+  - "fullstack web architecture"
+  - "building scalable websites"
+  - "GitHub Copilot developer workflow"
+  - "TypeScript Next.js best practices"
+  - "web performance and reliability"
 category: "Engineering"
 author: "Gyanranjan Priyam"
 readingTime: "5 min read"

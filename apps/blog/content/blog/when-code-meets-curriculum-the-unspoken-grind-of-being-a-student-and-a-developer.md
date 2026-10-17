@@ -4,6 +4,19 @@ description: "Assignments on one tab, a half-broken project on the other. Attend
 pubDate: 2026-03-22
 heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1774383588576-6c6e11xbcvw.png"
 tags: ["Student Life","Developer","Non-CSE","College","Coding","Personal Essay","Career","Learning","Problem Solving","Campus"]
+keywords:
+  - "balancing college and software development"
+  - "student developer productivity"
+  - "non-CSE developer engineering journey"
+  - "time management for student programmers"
+  - "college assignments vs coding side projects"
+  - "how to code while in college"
+  - "student developer burnout prevention"
+  - "self-taught student programmer life"
+  - "building real products in college"
+  - "engineering curriculum vs web development"
+  - "college student developer routine"
+  - "software engineering student advice"
 category: "Career & Journey"
 author: "Gyanranjan Priyam"
 readingTime: "8 min read"

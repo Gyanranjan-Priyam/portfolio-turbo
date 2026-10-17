@@ -14,6 +14,7 @@ export interface BlogPostData {
   heroImage?: string;
   coverText?: string;
   tags: string[];
+  keywords?: string[];
   category: string;
   author: string;
   authorImage?: string;
@@ -39,6 +40,7 @@ const slugToPlaceholderMap: Record<string, string> = {
   'from-electrical-engineering-to-web-development-my-unexpected-journey-into-coding': '/blog-placeholder-5.jpg',
   'my-journey-to-becoming-a-gfg-campus-mantri-doubts-a-shaky-interview-and-an-unexpected-yes': '/blog-placeholder-3.jpg',
   'successfully-completing-my-geeksforgeeks-campus-mantri-journey-months-of-growth-and-leadership': '/blog-placeholder-4.jpg',
+  'my-one-month-vlsi-internship-at-cttc-bhubaneswar-from-logic-gates-to-chip-design': '/blog-placeholder-2.jpg',
 };
 
 export function getPlaceholderImage(id: string): string {

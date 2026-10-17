@@ -26,6 +26,7 @@ export async function GET() {
       const pubDateStr = post.pubDate.split('T')[0];
       const updatedDateStr = post.updatedDate ? post.updatedDate.split('T')[0] : pubDateStr;
       const tagsStr = post.tags?.join(', ') || '';
+      const keywordsStr = post.keywords?.join(', ') || tagsStr;
       const body = post.content || '';
 
       return `## Article ${idx + 1}: ${post.title}
@@ -36,6 +37,7 @@ export async function GET() {
 - **Updated**: ${updatedDateStr}
 - **Category**: ${post.category || 'Engineering'}
 - **Reading Time**: ${post.readingTime || '5 min read'}
+- **Keywords**: ${keywordsStr}
 - **Tags**: ${tagsStr}
 - **Summary**: ${post.description}
 

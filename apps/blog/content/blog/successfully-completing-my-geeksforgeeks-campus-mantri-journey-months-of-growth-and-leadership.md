@@ -4,6 +4,19 @@ description: "I am thrilled to share the successful completion of my one-year jo
 pubDate: 2026-06-02
 heroImage: "https://assets.priyam.tech/blog-thumbnails/7mgE9vIfISqVCBaypiR2xYBs5tMBE57n-1780425753802-ej9luzx416p.png"
 tags: ["GeeksforGeeks","Campus Mantri","Student Ambassador","Leadership","Community Building","Career Growth","Learning Journey","Campus Leadership","Professional Development","Networking","Technology Community","Achievement"]
+keywords:
+  - "GeeksforGeeks Campus Mantri completion"
+  - "GFG Campus Mantri certificate of completion"
+  - "GeeksforGeeks student ambassador journey"
+  - "campus ambassador tenure experience"
+  - "student tech community building"
+  - "campus leadership and community growth"
+  - "organizing GeeksforGeeks coding events"
+  - "tech networking for engineering students"
+  - "student ambassador career benefits"
+  - "GeeksforGeeks student leadership program"
+  - "GCE Kalahandi GeeksforGeeks chapter"
+  - "student ambassador experience review"
 category: "Career & Journey"
 author: "Gyanranjan Priyam"
 readingTime: "3 min read"

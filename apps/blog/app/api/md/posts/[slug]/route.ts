@@ -24,6 +24,8 @@ export async function GET(
   const pubDateStr = post.pubDate.split('T')[0];
   const updatedDateStr = post.updatedDate ? post.updatedDate.split('T')[0] : pubDateStr;
   const tagsStr = post.tags?.join(', ') || '';
+  const keywordsList = post.keywords && post.keywords.length > 0 ? post.keywords : post.tags || [];
+  const keywordsStr = keywordsList.join(', ');
 
   const frontmatter = `---
 title: "${post.title.replace(/"/g, '\\"')}"
@@ -35,6 +37,7 @@ authorUrl: "${AUTHOR_PORTFOLIO}"
 category: "${post.category || 'Engineering'}"
 readingTime: "${post.readingTime || '5 min read'}"
 tags: [${post.tags?.map((t) => `"${t}"`).join(', ')}]
+keywords: [${keywordsList.map((k) => `"${k}"`).join(', ')}]
 canonicalUrl: "${SITE_URL}/${post.slug}"
 ---`;
 
@@ -48,6 +51,7 @@ canonicalUrl: "${SITE_URL}/${post.slug}"
 - **Published**: ${pubDateStr}
 - **Category**: ${post.category || 'Engineering'}
 - **Reading Time**: ${post.readingTime || '5 min read'}
+- **Keywords**: ${keywordsStr}
 - **Tags**: ${tagsStr}
 - **Canonical URL**: ${SITE_URL}/${post.slug}
 

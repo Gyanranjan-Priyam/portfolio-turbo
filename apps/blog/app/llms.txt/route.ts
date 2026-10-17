@@ -45,11 +45,12 @@ ${posts
     const pubDateStr = post.pubDate.split('T')[0];
     const tagsStr = post.tags && post.tags.length > 0 ? ` | Tags: ${post.tags.join(', ')}` : '';
     const readingTimeStr = post.readingTime ? ` | ${post.readingTime}` : '';
+    const keywordsStr = post.keywords && post.keywords.length > 0 ? `\n- **Target Keywords**: ${post.keywords.join(', ')}` : '';
     return `### [${post.title}](${SITE_URL}/${post.slug}.md)
 - **Published**: ${pubDateStr}${readingTimeStr}${tagsStr}
 - **Category**: ${post.category || 'Engineering'}
 - **Author**: ${post.author || AUTHOR_NAME}
-- **Summary**: ${post.description}
+- **Summary**: ${post.description}${keywordsStr}
 - **Web Article**: ${SITE_URL}/${post.slug}
 - **Markdown Source**: ${SITE_URL}/${post.slug}.md`;
   })
