@@ -439,6 +439,15 @@
   overflow-x: auto;
 }
 
+/* Base: remove any residual inline styles from Shiki's .shiki element */
+.shiki-container .shiki {
+  background-color: transparent !important;
+}
+
+.shiki-container {
+  display: block;
+}
+
 /* Light Mode VS Code Style */
 html:not(.dark) .code-block-wrapper {
   background-color: #ffffff !important;
@@ -456,6 +465,7 @@ html:not(.dark) .shiki-container pre {
   color: #000000 !important;
 }
 
+html:not(.dark) .shiki-container .shiki,
 html:not(.dark) .shiki-container .shiki span {
   background-color: transparent !important;
 }

@@ -86,6 +86,25 @@ export async function markdownToHtml(markdown: string): Promise<string> {
           dark: 'dark-plus',
         },
       });
+      // Strip Shiki's inline background-color and color from <pre> — they have higher
+      // specificity than CSS class rules and cause a visible gap/white border in production.
+      // We keep only the CSS custom properties (--shiki-dark-bg, --shiki-dark) for dark mode.
+      const cleanHighlighted = highlighted.replace(
+        /<pre([^>]*?)style="([^"]*)"([^>]*?)>/,
+        (_match: string, before: string, style: string, after: string) => {
+          const cleanStyle = style
+            .split(';')
+            .filter((s: string) => {
+              const trimmed = s.trim();
+              return trimmed.startsWith('--') || trimmed === '';
+            })
+            .join(';')
+            .replace(/;+$/, '');
+          return cleanStyle
+            ? `<pre${before}style="${cleanStyle}"${after}>`
+            : `<pre${before}${after}>`;
+        }
+      );
       const encodedCode = encodeURIComponent(code.trimEnd());
       const displayLang = language === 'text' ? 'CODE' : language.toUpperCase();
 
@@ -108,7 +127,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     </button>
   </div>
   <div class="shiki-container">
-    ${highlighted}
+    ${cleanHighlighted}
   </div>
 </div>\n`;
     } catch {
