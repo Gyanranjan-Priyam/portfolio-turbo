@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { SearchModal } from '@/components/search-modal';
+import * as React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { SearchModal } from "@/components/search-modal";
 
 export default function NotFound() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function NotFound() {
       setRemaining((prev) => {
         if (prev <= 0.1) {
           clearInterval(interval);
-          router.push('/');
+          router.push("/");
           return 0;
         }
         return prev - 0.1;
@@ -32,10 +32,13 @@ export default function NotFound() {
   const pct = (Math.max(0, remaining) / 6) * 100;
 
   return (
-    <main id="layout" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <main
+      id="layout"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+    >
       <Header />
 
-      <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+      <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
         <div className="flex-1 w-full flex flex-col py-6 sm:py-8">
           {/* 404 HERO SECTION */}
           <section className="flex flex-col items-center text-center my-4 mb-8 w-full">
@@ -51,7 +54,8 @@ export default function NotFound() {
               Lost in the Digital Void
             </h2>
             <p className="font-sans text-xs sm:text-sm leading-relaxed text-muted-foreground max-w-[420px] mx-auto mb-6">
-              The article, route, or resource you are looking for has been moved, renamed, or doesn&apos;t exist.
+              The article, route, or resource you are looking for has been
+              moved, renamed, or doesn&apos;t exist.
             </p>
 
             {/* Auto Redirection Bar */}
@@ -75,7 +79,11 @@ export default function NotFound() {
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
                       <span>
-                        Redirecting to home in <strong className="text-foreground font-bold">{Math.ceil(remaining)}</strong>s
+                        Redirecting to home in{" "}
+                        <strong className="text-foreground font-bold">
+                          {Math.ceil(remaining)}
+                        </strong>
+                        s
                       </span>
                     </div>
                     <button
@@ -96,7 +104,8 @@ export default function NotFound() {
                 </>
               ) : (
                 <div className="font-mono text-xs text-muted-foreground text-center py-1">
-                  Auto-redirection cancelled. Feel free to explore other articles.
+                  Auto-redirection cancelled. Feel free to explore other
+                  articles.
                 </div>
               )}
             </div>
@@ -125,9 +134,11 @@ export default function NotFound() {
 
               <button
                 onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    const searchFn = (window as unknown as { openSpotlightSearch?: () => void }).openSpotlightSearch;
-                    if (typeof searchFn === 'function') {
+                  if (typeof window !== "undefined") {
+                    const searchFn = (
+                      window as unknown as { openSpotlightSearch?: () => void }
+                    ).openSpotlightSearch;
+                    if (typeof searchFn === "function") {
                       searchFn();
                     }
                   }

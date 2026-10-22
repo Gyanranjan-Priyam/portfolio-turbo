@@ -6,7 +6,6 @@ import { LoaderWrapper } from "@/components/loader-wrapper";
 import "./globals.css";
 import "@/components/loader-component/styles/globals.scss";
 import { Footer } from "@/components/sections/footer";
-import { Separator } from "@/components/ui/separator";
 import ClickSpark from "@/components/ClickSpark";
 import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
@@ -16,8 +15,9 @@ import { SITE_URL } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { NavMain } from "@/components/navbar/nav-main";
+import { SoundEffects } from "@/components/ui/sound";
 
-const OG_IMAGE = `${SITE_URL}/opengraph-image`;
+const OG_IMAGE = `${SITE_URL}/og.png`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -215,29 +215,31 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} ${caveat.variable} font-sans antialiased`}
-      >
-        <ThemeSync />
-        <ScrollIndicator />
-        <ScrollToTopButton />
-        <NavigationDock />
-        <SmoothScroll>
-          <LoaderWrapper />
-          <ClickSpark>
-            <main
-              id="layout"
-              className="min-h-screen bg-background text-foreground flex flex-col"
-            >
-              <NavMain />
+        >
+        <SoundEffects>
+          <ThemeSync />
+          <ScrollIndicator />
+          <ScrollToTopButton />
+          <NavigationDock />
+          <SmoothScroll>
+            <LoaderWrapper />
+            <ClickSpark>
+              <main
+                id="layout"
+                className="min-h-screen bg-background text-foreground flex flex-col"
+              >
+                <NavMain />
 
-              <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
-                <div className="flex-1">{children}</div>
-                <Toaster />
-              </div>
+                <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+                  <div className="flex-1">{children}</div>
+                  <Toaster />
+                </div>
 
-              <Footer />
-            </main>
-          </ClickSpark>
-        </SmoothScroll>
+                <Footer />
+              </main>
+            </ClickSpark>
+          </SmoothScroll>
+        </SoundEffects>
         <Analytics />
       </body>
     </html>

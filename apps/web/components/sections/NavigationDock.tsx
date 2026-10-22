@@ -12,6 +12,7 @@ import {
 } from "@/components/motion/expandable-tabs";
 import { useThemeToggle } from "@/components/motion/theme-toggle";
 import { ActionSwapIcon } from "@/components/motion/action-swap";
+import { triggerSound } from "@/components/ui/sound";
 import {
   IconHome,
   IconBriefcase,
@@ -407,6 +408,7 @@ function SocialsPanel() {
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL_ADDRESS);
+      triggerSound("copy");
       setCopied(true);
       toast.success("Email copied to clipboard", {
         description: EMAIL_ADDRESS,

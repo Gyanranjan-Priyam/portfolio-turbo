@@ -11,6 +11,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
+      data-sound={mounted && isDark ? "toggleOff" : "toggleOn"}
       aria-label={mounted && isDark ? "Switch to light theme" : "Switch to dark theme"}
       className={cn(
         "flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800/80 transition-colors cursor-pointer",

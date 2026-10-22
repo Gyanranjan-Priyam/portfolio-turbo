@@ -28,11 +28,13 @@ portfolio-turbo/
 ## 🚀 Tech Stack
 
 ### `apps/web` (Portfolio)
+
 - **Framework**: Next.js 16 (App Router, Turbopack)
 - **UI & Styling**: React 19, Tailwind CSS 4, Radix UI, Framer Motion, GSAP, Lenis
 - **Features**: Interactive Showcase, Dynamic OG Images, Structured Schema.org JSON-LD
 
 ### `apps/blog` (Technical Blog)
+
 - **Framework**: Astro v7 (Static Site Generation / SSG)
 - **Content**: MDX, Content Collections, Shiki syntax highlighting
 - **Features**: RSS feed, sitemap index, auto-redirects from `/blogs`
@@ -42,6 +44,7 @@ portfolio-turbo/
 ## 🛠️ Getting Started
 
 ### Prerequisites
+
 - [Bun](https://bun.sh/) 1.0+ (recommended) or [Node.js](https://nodejs.org/) 20+
 
 ### Installation
@@ -64,7 +67,7 @@ bun run dev
 # Run only web (http://localhost:3000)
 bun run dev:web
 
-# Run only blog (http://localhost:4321)
+# Run only blog (http://localhost:3001)
 bun run dev:blog
 ```
 
@@ -82,12 +85,14 @@ bun run build
 This Turborepo is optimized for deployment on [Vercel](https://vercel.com):
 
 ### 1. Deploying Portfolio (`apps/web`)
+
 - Create a new project on Vercel from this Git repository.
 - Set **Root Directory**: `apps/web`
 - Framework Preset: **Next.js**
 - Build Command: `next build` (or leave default)
 
 ### 2. Deploying Blog (`apps/blog`)
+
 - Create a second project on Vercel from this same Git repository.
 - Set **Root Directory**: `apps/blog`
 - Framework Preset: **Astro**

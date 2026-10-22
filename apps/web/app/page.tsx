@@ -2,15 +2,13 @@ import { HeroSection } from "@/components/sections/hero";
 import { AboutSection } from "@/components/sections/about";
 import { SkillsSection } from "@/components/sections/skills";
 import { ProjectsSection } from "@/components/sections/projects";
-import { TemplatesSection } from "@/components/sections/templates";
 import { EducationSection } from "@/components/sections/education";
 import { ContactSection } from "@/components/sections/contact";
 import { GitHubCalendarSection } from "@/components/sections/github-calendar";
-import { Separator } from "@/components/ui/separator";
 import { ExperienceSection } from "@/components/sections/experience";
 import { SITE_URL } from "@/lib/config";
 
-const OG_IMAGE = `${SITE_URL}/opengraph-image`;
+const OG_IMAGE = `${SITE_URL}/og.png`;
 
 const structuredData = [
   {
@@ -73,14 +71,11 @@ export default function Home() {
       <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ExperienceSection />
       <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
-      <SkillsSection />
-            <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
-
-      <GitHubCalendarSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ProjectsSection />
       <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
-      <TemplatesSection />
+      <SkillsSection />
+      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <GitHubCalendarSection />
       <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
       <ContactSection />
     </>

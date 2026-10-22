@@ -446,6 +446,7 @@ export function ExpandableTabs({
                     <motion.button
                       type="button"
                       role="tab"
+                      data-sound="select"
                       aria-selected={isActive}
                       aria-label={item.label}
                       onClick={() => handleTabClick(item)}

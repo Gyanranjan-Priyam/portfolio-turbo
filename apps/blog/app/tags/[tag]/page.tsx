@@ -1,11 +1,11 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { BlogCard } from '@/components/blog-card';
-import { SearchModal } from '@/components/search-modal';
-import { getAllPosts, getAllTags, getPostsByTag } from '@/lib/posts';
-import { SITE_URL } from '@/lib/consts';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { BlogCard } from "@/components/blog-card";
+import { SearchModal } from "@/components/search-modal";
+import { getAllPosts, getAllTags, getPostsByTag } from "@/lib/posts";
+import { SITE_URL } from "@/lib/consts";
 
 interface Props {
   params: Promise<{ tag: string }>;
@@ -56,10 +56,13 @@ export default async function TagArchivePage({ params }: Props) {
     .map(([t]) => t);
 
   return (
-    <main id="layout" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <main
+      id="layout"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+    >
       <Header />
 
-      <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+      <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
         <div className="flex-1 w-full flex flex-col py-6 sm:py-8">
           {/* TAG HERO SECTION */}
           <section className="flex flex-col items-center text-center my-2 mb-6 w-full">
@@ -85,18 +88,27 @@ export default async function TagArchivePage({ params }: Props) {
             </div>
 
             <h1 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-2">
-              Articles tagged <span className="font-serif italic font-normal text-foreground">#{decodedTag}</span>
+              Articles tagged{" "}
+              <span className="font-serif italic font-normal text-foreground">
+                #{decodedTag}
+              </span>
             </h1>
 
             <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-[480px] mx-auto mb-5 leading-relaxed">
-              Browsing {posts.length} {posts.length === 1 ? 'article' : 'articles'} filed under{' '}
-              <span className="font-mono text-foreground font-semibold">#{decodedTag}</span>.
+              Browsing {posts.length}{" "}
+              {posts.length === 1 ? "article" : "articles"} filed under{" "}
+              <span className="font-mono text-foreground font-semibold">
+                #{decodedTag}
+              </span>
+              .
             </p>
 
             {/* Other Topics / Popular Tags Navigation */}
             {otherPopularTags.length > 0 && (
               <div className="flex items-center justify-center gap-2 flex-wrap max-w-[540px] mx-auto pt-1">
-                <span className="font-mono text-xs text-muted-foreground">Other tags:</span>
+                <span className="font-mono text-xs text-muted-foreground">
+                  Other tags:
+                </span>
                 <div className="flex items-center justify-center gap-1.5 flex-wrap">
                   {otherPopularTags.map((t) => (
                     <Link

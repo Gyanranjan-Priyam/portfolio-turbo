@@ -14,6 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { haptic } from "@/lib/haptic"
+import { SoundToggle } from "@/components/ui/sound"
 
 export function NavMobile({ items }: { items: NavItem<Route>[] }) {
   const [open, setOpen] = useState(false)
@@ -59,11 +60,16 @@ export function NavMobile({ items }: { items: NavItem<Route>[] }) {
                   aria-current={isActive ? "page" : undefined}
                   className="rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground"
                   onClick={() => handleOpenChange(false)}
+                  data-sound="select"
                 >
                   {link.title}
                 </Link>
               )
             })}
+            <div className="pt-1 mt-1 border-t border-border/70 flex items-center justify-between px-2.5 py-0.5">
+              <span className="text-[11px] font-mono text-muted-foreground">Sound</span>
+              <SoundToggle />
+            </div>
           </div>
         </PopoverContent>
       </Popover>
@@ -80,6 +86,7 @@ function NavMobileTrigger(
       variant="ghost"
       size="icon-sm"
       aria-label="Toggle Navigation Menu"
+      data-sound="open"
       {...props}
     >
       <span className="flex h-0.5 w-3.5 transform rounded-[1px] bg-foreground transition-transform group-data-popup-open:translate-y-0.75 group-data-popup-open:rotate-45" />

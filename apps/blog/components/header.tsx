@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ThemeToggle } from './theme-toggle';
-import { AUTHOR_PORTFOLIO } from '@/lib/consts';
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ThemeToggle } from "./theme-toggle";
+import { AUTHOR_PORTFOLIO } from "@/lib/consts";
 
 const mainNav = [
-  { title: 'Home', href: '/', external: false },
-  { title: 'Projects', href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
-  { title: 'Templates', href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
-  { title: 'Blog', href: '/', external: false },
+  { title: "Home", href: "/", external: false },
+  { title: "Projects", href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
+  { title: "Templates", href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
+  { title: "Blog", href: "/", external: false },
 ];
 
 const mobileNav = [
-  { title: 'Home', href: '/', external: false },
-  { title: 'Projects', href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
-  { title: 'Templates', href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
-  { title: 'Blog', href: '/', external: false },
+  { title: "Home", href: "/", external: false },
+  { title: "Projects", href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
+  { title: "Templates", href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
+  { title: "Blog", href: "/", external: false },
 ];
 
 export function Header() {
@@ -39,30 +39,34 @@ export function Header() {
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [mobileMenuOpen]);
 
-  const isCurrentPath = (item: { title: string; href: string; external?: boolean }) => {
+  const isCurrentPath = (item: {
+    title: string;
+    href: string;
+    external?: boolean;
+  }) => {
     if (item.external) return false;
-    if (item.title === 'Home') {
-      return pathname === '/';
+    if (item.title === "Home") {
+      return pathname === "/";
     }
-    if (item.title === 'Blog') {
+    if (item.title === "Blog") {
       return (
-        pathname.startsWith('/tags') ||
-        (pathname !== '/' && pathname !== '/about')
+        pathname.startsWith("/tags") ||
+        (pathname !== "/" && pathname !== "/about")
       );
     }
-    if (item.href === '/') {
-      return pathname === '/';
+    if (item.href === "/") {
+      return pathname === "/";
     }
     return pathname.startsWith(item.href);
   };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
-      <div className="border-x border-border mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:px-6">
+      <div className="border-x border-border mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
         {/* Left: Monogram logo */}
         <a
           href={AUTHOR_PORTFOLIO}
@@ -101,11 +105,11 @@ export function Header() {
                 <Link
                   key={item.title}
                   href={item.href}
-                  aria-current={active ? 'page' : undefined}
+                  aria-current={active ? "page" : undefined}
                   className={`text-[14px] tracking-tight transition-colors hover:text-foreground ${
                     active
-                      ? 'text-foreground font-medium'
-                      : 'text-muted-foreground font-normal'
+                      ? "text-foreground font-medium"
+                      : "text-muted-foreground font-normal"
                   }`}
                 >
                   {item.title}
@@ -129,12 +133,12 @@ export function Header() {
             >
               <span
                 className={`flex h-0.5 w-3.5 transform rounded-[1px] bg-foreground transition-transform duration-200 ${
-                  mobileMenuOpen ? 'translate-y-0.75 rotate-45' : ''
+                  mobileMenuOpen ? "translate-y-0.75 rotate-45" : ""
                 }`}
               />
               <span
                 className={`flex h-0.5 w-3.5 transform rounded-[1px] bg-foreground transition-transform duration-200 ${
-                  mobileMenuOpen ? '-translate-y-0.75 -rotate-45' : ''
+                  mobileMenuOpen ? "-translate-y-0.75 -rotate-45" : ""
                 }`}
               />
             </button>
@@ -167,8 +171,8 @@ export function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                         active
-                          ? 'bg-neutral-100 dark:bg-neutral-800 text-foreground font-semibold'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800'
+                          ? "bg-neutral-100 dark:bg-neutral-800 text-foreground font-semibold"
+                          : "text-muted-foreground hover:text-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800"
                       }`}
                     >
                       {link.title}

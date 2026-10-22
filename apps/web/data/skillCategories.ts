@@ -64,12 +64,4 @@ export const skillCategories: SkillCategory[] = [
       { name: "Vercel", icon: createElement(TechIcon, { name: "Vercel" }) },
     ],
   },
-  {
-    number: "05",
-    title: "Design",
-    skills: [
-      { name: "Figma", icon: createElement(TechIcon, { name: "Figma" }) },
-      { name: "Photoshop", icon: createElement(TechIcon, { name: "Photoshop" }) },
-    ],
-  },
 ];

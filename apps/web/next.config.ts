@@ -5,28 +5,28 @@ const nextConfig: NextConfig = {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'priyams-blogs.t3.storage.dev',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "priyams-blogs.t3.storage.dev",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'api.qrserver.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "api.qrserver.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'priyams-blogs.s3.amazonaws.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "priyams-blogs.s3.amazonaws.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
@@ -73,7 +73,7 @@ const nextConfig: NextConfig = {
       destination:
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech"),
       permanent: false,
     },
@@ -82,7 +82,7 @@ const nextConfig: NextConfig = {
       destination: `${
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech")
       }/:slug*`,
       permanent: false,
@@ -92,7 +92,7 @@ const nextConfig: NextConfig = {
       destination:
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech"),
       permanent: false,
     },
@@ -101,7 +101,7 @@ const nextConfig: NextConfig = {
       destination: `${
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech")
       }/:slug*`,
       permanent: false,
@@ -111,7 +111,7 @@ const nextConfig: NextConfig = {
       destination:
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech"),
       permanent: false,
     },
@@ -120,7 +120,7 @@ const nextConfig: NextConfig = {
       destination:
         process.env.NEXT_PUBLIC_BLOG_URL ||
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:4321"
+          ? "http://localhost:3001"
           : "https://blogs.priyam.tech"),
       permanent: false,
     },

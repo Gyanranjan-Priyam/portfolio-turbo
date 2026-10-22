@@ -38,14 +38,14 @@ export function ScrollToTopButton() {
           type="button"
           aria-label="Scroll to top"
           onClick={handleScrollTop}
-          style={{ position: "fixed", bottom: "2rem", left: "2rem", zIndex: 9999 }}
-          className="cursor-pointer inline-flex h-12 w-12 items-center justify-center rounded-full border border-foreground/20 bg-background/85 text-foreground shadow-sm backdrop-blur-md transition-colors hover:bg-background"
+          data-sound="swoosh"
+          className="fixed bottom-20 left-4 sm:bottom-8 sm:left-8 z-40 cursor-pointer inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-border/80 bg-background/90 text-foreground shadow-md backdrop-blur-md transition-all hover:bg-background active:scale-95"
           initial={{ opacity: 0, y: 14, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.94 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
         </motion.button>
       )}
     </AnimatePresence>,

@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { getAllPosts } from '@/lib/posts';
-import { AUTHOR_PORTFOLIO, SITE_URL } from '@/lib/consts';
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { getAllPosts } from "@/lib/posts";
+import { AUTHOR_PORTFOLIO, SITE_URL } from "@/lib/consts";
 
 export const metadata: Metadata = {
-  title: 'About — Gyanranjan Priyam',
+  title: "About — Gyanranjan Priyam",
   description:
-    'Learn more about Gyanranjan Priyam - fullstack software engineer, architect, and tech writer.',
+    "Learn more about Gyanranjan Priyam - fullstack software engineer, architect, and tech writer.",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
@@ -18,10 +18,13 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   const posts = getAllPosts();
   return (
-    <main id="layout" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <main
+      id="layout"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+    >
       <Header />
 
-      <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+      <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
         <div className="flex-1 w-full flex flex-col py-6 sm:py-8">
           <div className="mb-4">
             <Link
@@ -67,24 +70,41 @@ export default function AboutPage() {
               </h1>
 
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                A fullstack software engineer focused on building high-performance web systems, intuitive interfaces, and scalable distributed architectures.
+                A fullstack software engineer focused on building
+                high-performance web systems, intuitive interfaces, and scalable
+                distributed architectures.
               </p>
 
               <div className="prose w-full">
                 <h2>About This Blog</h2>
                 <p>
-                  This space is dedicated to technical deep dives, architectural case studies, performance benchmarks, and real-world software engineering practices. I write about:
+                  This space is dedicated to technical deep dives, architectural
+                  case studies, performance benchmarks, and real-world software
+                  engineering practices. I write about:
                 </p>
                 <ul>
-                  <li><strong>Fullstack Frameworks</strong>: Next.js, React Server Components, Astro, TypeScript.</li>
-                  <li><strong>Monorepo Systems</strong>: Turborepo, Bun workspaces, shared design systems.</li>
-                  <li><strong>Motion & UI Engineering</strong>: Tailwind CSS, accessible components, micro-interactions.</li>
-                  <li><strong>Databases & APIs</strong>: PostgreSQL, Prisma ORM, GraphQL, REST architecture.</li>
+                  <li>
+                    <strong>Fullstack Frameworks</strong>: Next.js, React Server
+                    Components, Astro, TypeScript.
+                  </li>
+                  <li>
+                    <strong>Monorepo Systems</strong>: Turborepo, Bun
+                    workspaces, shared design systems.
+                  </li>
+                  <li>
+                    <strong>Motion & UI Engineering</strong>: Tailwind CSS,
+                    accessible components, micro-interactions.
+                  </li>
+                  <li>
+                    <strong>Databases & APIs</strong>: PostgreSQL, Prisma ORM,
+                    GraphQL, REST architecture.
+                  </li>
                 </ul>
 
                 <h2>Get in Touch</h2>
                 <p>
-                  Feel free to explore my full project portfolio or reach out for collaborations and technical discussions:
+                  Feel free to explore my full project portfolio or reach out
+                  for collaborations and technical discussions:
                 </p>
               </div>
 

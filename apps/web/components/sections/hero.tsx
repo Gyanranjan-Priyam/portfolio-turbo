@@ -111,18 +111,18 @@ export function HeroSection() {
     <section className="pb-8">
       {/* Cover image */}
       <BlurFade delay={0.04} direction="down">
-        <div className="relative mt-2 h-32 w-full overflow-hidden rounded-xl bg-linear-to-br from-neutral-200 via-neutral-300 to-neutral-400 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-900 sm:h-40">
-          <Image
-            src="/profile/cover.png"
-            alt="Cover"
-            fill
-            className="object-cover"
-            priority
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
-          />
-        </div>
+        <div className="relative mt-2 h-40 w-full overflow-hidden rounded-xl bg-linear-to-br from-neutral-200 via-neutral-300 to-neutral-400 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-900 sm:h-58">
+            <Image
+              src="/profile/cover.png"
+              alt="Cover"
+              fill
+              className="object-cover"
+              priority
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = "none";
+              }}
+            />
+          </div>
       </BlurFade>
 
       {/* Avatar & Title Row */}

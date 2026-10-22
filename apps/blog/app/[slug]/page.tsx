@@ -1,17 +1,17 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { FormattedDate } from '@/components/formatted-date';
-import { TableOfContents } from '@/components/table-of-contents';
-import { ShareButtons } from '@/components/share-buttons';
-import { SearchModal } from '@/components/search-modal';
-import { BlogCard } from '@/components/blog-card';
-import { ArticleActionButtons } from '@/components/article-action-buttons';
-import { CodeCopyHandler } from '@/components/code-copy-handler';
-import { getAllPosts, getPostBySlug, getPlaceholderImage } from '@/lib/posts';
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { FormattedDate } from "@/components/formatted-date";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ShareButtons } from "@/components/share-buttons";
+import { SearchModal } from "@/components/search-modal";
+import { BlogCard } from "@/components/blog-card";
+import { ArticleActionButtons } from "@/components/article-action-buttons";
+import { CodeCopyHandler } from "@/components/code-copy-handler";
+import { getAllPosts, getPostBySlug, getPlaceholderImage } from "@/lib/posts";
 import {
   SITE_URL,
   AUTHOR_NAME,
@@ -19,7 +19,7 @@ import {
   AUTHOR_PORTFOLIO,
   AUTHOR_GITHUB,
   GLOBAL_SEO_KEYWORDS,
-} from '@/lib/consts';
+} from "@/lib/consts";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -37,20 +37,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(slug);
   if (!post) {
     return {
-      title: 'Article Not Found',
+      title: "Article Not Found",
     };
   }
 
   const ogImage = post.heroImage
-    ? post.heroImage.startsWith('http')
+    ? post.heroImage.startsWith("http")
       ? post.heroImage
       : `${SITE_URL}${post.heroImage}`
     : `${SITE_URL}/android-chrome-512x512.png`;
 
   const canonicalUrl = `${SITE_URL}/${post.slug}`;
-  const dedicatedKeywords = post.keywords && post.keywords.length > 0 ? post.keywords : [];
+  const dedicatedKeywords =
+    post.keywords && post.keywords.length > 0 ? post.keywords : [];
   const keywords = Array.from(
-    new Set([...dedicatedKeywords, ...(post.tags || []), post.category, ...GLOBAL_SEO_KEYWORDS])
+    new Set([
+      ...dedicatedKeywords,
+      ...(post.tags || []),
+      post.category,
+      ...GLOBAL_SEO_KEYWORDS,
+    ]),
   );
 
   return {
@@ -61,11 +67,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: canonicalUrl,
       types: {
-        'text/markdown': `${SITE_URL}/${post.slug}.md`,
+        "text/markdown": `${SITE_URL}/${post.slug}.md`,
       },
     },
     openGraph: {
-      type: 'article',
+      type: "article",
       url: canonicalUrl,
       title: post.title,
       description: post.description,
@@ -83,7 +89,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.description,
       creator: AUTHOR_TWITTER,
@@ -105,25 +111,30 @@ export default async function BlogPostPage({ params }: Props) {
 
   const fallbackBg = getPlaceholderImage(post.slug);
   const heroImageSrc = post.heroImage || null;
-  const isPlaceholder = !heroImageSrc || heroImageSrc.includes('blog-placeholder');
-  const bgImage = heroImageSrc && heroImageSrc.includes('blog-placeholder') ? heroImageSrc : fallbackBg;
+  const isPlaceholder =
+    !heroImageSrc || heroImageSrc.includes("blog-placeholder");
+  const bgImage =
+    heroImageSrc && heroImageSrc.includes("blog-placeholder")
+      ? heroImageSrc
+      : fallbackBg;
 
-  const dedicatedKeywords = post.keywords && post.keywords.length > 0 ? post.keywords : post.tags;
+  const dedicatedKeywords =
+    post.keywords && post.keywords.length > 0 ? post.keywords : post.tags;
   const wordCount = post.content ? post.content.trim().split(/\s+/).length : 0;
   const minutes = Math.max(1, Math.ceil(wordCount / 200));
 
   const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
     headline: post.title,
     description: post.description,
-    inLanguage: 'en-US',
+    inLanguage: "en-US",
     isAccessibleForFree: true,
     wordCount,
     timeRequired: `PT${minutes}M`,
     image: [
       heroImageSrc
-        ? heroImageSrc.startsWith('http')
+        ? heroImageSrc.startsWith("http")
           ? heroImageSrc
           : `${SITE_URL}${heroImageSrc}`
         : `${SITE_URL}/android-chrome-512x512.png`,
@@ -131,63 +142,63 @@ export default async function BlogPostPage({ params }: Props) {
     datePublished: post.pubDate,
     dateModified: post.updatedDate || post.pubDate,
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: post.author || AUTHOR_NAME,
-      jobTitle: 'Full Stack Software Engineer & Technical Writer',
+      jobTitle: "Full Stack Software Engineer & Technical Writer",
       url: AUTHOR_PORTFOLIO,
       sameAs: [
         AUTHOR_GITHUB,
-        `https://x.com/${AUTHOR_TWITTER.replace('@', '')}`,
+        `https://x.com/${AUTHOR_TWITTER.replace("@", "")}`,
       ],
     },
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: "Priyam's Blog",
       url: SITE_URL,
       logo: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${SITE_URL}/logo.png`,
       },
     },
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${SITE_URL}/${post.slug}`,
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/${post.slug}`,
     },
     isPartOf: {
-      '@type': 'Blog',
-      '@id': `${SITE_URL}/#blog`,
+      "@type": "Blog",
+      "@id": `${SITE_URL}/#blog`,
       name: "Priyam's Blog",
     },
     speakable: {
-      '@type': 'SpeakableSpecification',
-      cssSelector: ['h1', 'header p'],
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "header p"],
     },
     about: dedicatedKeywords.slice(0, 8).map((keyword) => ({
-      '@type': 'Thing',
+      "@type": "Thing",
       name: keyword,
     })),
-    keywords: dedicatedKeywords.join(', '),
-    articleSection: post.category || 'Technology',
+    keywords: dedicatedKeywords.join(", "),
+    articleSection: post.category || "Technology",
   };
 
   const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: [
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 1,
-        name: 'Home',
+        name: "Home",
         item: SITE_URL,
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 2,
-        name: post.category || 'Articles',
-        item: `${SITE_URL}/tags/${encodeURIComponent(post.category || 'Engineering')}`,
+        name: post.category || "Articles",
+        item: `${SITE_URL}/tags/${encodeURIComponent(post.category || "Engineering")}`,
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 3,
         name: post.title,
         item: `${SITE_URL}/${post.slug}`,
@@ -196,7 +207,10 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <main id="layout" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <main
+      id="layout"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -207,7 +221,7 @@ export default async function BlogPostPage({ params }: Props) {
       <CodeCopyHandler />
       <Header />
 
-      <div className="border-x border-border mx-auto max-w-3xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+      <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
         <div className="flex-1 w-full flex flex-col py-6 sm:py-8">
           {/* Back Link */}
           <div className="mb-5">
@@ -287,7 +301,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <FormattedDate date={post.pubDate} />
               </span>
               <span className="opacity-40">·</span>
-              <span>{post.category || 'Engineering'}</span>
+              <span>{post.category || "Engineering"}</span>
               <span className="opacity-40">·</span>
               <span>{post.readingTime}</span>
             </div>
@@ -320,7 +334,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Markdown Article Body */}
           <article
             className="prose w-full"
-            dangerouslySetInnerHTML={{ __html: post.htmlContent || '' }}
+            dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }}
           />
 
           {/* Full-bleed Stripe Divider above tags */}
@@ -351,7 +365,9 @@ export default async function BlogPostPage({ params }: Props) {
               <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border mt-8 mb-6" />
               <div className="w-full">
                 <div className="flex items-baseline justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-foreground m-0">Continue Reading</h3>
+                  <h3 className="text-sm font-semibold text-foreground m-0">
+                    Continue Reading
+                  </h3>
                   <Link
                     href="/"
                     className="font-mono text-xs text-muted-foreground hover:text-foreground no-underline"
