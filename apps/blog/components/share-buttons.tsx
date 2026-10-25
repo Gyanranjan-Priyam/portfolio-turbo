@@ -61,6 +61,7 @@ export function ShareButtons({ title, url }: Props) {
 
       <button
         type="button"
+        data-sound="copy"
         onClick={handleCopy}
         className="relative inline-flex items-center justify-center w-7 h-7 rounded-md bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         title="Copy article link"

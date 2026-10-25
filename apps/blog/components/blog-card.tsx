@@ -31,7 +31,7 @@ export function BlogCard({ post }: Props) {
 
   return (
     <article className="group flex flex-col h-full transition-all duration-200">
-      <Link href={`/${slug}`} className="flex flex-col h-full text-inherit no-underline" aria-label={title}>
+      <Link href={`/${slug}`} data-sound="open" className="flex flex-col h-full text-inherit no-underline cursor-pointer" aria-label={title}>
         {/* Thumbnail Cover Image */}
         <div className="relative w-full aspect-[16/9] rounded-xl sm:rounded-sm overflow-hidden border border-border/80 bg-muted mb-3.5 group-hover:border-foreground/30 transition-colors">
           {!isPlaceholder && heroImage ? (

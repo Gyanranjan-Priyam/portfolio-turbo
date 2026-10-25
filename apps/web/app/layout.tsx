@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, IBM_Plex_Serif, Caveat } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeSync } from "@/components/theme-sync";
+import { ThemeProvider } from "@/components/theme-provider";
 import { LoaderWrapper } from "@/components/loader-wrapper";
 import "./globals.css";
 import "@/components/loader-component/styles/globals.scss";
@@ -216,30 +217,32 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexSerif.variable} ${caveat.variable} font-sans antialiased`}
         >
-        <SoundEffects>
-          <ThemeSync />
-          <ScrollIndicator />
-          <ScrollToTopButton />
-          <NavigationDock />
-          <SmoothScroll>
-            <LoaderWrapper />
-            <ClickSpark>
-              <main
-                id="layout"
-                className="min-h-screen bg-background text-foreground flex flex-col"
-              >
-                <NavMain />
+        <ThemeProvider>
+          <SoundEffects>
+            <ThemeSync />
+            <ScrollIndicator />
+            <ScrollToTopButton />
+            <NavigationDock />
+            <SmoothScroll>
+              <LoaderWrapper />
+              <ClickSpark>
+                <main
+                  id="layout"
+                  className="min-h-screen bg-background text-foreground flex flex-col"
+                >
+                  <NavMain />
 
-                <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
-                  <div className="flex-1">{children}</div>
-                  <Toaster />
-                </div>
+                  <div className="border-x border-border mx-auto max-w-4xl px-4 sm:px-6 bg-background flex-1 w-full flex flex-col">
+                    <div className="flex-1">{children}</div>
+                    <Toaster />
+                  </div>
 
-                <Footer />
-              </main>
-            </ClickSpark>
-          </SmoothScroll>
-        </SoundEffects>
+                  <Footer />
+                </main>
+              </ClickSpark>
+            </SmoothScroll>
+          </SoundEffects>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

@@ -32,8 +32,9 @@ function ExpandedCard({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        data-sound="close"
         data-lenis-prevent
-        className="fixed inset-0 bg-background/80 backdrop-blur-md h-full w-full z-50 touch-none overscroll-none"
+        className="fixed inset-0 bg-background/80 backdrop-blur-md h-full w-full z-50 touch-none overscroll-none cursor-pointer"
         onClick={onClose}
       />
       <div className="fixed inset-0 grid place-items-center z-50 pointer-events-none p-4">
@@ -45,6 +46,7 @@ function ExpandedCard({
         >
           <motion.button
             key={`button-close-${active.title}-${id}`}
+            data-sound="close"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.05 } }}
@@ -235,6 +237,7 @@ export function TemplatesSection() {
             {/* Desktop layout – modal card */}
             <motion.div
               layoutId={`card-${template.title}-${id}`}
+              data-sound="open"
               onClick={() => setActive(template)}
               className="cursor-pointer hidden md:block"
             >

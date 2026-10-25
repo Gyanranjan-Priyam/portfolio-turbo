@@ -24,6 +24,7 @@ export function CopyLinkButton({ url, className }: Props) {
   return (
     <button
       type="button"
+      data-sound="copy"
       onClick={handleCopy}
       className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-muted/50 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-muted-foreground hover:text-foreground font-mono text-[11px] font-semibold uppercase tracking-wider transition-all duration-150 cursor-pointer shadow-xs active:scale-95 ${
         className || ''

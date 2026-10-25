@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
+import { SoundToggle } from "./ui/sound";
 import { AUTHOR_PORTFOLIO } from "@/lib/consts";
 
 const mainNav = [
@@ -185,6 +186,9 @@ export function Header() {
 
           {/* Vertical Solid Separator */}
           <div className="h-4 w-px bg-border self-center" />
+
+          {/* Sound Toggle Button */}
+          <SoundToggle />
 
           {/* Theme Toggle Button */}
           <ThemeToggle />

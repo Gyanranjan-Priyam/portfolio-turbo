@@ -277,7 +277,7 @@ const TOGGLE_SLOTS = new Set([
 ])
 
 const INTERACTIVE =
-  '[data-slot], button, a[href], [role="button"], [role="option"], [role="menuitem"], input[type="checkbox"], input[type="radio"]'
+  '[data-slot], [data-sound], button, a, [role="button"], [role="option"], [role="menuitem"], [role="tab"], input[type="checkbox"], input[type="radio"], .cursor-pointer, [cursor-pointer], summary'
 
 const TEXT_ENTRY =
   'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, [contenteditable]'
@@ -310,7 +310,7 @@ function classify(el: HTMLElement): Cue | null {
   }
 
   if (el.dataset.variant === 'destructive') return { sound: 'destructive' }
-  if (slot.endsWith('-close')) return { sound: 'close' }
+  if (slot.endsWith('-close') || el.matches('[data-close]')) return { sound: 'close' }
 
   if (slot.endsWith('-clear') || slot.endsWith('-remove')) return { sound: 'chirp' }
   if (slot.endsWith('-trigger')) {
@@ -319,13 +319,16 @@ function classify(el: HTMLElement): Cue | null {
     if (expanded === null) return { sound: 'select' }
     return { sound: expanded === 'true' ? 'close' : 'open' }
   }
-  if (slot.endsWith('-item') || slot.endsWith('-link') || slot.endsWith('-option')) {
+  if (slot.endsWith('-item') || slot.endsWith('-link') || slot.endsWith('-option') || el.matches('[role="tab"]')) {
     return { sound: 'select', detune: rowPitch(el) }
   }
   if (slot === 'slider-thumb' || slot === 'slider-track') return { sound: 'tick' }
-  if (slot === 'button' || el.matches('button, a[href], [role="button"]')) {
+  if (slot === 'button' || el.matches('button, a, [role="button"]')) {
     const soft = el.dataset.variant === 'ghost' || el.dataset.variant === 'link'
     return { sound: 'tap', velocity: soft ? 0.78 : 1 }
+  }
+  if (el.matches('.cursor-pointer, [cursor-pointer]')) {
+    return { sound: 'tap', velocity: 0.9 }
   }
   return null
 }
@@ -344,6 +347,12 @@ function soundFor(target: Element, keyed = false): Cue | null {
     const row = pointed ? document.getElementById(pointed) : target.closest('.command-option')
     if (!row) return null
     return { sound: row.querySelector('.command-option-more') ? 'chirp' : 'command' }
+  }
+
+  // Explicit data-sound on element or closest ancestor
+  const explicit = target.closest<HTMLElement>('[data-sound]')
+  if (explicit && explicit.dataset.sound && explicit.dataset.sound in PATCH.sounds) {
+    return { sound: explicit.dataset.sound as SoundName }
   }
 
   const labeled = target.closest('label')?.control ?? target
@@ -446,7 +455,10 @@ function SoundEffectListener() {
     const onPointerDown = (event: PointerEvent) => {
 
       if (event.button !== 0 || !(event.target instanceof Element)) return
-      const cue = soundFor(event.target)
+      const explicitCue = soundFor(event.target)
+      const cue: Cue | null =
+        explicitCue ??
+        (event.target.closest(TEXT_ENTRY) ? null : { sound: 'tap', velocity: 0.82 })
       if (!cue) return
       if (cue.sound === 'tick') grab = { x: event.clientX, y: event.clientY, dragged: false }
       play(patch, cue)

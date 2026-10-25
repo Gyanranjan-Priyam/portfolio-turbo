@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { SoundEffects } from "@/components/ui/sound";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -158,9 +159,11 @@ export default function RootLayout({
           suppressHydrationWarning
         />
         <ThemeProvider>
-          <SmoothScroll>
-            {children}
-          </SmoothScroll>
+          <SoundEffects>
+            <SmoothScroll>
+              {children}
+            </SmoothScroll>
+          </SoundEffects>
         </ThemeProvider>
       </body>
     </html>

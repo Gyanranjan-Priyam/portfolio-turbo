@@ -117,11 +117,12 @@ export function SearchModal({ posts }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex justify-center items-start pt-[12vh]"
+      className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex justify-center items-start pt-[12vh] cursor-pointer"
+      data-sound="close"
       onClick={() => setIsOpen(false)}
     >
       <div
-        className="w-full max-w-[560px] px-4"
+        className="w-full max-w-[560px] px-4 cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         <div
@@ -160,6 +161,7 @@ export function SearchModal({ posts }: Props) {
             {query && (
               <button
                 type="button"
+                data-sound="chirp"
                 onClick={() => setQuery('')}
                 className="bg-transparent border-none text-muted-foreground hover:text-foreground cursor-pointer p-1 flex items-center justify-center rounded transition-colors"
                 aria-label="Clear search"
@@ -183,6 +185,7 @@ export function SearchModal({ posts }: Props) {
 
             <button
               type="button"
+              data-sound="close"
               onClick={() => setIsOpen(false)}
               className="font-mono text-[10px] font-semibold text-muted-foreground bg-muted border border-border px-1.5 py-0.5 rounded cursor-pointer hover:text-foreground"
             >
@@ -199,6 +202,7 @@ export function SearchModal({ posts }: Props) {
                   <button
                     key={tag}
                     type="button"
+                    data-sound="select"
                     onClick={() => setActiveTag(isSelected ? null : tag)}
                     className={`font-mono text-[11px] rounded-full px-2 py-0.5 cursor-pointer transition-colors border ${
                       isSelected
@@ -232,8 +236,9 @@ export function SearchModal({ posts }: Props) {
                     <Link
                       key={post.slug}
                       href={`/${post.slug}`}
+                      data-sound="open"
                       onClick={() => setIsOpen(false)}
-                      className="block no-underline px-4 py-3 border-b border-border hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors"
+                      className="block no-underline px-4 py-3 border-b border-border hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-3 mb-1">
                         <h3 className="text-xs sm:text-sm font-semibold text-foreground m-0 leading-snug">

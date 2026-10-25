@@ -117,6 +117,7 @@ export function BlogFeed({ posts, categories }: Props) {
             }}
             className="w-full flex items-center justify-between gap-2.5 px-3.5 py-1.5 bg-background hover:bg-neutral-50 dark:hover:bg-neutral-900/60 border border-border rounded-full shadow-xs cursor-pointer transition-colors text-muted-foreground hover:text-foreground"
             type="button"
+            data-sound="open"
             aria-label="Search articles"
             title="Search articles (Ctrl+K)"
           >
@@ -154,6 +155,8 @@ export function BlogFeed({ posts, categories }: Props) {
                 <button
                   key={cat}
                   type="button"
+                  role="tab"
+                  data-sound="select"
                   onClick={() => handleCategoryChange(cat)}
                   className={`inline-flex items-center px-3 py-1 rounded-full font-sans text-xs font-medium border cursor-pointer transition-colors ${
                     isSelected

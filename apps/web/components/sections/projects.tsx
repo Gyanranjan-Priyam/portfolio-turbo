@@ -38,8 +38,9 @@ function ExpandedCard({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        data-sound="close"
         data-lenis-prevent
-        className="fixed inset-0 bg-background/80 backdrop-blur-md h-full w-full z-50 touch-none overscroll-none"
+        className="fixed inset-0 bg-background/80 backdrop-blur-md h-full w-full z-50 touch-none overscroll-none cursor-pointer"
         onClick={onClose}
       />
       <div className="fixed inset-0 grid place-items-center z-50 pointer-events-none p-4">

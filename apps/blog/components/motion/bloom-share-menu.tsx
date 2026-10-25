@@ -270,6 +270,7 @@ export function BloomShareMenu({
       {/* Trigger Capsule Button */}
       <button
         type="button"
+        data-sound="open"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -287,12 +288,13 @@ export function BloomShareMenu({
             {/* 1. Backdrop Blur Overlay */}
             <motion.div
               key="backdrop"
+              data-sound="close"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md"
+              className="fixed inset-0 bg-black/60 backdrop-blur-md cursor-pointer"
               aria-hidden="true"
             />
 
@@ -322,6 +324,7 @@ export function BloomShareMenu({
                 </div>
                 <button
                   type="button"
+                  data-sound="close"
                   onClick={() => setOpen(false)}
                   aria-label="Close share menu"
                   className="rounded-md p-1.5 text-muted-foreground transition-colors hover:text-foreground hover:bg-muted cursor-pointer"
@@ -343,6 +346,7 @@ export function BloomShareMenu({
 
                 <button
                   type="button"
+                  data-sound="copy"
                   onClick={handleCopyShortUrl}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md font-mono text-[11px] font-semibold bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border text-muted-foreground hover:text-foreground transition-all cursor-pointer shrink-0 shadow-2xs active:scale-95"
                   title="Copy short link"

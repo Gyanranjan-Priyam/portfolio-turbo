@@ -52,8 +52,9 @@ function ExpandedExperienceCard({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        data-sound="close"
         data-lenis-prevent
-        className="fixed inset-0 z-50 bg-background/80 backdrop-blur-md h-full w-full touch-none overscroll-none"
+        className="fixed inset-0 z-50 bg-background/80 backdrop-blur-md h-full w-full touch-none overscroll-none cursor-pointer"
         onClick={onClose}
       />
       <div className="fixed inset-0 z-50 grid place-items-center p-4 pointer-events-none">
@@ -90,7 +91,9 @@ function ExpandedExperienceCard({
             </div>
             <button
               onClick={onClose}
-              className="rounded-full p-1 transition-colors hover:bg-muted"
+              data-sound="close"
+              aria-label="Close modal"
+              className="rounded-full p-1 transition-colors hover:bg-muted cursor-pointer"
             >
               <CloseIcon />
             </button>
@@ -187,6 +190,7 @@ export function ExperienceSection() {
             <motion.div
               layoutId={`card-${exp.id}-${id}`}
               key={exp.id}
+              data-sound="open"
               onClick={() => setActive(exp)}
               className="flex cursor-pointer items-center gap-4 rounded-sm p-3 transition-colors hover:bg-muted/50"
             >

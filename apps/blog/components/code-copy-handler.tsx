@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { triggerSound } from '@/components/ui/sound';
 
 export function CodeCopyHandler() {
   React.useEffect(() => {
@@ -19,6 +20,7 @@ export function CodeCopyHandler() {
       if (!text) return;
 
       navigator.clipboard.writeText(text).then(() => {
+        triggerSound('copy');
         const originalHtml = target.innerHTML;
         target.classList.add('copied');
         target.innerHTML = `
