@@ -9,9 +9,9 @@ export const revalidate = 3600;
 export async function GET() {
   const formatDescription = (descriptionParts: string[]) => descriptionParts.join(" ");
 
-  const content = `# Gyanranjan Priyam — Full Stack Developer & AI Engineer
+  const content = `# Gyanranjan Priyam — Frontend Developer & AI Engineer
 
-> Full Stack Developer and AI Engineer specializing in Next.js, React, TypeScript, Node.js, and AI/ML integrations. Building scalable products, modern web experiences, and developer tools.
+> Frontend Developer and AI Engineer specializing in Next.js, React, TypeScript, Node.js, and AI/ML integrations. Building scalable products, modern web experiences, and developer tools.
 
 - Canonical URL: ${SITE_URL}
 - Blog: ${BLOG_URL}

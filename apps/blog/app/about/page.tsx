@@ -9,7 +9,7 @@ import { AUTHOR_PORTFOLIO, SITE_URL } from "@/lib/consts";
 export const metadata: Metadata = {
   title: "About — Gyanranjan Priyam",
   description:
-    "Learn more about Gyanranjan Priyam - fullstack software engineer, architect, and tech writer.",
+    "Learn more about Gyanranjan Priyam - frontend software engineer, architect, and tech writer.",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
@@ -70,9 +70,9 @@ export default function AboutPage() {
               </h1>
 
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                A fullstack software engineer focused on building
+                A frontend software engineer focused on building
                 high-performance web systems, intuitive interfaces, and scalable
-                distributed architectures.
+                frontend architectures.
               </p>
 
               <div className="prose w-full">
@@ -84,7 +84,7 @@ export default function AboutPage() {
                 </p>
                 <ul>
                   <li>
-                    <strong>Fullstack Frameworks</strong>: Next.js, React Server
+                    <strong>Frontend Frameworks</strong>: Next.js, React Server
                     Components, Astro, TypeScript.
                   </li>
                   <li>

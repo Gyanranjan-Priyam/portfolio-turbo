@@ -181,7 +181,7 @@ export function HeroSection() {
               </span>
               <span>—</span>
               <WordRotate
-                words={["Full-stack Developer", "Electrical Engineer", "Open source Enthusiast"]}
+                words={["Frontend Developer", "Electrical Engineer", "Open source Enthusiast"]}
                 duration={2800}
                 className="font-medium"
               />
@@ -196,7 +196,7 @@ export function HeroSection() {
       <BlurFade delay={0.2} direction="up">
         <div className="border-x border-t border-border rounded-t-xl p-4 sm:p-5 bg-card/10 space-y-2">
           <p className="text-[14px] leading-relaxed text-muted-foreground font-mono">
-            Electrical Engineer by degree, Full-Stack Developer by passion. I
+            Electrical Engineer by degree, Frontend Developer by passion. I
             build scalable digital products, explore AI/ML integrations, and
             contribute to open-source software.
           </p>

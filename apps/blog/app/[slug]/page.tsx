@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: Props) {
     author: {
       "@type": "Person",
       name: post.author || AUTHOR_NAME,
-      jobTitle: "Full Stack Software Engineer & Technical Writer",
+      jobTitle: "Frontend Software Engineer & Technical Writer",
       url: AUTHOR_PORTFOLIO,
       sameAs: [
         AUTHOR_GITHUB,

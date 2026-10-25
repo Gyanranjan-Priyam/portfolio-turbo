@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "Gyanranjan Priyam projects",
       "Gyanranjan Priyam developer",
 
-      "full stack project",
+      "frontend project",
       "web development case study",
       "developer portfolio India",
       "Next.js project showcase",

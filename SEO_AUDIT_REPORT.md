@@ -1,7 +1,7 @@
 # Comprehensive SEO & AI Search (GEO / ASEO) Audit Report
 
 **Target Domain(s)**: [priyam.tech](https://www.priyam.tech) (`apps/web`) & [blogs.priyam.tech](https://blogs.priyam.tech) (`apps/blog`)  
-**Audited Entity**: Gyanranjan Priyam — Full Stack Software Engineer & Tech Writer  
+**Audited Entity**: Gyanranjan Priyam — Frontend Software Engineer & Tech Writer  
 **Audit Date**: October 4, 2026  
 **Auditor**: Core Marketing Skills Engine (`seo-audit` + `ai-seo`)  
 **Overall SEO & ASEO Health Score**: **96 / 100** (Grade: **A+**)
@@ -47,8 +47,8 @@ A comprehensive multi-phase SEO, technical infrastructure, and AI Search Engine 
 ### 3.1 Title Tags & Meta Descriptions
 | Page / Route | Title (Length) | Description (Length) | Status |
 | :--- | :--- | :--- | :---: |
-| **Web Home (`/`)** | `Gyanranjan Priyam — Full Stack Developer Portfolio` (52 chars) | `Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.` (153 chars) | ✅ Optimal |
-| **Projects (`/projects`)** | `Projects — Gyanranjan Priyam` (27 chars) | `Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.` (140 chars) | ✅ Optimal |
+| **Web Home (`/`)** | `Gyanranjan Priyam — Frontend Developer Portfolio` (50 chars) | `Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.` (151 chars) | ✅ Optimal |
+| **Projects (`/projects`)** | `Projects — Gyanranjan Priyam` (27 chars) | `Explore production-ready frontend projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.` (138 chars) | ✅ Optimal |
 | **Templates (`/templates`)** | `Templates — Gyanranjan Priyam` (28 chars) | `Browse free, modern website templates built with React, Next.js, and Tailwind CSS. Clean design, smooth animations, and ready to customize.` (140 chars) | ✅ Optimal |
 | **Blog Home (`/`)** | `Priyam's Blog — Engineering, Web Dev & Projects` (48 chars) | `Explore technical articles, software architecture insights, hackathon playbooks, and modern full-stack development patterns by Gyanranjan Priyam.` (147 chars) | ✅ Optimal |
 | **Blog Article (`/[slug]`)** | `[Article Title] \| Priyam's Blog` (Dynamic 45-65 chars) | Extracted from article summary/description frontmatter (120-155 chars) | ✅ Optimal |
@@ -69,10 +69,10 @@ A comprehensive multi-phase SEO, technical infrastructure, and AI Search Engine 
 ### 4.1 Portfolio (`apps/web`) Schemas
 1. **`Person` Schema**:
    - `name`: "Gyanranjan Priyam"
-   - `jobTitle`: "Full Stack Developer & AI Engineer"
+   - `jobTitle`: "Frontend Developer & AI Engineer"
    - `sameAs`: Links to GitHub, LinkedIn, X, and Instagram
    - `alumniOf`: "Government College of Engineering, Kalahandi"
-   - `knowsAbout`: Full Stack, Next.js, React, TypeScript, AI/ML, PostgreSQL, etc.
+   - `knowsAbout`: Frontend, Next.js, React, TypeScript, AI/ML, PostgreSQL, etc.
 2. **`WebSite` Schema**:
    - Declares site entity and author reference.
 3. **`BreadcrumbList` Schema**:

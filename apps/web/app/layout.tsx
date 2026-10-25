@@ -44,18 +44,18 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Gyanranjan Priyam — Full Stack Developer Portfolio",
+    default: "Gyanranjan Priyam — Frontend Developer Portfolio",
     template: "%s — Gyanranjan Priyam",
   },
   description:
-    "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
+    "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
   keywords: [
     "Gyanranjan Priyam",
-    "Full Stack Developer",
+    "Frontend Developer",
     "Web Developer",
     "Next.js Developer",
     "React Developer",
-    "Frontend Developer",
+    "Frontend Web Developer",
     "Software Engineer",
     "Portfolio",
     "JavaScript",
@@ -84,9 +84,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "Gyanranjan Priyam",
-    title: "Gyanranjan Priyam — Full Stack Developer Portfolio",
+    title: "Gyanranjan Priyam — Frontend Developer Portfolio",
     description:
-      "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
+      "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
     images: [
       {
         url: OG_IMAGE,
@@ -98,9 +98,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gyanranjan Priyam — Full Stack Developer Portfolio",
+    title: "Gyanranjan Priyam — Frontend Developer Portfolio",
     description:
-      "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
+      "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
     creator: "@gr_priyam",
     images: [OG_IMAGE],
   },
@@ -132,7 +132,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Gyanranjan Priyam",
     url: SITE_URL,
-    jobTitle: "Full Stack Developer & AI Engineer",
+    jobTitle: "Frontend Developer & AI Engineer",
     image: `${SITE_URL}/logo.png`,
     sameAs: [
       "https://github.com/gyanranjan-priyam",
@@ -141,7 +141,7 @@ export default function RootLayout({
       "https://instagram.com/gyanranjanpriyam",
     ],
     knowsAbout: [
-      "Full Stack Development",
+      "Frontend Development",
       "Next.js",
       "React",
       "TypeScript",
@@ -165,7 +165,7 @@ export default function RootLayout({
     name: "Gyanranjan Priyam — Portfolio",
     url: SITE_URL,
     description:
-      "Full Stack Developer working at the intersection of web development, app development, and AI/ML.",
+      "Frontend Developer working at the intersection of web development, app development, and AI/ML.",
     author: {
       "@type": "Person",
       name: "Gyanranjan Priyam",

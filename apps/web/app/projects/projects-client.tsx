@@ -231,7 +231,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
               Projects
             </h1>
             <p className="text-xs sm:text-sm font-mono text-muted-foreground leading-relaxed">
-              Things I&apos;ve built — from full-stack platforms to community
+              Things I&apos;ve built — from web applications to community
               tools. You can also checkout my <Link
                 href="/templates"
                 className="font-bold hover:text-foreground"

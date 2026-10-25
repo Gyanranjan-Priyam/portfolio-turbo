@@ -39,7 +39,7 @@ const projects = [
       'On the participant side, students can browse events across categories like Hackathon, Robotics, and Gaming, register individually or as a team, upload payment proofs, and receive auto-generated QR codes. The organizer dashboard provides real-time stats, event CRUD with a Tiptap rich text editor, payment verification, accommodation management, Excel exports, PDF invoice generation, and an in-app support ticket system.',
       'Authentication is handled through Better Auth with role-based access control. Arcjet provides rate limiting and bot protection. Files are stored on AWS S3, and the entire platform is deployed on Vercel with Prisma ORM managing the PostgreSQL database.',
     ],
-    role: 'Full Stack Developer — Designed, developed, and deployed the entire platform end-to-end as the sole developer.',
+    role: 'Frontend Developer — Designed, developed, and deployed the entire platform end-to-end as the sole developer.',
     highlights: [
       'Handled 500+ registrations across 20+ events during the live fest',
       'Built a complete admin dashboard with real-time analytics and charts',
@@ -182,7 +182,7 @@ const projects = [
       'On the reader side, users can browse the latest blogs on the homepage feed, search by keywords, explore posts by tags, and engage with content through likes and comments. Every blog page features an auto-generated table of contents, syntax-highlighted code blocks, embedded images and videos, and a clean dark-mode reading experience optimized for technical content.',
       'Authors get a powerful floating-toolbar rich text editor powered by TipTap v3, supporting text formatting, image uploads to AWS S3, code blocks with syntax highlighting, tables, and video embeds. Authentication is handled through Better Auth, real-time interactions via Socket.io, rate limiting and bot protection via Arcjet, and the entire platform is deployed on Vercel with Prisma ORM managing the database.',
     ],
-    role: 'Full Stack Developer — Designed, developed, and deployed the entire platform end-to-end as the sole developer.',
+    role: 'Frontend Developer — Designed, developed, and deployed the entire platform end-to-end as the sole developer.',
     highlights: [
       'Built a floating-toolbar rich text editor supporting code, images, tables, and video',
       'Implemented auto-generated table of contents for every blog post',
@@ -361,7 +361,7 @@ const projects = [
       'The admin panel provides a complete course management workflow: rich text descriptions via Tiptap, drag-and-drop chapter/lesson reordering with dnd-kit, thumbnail and video uploads to AWS S3, and automatic Stripe product creation when pricing is set. Courses can be published, archived, or kept as drafts.',
       'Authentication supports email/password with verification, plus GitHub and Google OAuth, all through Better Auth with role-based access control. Arcjet handles rate limiting and bot protection. The platform is designed to mirror production-grade EdTech products with a focus on real payment flows and scalable architecture.',
     ],
-    role: 'Full Stack Developer — Sole developer responsible for architecture, implementation, and deployment of the entire platform.',
+    role: 'Frontend Developer — Sole developer responsible for architecture, implementation, and deployment of the entire platform.',
     highlights: [
       'End-to-end Stripe integration with webhook-driven auto-enrollment',
       'Drag-and-drop course builder with chapter and lesson reordering',
@@ -526,7 +526,7 @@ const projects = [
       'The admin suite supports multi-role access (Admin, Finance, Faculty), student record management across branches and departments, digital attendance, grade recording, and transcript generation. The finance module provides advanced payment filtering, Excel exports, QR-based UPI payments, and dual payment gateway support with Cashfree and Razorpay.',
       'The student portal gives each user a personalized dashboard with academic progress, payment history with receipt downloads, and real-time notifications via Socket.io. The entire frontend is built with React 19 and TypeScript using Vite, with Framer Motion animations and Recharts for interactive data visualization.',
     ],
-    role: 'Full Stack Developer — Designed and built the complete system from database schema to deployment, handling both frontend and backend architecture.',
+    role: 'Frontend Developer — Designed and built the complete system from database schema to deployment, handling both frontend and backend architecture.',
     highlights: [
       'Multi-role dashboard system (Admin, Finance, Faculty, Student)',
       'Dual payment gateway integration — Cashfree and Razorpay',
@@ -680,7 +680,7 @@ const projects = [
       'The POS module handles the complete sales cycle: product lookup via barcode scanner, cart management, multi-payment support (cash, online, bank transfer, cheque), and professional receipt generation. Inventory management provides real-time stock levels, reorder alerts, and product CRUD with category organization.',
       'On the backend, Express.js serves a REST API with JWT-based auth and role-based access (Admin, Manager, Salesperson). MongoDB handles data persistence with Mongoose ODM, and the ledger system tracks all financial transactions. The frontend is built with React 18, TypeScript, and Tailwind CSS, with date-fns for formatting and Lucide for iconography.',
     ],
-    role: 'Full Stack Developer — Sole developer responsible for designing the system architecture, building the POS workflow, and integrating the payment gateway.',
+    role: 'Frontend Developer — Sole developer responsible for designing the system architecture, building the POS workflow, and integrating the payment gateway.',
     highlights: [
       'Complete POS checkout flow with barcode scanner integration',
       'Razorpay payment gateway with multi-method support',

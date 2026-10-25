@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export async function GET() {
   const content = `# Gyanranjan Priyam — Full Technical Portfolio & Comprehensive Context
 
-> Full Stack Developer and AI Engineer specializing in Next.js 16, React 19, TypeScript, PostgreSQL, Prisma, Tailwind CSS, and AI/ML integrations.
+> Frontend Developer and AI Engineer specializing in Next.js 16, React 19, TypeScript, PostgreSQL, Prisma, Tailwind CSS, and AI/ML integrations.
 > Canonical URL: ${SITE_URL}
 > Blog: ${BLOG_URL}
 > GitHub: https://github.com/gyanranjan-priyam
@@ -23,7 +23,7 @@ export async function GET() {
 
 ## Executive Summary & Background
 
-Gyanranjan Priyam is an Electrical Engineering student at Government College of Engineering, Kalahandi, and a passionate Full-Stack Software Developer. He builds modern, high-performance web applications, developer starter kits, and AI-enabled platforms. He is also a technical writer, mentor, and former GeeksforGeeks Campus Mantri.
+Gyanranjan Priyam is an Electrical Engineering student at Government College of Engineering, Kalahandi, and a passionate Frontend Software Developer. He builds modern, high-performance web applications, developer starter kits, and AI-enabled platforms. He is also a technical writer, mentor, and former GeeksforGeeks Campus Mantri.
 
 His core strengths include:
 - Designing scalable web architectures using Next.js (App Router, Server Components) and React 19.
@@ -83,7 +83,7 @@ ${projects
     const highlights =
       "highlights" in p && Array.isArray((p as { highlights?: string[] }).highlights)
         ? (p as { highlights?: string[] }).highlights!.map((h) => `  - ${h}`).join("\n")
-        : "  - Production-ready full stack implementation";
+        : "  - Production-ready frontend implementation";
 
     const featuresList =
       "features" in p && Array.isArray((p as { features?: { category: string; items: string[] }[] }).features)

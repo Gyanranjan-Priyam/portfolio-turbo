@@ -8,7 +8,7 @@ export default async function Image() {
   const topRightLines = [
     "// PROJECTS · DIRECTORY",
     "→ PRODUCTION BUILDS & CASE STUDIES",
-    "→ FULLSTACK · DISTRIBUTED ARCHITECTURE",
+    "→ FRONTEND · WEB ARCHITECTURE",
     "→ NEXT.JS 16 · TS · POSTGRESQL · AI",
     "→ VERIFIED PERFORMANCE 99+",
     "// ACTIVE BUILDS · LIVE",
@@ -17,7 +17,7 @@ export default async function Image() {
   const bottomLeftLines = [
     "// PORTFOLIO · ARTIFACT",
     "→ AUTHOR: GYANRANJAN PRIYAM",
-    "→ ROLE: FULL STACK DEVELOPER",
+    "→ ROLE: FRONTEND DEVELOPER",
     "→ REPO: GYANRANJAN-PRIYAM",
     "→ DOMAIN: WWW.PRIYAM.TECH",
     "// NEVER QUITS",

@@ -24,7 +24,7 @@ export default async function Image({
 
   const rawTitle = project?.title || "Project";
   const title = rawTitle === rawTitle.toUpperCase() ? toTitleCase(rawTitle) : rawTitle;
-  const company = project?.company || "Full Stack Engineering";
+  const company = project?.company || "Frontend Engineering";
   const tech = project?.tech || ["Next.js", "TypeScript", "React"];
 
   const projectSubtitles: Record<string, string> = {

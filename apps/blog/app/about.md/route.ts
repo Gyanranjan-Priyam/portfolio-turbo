@@ -15,14 +15,14 @@ export async function GET() {
 
 ## Introduction
 
-Hi, I'm Gyanranjan Priyam — a fullstack software engineer focused on building high-performance web systems, intuitive user interfaces, and scalable distributed architectures.
+Hi, I'm Gyanranjan Priyam — a frontend software engineer focused on building high-performance web systems, intuitive user interfaces, and scalable frontend architectures.
 
 ## About This Blog
 
 Priyam's Blog is a publication dedicated to technical deep dives, architectural case studies, performance benchmarks, and real-world software engineering practices.
 
 ### Topics Covered:
-- **Fullstack Frameworks**: Next.js 16, React 19 Server Components, TypeScript.
+- **Frontend Frameworks**: Next.js 16, React 19 Server Components, TypeScript.
 - **Monorepo Systems**: Turborepo, Bun workspaces, shared design systems.
 - **Motion & UI Engineering**: Tailwind CSS, accessible components, micro-interactions.
 - **Databases & APIs**: PostgreSQL, Prisma ORM, REST, GraphQL.

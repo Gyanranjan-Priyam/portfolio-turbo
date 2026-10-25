@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/config";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
+    "Explore production-ready frontend projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
   keywords: [
     "Gyanranjan Priyam projects",
     "Gyanranjan Priyam portfolio",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "portfolio showcase",
     "web development portfolio",
     "frontend developer portfolio",
-    "full stack developer portfolio",
+    "frontend web developer portfolio",
     "developer portfolio India",
     "Indian developer portfolio",
     "software engineer portfolio",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "Tailwind CSS projects",
     "Prisma projects",
     "REST API projects",
-    "full stack projects",
+    "frontend projects",
     "web application projects",
     "responsive web projects",
     "web design portfolio",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Projects — Gyanranjan Priyam",
     description:
-      "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
+      "Explore production-ready frontend projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
     url: `${SITE_URL}/projects`,
     siteName: "Gyanranjan Priyam",
     locale: "en_US",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Projects — Gyanranjan Priyam",
     description:
-      "Explore production-ready full stack projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
+      "Explore production-ready frontend projects, web apps, and developer tools built with Next.js, React, and TypeScript by Gyanranjan Priyam.",
     creator: "@gr_priyam",
   },
 };

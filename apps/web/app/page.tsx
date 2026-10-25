@@ -18,7 +18,7 @@ const structuredData = [
     url: SITE_URL,
     name: "Gyanranjan Priyam — Portfolio",
     description:
-      "Full Stack Developer portfolio showcasing scalable web applications, React & Next.js projects, and open-source templates.",
+      "Frontend Developer portfolio showcasing scalable web applications, React & Next.js projects, and open-source templates.",
     publisher: {
       "@id": `${SITE_URL}/#person`,
     },
@@ -29,7 +29,7 @@ const structuredData = [
     "@type": "Person",
     "@id": `${SITE_URL}/#person`,
     name: "Gyanranjan Priyam",
-    jobTitle: "Full Stack Developer",
+    jobTitle: "Frontend Developer",
     url: SITE_URL,
     image: OG_IMAGE,
     email: "info@priyam.tech",
@@ -40,7 +40,7 @@ const structuredData = [
       "https://instagram.com/gyanranjanpriyam",
     ],
     description:
-      "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
+      "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
     knowsAbout: [
       "React",
       "Next.js",
@@ -49,7 +49,7 @@ const structuredData = [
       "TypeScript",
       "MongoDB",
       "PostgreSQL",
-      "Full Stack Development",
+      "Frontend Development",
       "WebGL",
       "GSAP",
     ],

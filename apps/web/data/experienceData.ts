@@ -23,7 +23,7 @@ export const experiences = [
     content: [
       "Spearheaded technical event operations for a community of 500+ developers, enhancing engagement through hackathons and workshops.",
       "Engineered and deployed a community platform using Next.js and AWS, streamlining event registration and resource access.",
-      "Mentored over 20 junior developers in full-stack development and system design, facilitating their transition to production-ready coding.",
+      "Mentored over 20 junior developers in frontend development and system design, facilitating their transition to production-ready coding.",
     ],
   },
   {

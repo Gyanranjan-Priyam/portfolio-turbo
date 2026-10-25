@@ -8,14 +8,14 @@ export const SITE_INFO = {
   url: SITE_URL,
   ogImage: `${SITE_URL}/opengraph-image`,
   description:
-    "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
+    "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.",
   keywords: [
     "Gyanranjan Priyam",
-    "Full Stack Developer",
+    "Frontend Developer",
     "Web Developer",
     "Next.js Developer",
     "React Developer",
-    "Frontend Developer",
+    "Frontend Web Developer",
     "Software Engineer",
     "Portfolio",
     "JavaScript",

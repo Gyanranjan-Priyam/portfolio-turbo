@@ -17,4 +17,4 @@ export const BLOG_URL =
 // For use in metadata and SEO
 export const SITE_NAME = "Gyanranjan Priyam";
 export const SITE_DESCRIPTION =
-  "Full Stack Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.";
+  "Frontend Developer working at the intersection of web development, app development, and AI/ML to build scalable digital products people actually use.";

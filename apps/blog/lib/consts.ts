@@ -1,7 +1,7 @@
 // Global Site & SEO Constants
 export const SITE_TITLE = "Priyam's Blog — Engineering, Architecture & Web Dev";
 export const SITE_DESCRIPTION =
-  "Technical deep dives, architectural insights, and modern fullstack engineering practices by Gyanranjan Priyam. Covering Next.js, React, Web Security, System Design, and Performance Optimization.";
+  "Technical deep dives, architectural insights, and modern frontend engineering practices by Gyanranjan Priyam. Covering Next.js, React, Web Security, System Design, and Performance Optimization.";
 export const SITE_URL = "https://blogs.priyam.tech";
 export const AUTHOR_NAME = "Gyanranjan Priyam";
 export const AUTHOR_TWITTER = "@gr_priyam";
@@ -13,7 +13,7 @@ export const GLOBAL_SEO_KEYWORDS = [
   "Priyam Blog",
   "Priyam Log",
   "Software Engineering Blog",
-  "Fullstack Web Development",
+  "Frontend Web Development",
   "Next.js 16",
   "Next.js Tutorials",
   "React 19 Server Components",
@@ -49,4 +49,7 @@ export const GLOBAL_SEO_KEYWORDS = [
   "CodeBreakers GCE Kalahandi",
   "GCE Kalahandi",
   "Government College of Engineering Kalahandi, Bhawanipatna",
+  "From the Console to the Classroom: My Journey as CodeBreakers’ First President",
+  "codebreakers gce kalahandi",
+  "When Code Meets Curriculum The Unspoken Grind of Being a Student and a Developer",
 ];

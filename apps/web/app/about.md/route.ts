@@ -8,7 +8,7 @@ export const revalidate = 3600;
 export async function GET() {
   const content = `# About Gyanranjan Priyam
 
-> Electrical Engineer by degree, Full-Stack Developer and AI Engineer by passion.
+> Electrical Engineer by degree, Frontend Developer and AI Engineer by passion.
 
 - Website: ${SITE_URL}
 - Blog: ${BLOG_URL}
@@ -22,7 +22,7 @@ export async function GET() {
 
 ## Bio & Background
 
-I am Gyanranjan Priyam, a software engineer and electrical engineering student at Government College of Engineering, Kalahandi. I specialize in full-stack web development, scalable cloud architecture, and AI-enabled software solutions.
+I am Gyanranjan Priyam, a software engineer and electrical engineering student at Government College of Engineering, Kalahandi. I specialize in frontend web development, modern user interfaces, and AI-enabled software solutions.
 
 I have led community initiatives as a GeeksforGeeks Campus Mantri, mentored fellow student developers, built production-grade web applications handling thousands of users, and contributed actively to open-source projects including the Google Gemini CLI ecosystem.
 

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
 
-export const alt = "Gyanranjan Priyam — Full Stack Developer & Engineer Portfolio";
+export const alt = "Gyanranjan Priyam — Frontend Developer & Engineer Portfolio";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,7 +28,7 @@ function getLogoDataUrl(): string {
 const LOGO_DATA_URL = getLogoDataUrl();
 
 export default async function Image() {
-  const line1 = "Full-Stack Developer";
+  const line1 = "Frontend Developer";
   const line2 = "& Software Engineer";
     const brandParam = "GYANRANJAN";
 
