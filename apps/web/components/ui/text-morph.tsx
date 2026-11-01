@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { TextMorph as BaseTextMorph, useTextMorph, type TextMorphProps } from "torph/react";
 import { cn } from "@/lib/utils";
 
