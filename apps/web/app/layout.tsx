@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, IBM_Plex_Serif, Caveat } from "next/font/google";
+import localFont from "next/font/local";
+import { IBM_Plex_Serif, Caveat } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeSync } from "@/components/theme-sync";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -12,6 +13,7 @@ import { ScrollIndicator } from "@/components/ui/scroll-indicator";
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationDock } from "@/components/sections/NavigationDock";
+import { BottomBlur } from "@/components/ui/bottom-blur";
 import { SITE_URL } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
@@ -20,14 +22,56 @@ import { SoundEffects } from "@/components/ui/sound";
 
 const OG_IMAGE = `${SITE_URL}/og.png`;
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/CabinetGrotesk_Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Extrabold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: [
+    {
+      path: "../public/fonts/Satoshi-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi_Variable.ttf",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi_Italic.ttf",
+      style: "italic",
+    },
+  ],
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 const ibmPlexSerif = IBM_Plex_Serif({
@@ -223,12 +267,13 @@ export default function RootLayout({
             <ScrollIndicator />
             <ScrollToTopButton />
             <NavigationDock />
+            <BottomBlur />
             <SmoothScroll>
               <LoaderWrapper />
               <ClickSpark>
                 <main
                   id="layout"
-                  className="min-h-screen bg-background text-foreground flex flex-col"
+                  className="min-h-screen bg-background text-foreground flex flex-col overflow-x-clip"
                 >
                   <NavMain />
 

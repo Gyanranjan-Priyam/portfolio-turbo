@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { education, certifications } from "@/data/educationData";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { SectionDivider } from "@/components/ui/section-divider";
 
 export function EducationSection() {
   return (
@@ -25,24 +26,25 @@ export function EducationSection() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold leading-tight font-mono">
+                <p className="text-[15px] font-medium leading-tight font-mono">
                   {edu.school}
                 </p>
-                <p className="text-sm text-muted-foreground font-mono">
+                <p className="text-sm font-medium text-muted-foreground font-mono">
                   {edu.degree}
                 </p>
-                <p className="text-xs text-muted-foreground font-mono">
+                <p className="text-xs font-medium text-muted-foreground font-mono">
                   {edu.marks}
                 </p>
               </div>
-              <span className="shrink-0 text-sm text-muted-foreground text-right font-mono">
+              <span className="shrink-0 text-sm text-muted-foreground font-medium text-right font-mono">
                 {edu.period}
               </span>
             </div>
           </BlurFade>
         ))}
       </div>
-      <div className="stripe-divider mt-8 -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+
+      <SectionDivider className="mt-8" />
 
       <BlurFade delay={0.04} inView>
         <h2 className="mb-4 mt-8 text-3xl font-bold tracking-tight text-foreground font-sans">
@@ -67,13 +69,13 @@ export function EducationSection() {
                 <p className="text-xs sm:text-sm font-medium font-mono text-foreground leading-snug">
                   {cert.name}
                 </p>
-                <span className="text-xs text-muted-foreground font-mono mt-0.5">
+                <span className="text-xs font-medium text-muted-foreground font-mono mt-0.5">
                   {cert.issuer}
                 </span>
               </div>
 
               {/* Column 3: Year */}
-              <div className="px-3 sm:px-5 py-3 sm:py-3.5 flex items-center justify-end font-mono text-xs sm:text-sm text-muted-foreground select-none shrink-0">
+              <div className="px-3 sm:px-5 py-3 sm:py-3.5 flex items-center justify-end font-mono font-medium text-xs sm:text-sm text-muted-foreground select-none shrink-0">
                 {cert.year}
               </div>
             </div>

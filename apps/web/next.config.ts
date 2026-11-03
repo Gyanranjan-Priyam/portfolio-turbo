@@ -126,8 +126,7 @@ const nextConfig: NextConfig = {
     },
 
     // Resume / CV
-    { source: "/resume", destination: "/resume/resume.pdf", statusCode: 301 },
-    { source: "/cv", destination: "/resume/resume.pdf", statusCode: 301 },
+    { source: "/cv", destination: "/resume", statusCode: 301 },
 
     // Contact
     { source: "/contact", destination: "/", statusCode: 301 },

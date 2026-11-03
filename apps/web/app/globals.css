@@ -69,7 +69,7 @@ html:not([data-beui-vt]) body {
 }
 
 :root {
-  --background: oklch(1.0000 0 0);
+  --background: oklch(98.463% 0.00181 249.248);
   --foreground: oklch(0.1448 0 0);
   --card: oklch(1.0000 0 0);
   --card-foreground: oklch(0.1448 0 0);
@@ -187,6 +187,7 @@ html:not([data-beui-vt]) body {
 
   html,
   body {
+    overflow-x: clip;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }

@@ -39,7 +39,7 @@ export function FeaturesAccordion({ features }: { features: FeatureGroup[] }) {
                   <h3 className="text-base sm:text-lg font-bold font-sans text-foreground leading-snug group-hover/">
                     {group.category}
                   </h3>
-                  <div className="flex items-center gap-2 mt-0.5 text-xs font-mono text-muted-foreground">
+                  <div className="flex items-center gap-2 mt-0.5 text-xs font-mono font-medium text-muted-foreground">
                     <span>{group.items.length} {group.items.length === 1 ? "feature" : "features"}</span>
                     <span className="text-muted-foreground/40">&bull;</span>
                     <span className="text-muted-foreground/70">Production Ready</span>
@@ -70,7 +70,7 @@ export function FeaturesAccordion({ features }: { features: FeatureGroup[] }) {
                     {group.items.map((item, j) => (
                       <li
                         key={j}
-                        className="flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-muted-foreground font-mono"
+                        className="flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-muted-foreground font-medium font-mono"
                       >
                         <span className="mt-2 size-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
                         <span className="text-muted-foreground/90">{item}</span>

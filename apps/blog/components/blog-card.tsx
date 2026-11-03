@@ -76,12 +76,12 @@ export function BlogCard({ post }: Props) {
           </h3>
 
           {/* Excerpt */}
-          <p className="font-sans text-[12px] sm:text-[13px] text-muted-foreground leading-relaxed line-clamp-2 mb-3">
+          <p className="font-mono font-medium text-[12px] sm:text-[13px] text-muted-foreground leading-relaxed line-clamp-2 mb-3">
             {description}
           </p>
 
           {/* Bottom metadata */}
-          <div className="mt-auto flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
+          <div className="mt-auto flex items-center gap-2 font-medium font-mono text-[11px] text-muted-foreground">
             <span>
               <FormattedDate date={pubDate} />
             </span>

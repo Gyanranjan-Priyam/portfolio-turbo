@@ -89,7 +89,7 @@ function ExpandedCard({
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${active.title}-${id}`}
-                  className="text-xs sm:text-sm font-mono text-muted-foreground mt-0.5"
+                  className="text-xs sm:text-sm font-mono font-medium text-muted-foreground mt-0.5"
                 >
                   {active.company} · {active.date}
                 </motion.p>
@@ -114,7 +114,7 @@ function ExpandedCard({
               exit={{ opacity: 0 }}
               className="space-y-4"
             >
-              <p className="text-xs sm:text-[13px] font-mono leading-relaxed text-muted-foreground">
+              <p className="text-md sm:text-[15px] font-medium font-mono leading-relaxed text-muted-foreground">
                 {active.desc[0]}
               </p>
 
@@ -359,7 +359,7 @@ export function ProjectsSection() {
                       </motion.h3>
                       <motion.p
                         layoutId={`description-${item.title}-${id}`}
-                        className="text-xs sm:text-[13px] font-mono text-muted-foreground truncate mt-0.5"
+                        className="text-xs sm:text-[14px] font-mono text-muted-foreground font-medium truncate mt-0.5"
                       >
                         {item.company}
                       </motion.p>

@@ -5,12 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
 import { SoundToggle } from "./ui/sound";
+import { PlusCross } from "./ui/plus-cross";
 import { AUTHOR_PORTFOLIO } from "@/lib/consts";
 
 const mainNav = [
   { title: "Home", href: "/", external: false },
   { title: "Projects", href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
   { title: "Templates", href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
+  { title: "Resume", href: `${AUTHOR_PORTFOLIO}/resume`, external: true },
   { title: "Blog", href: "/", external: false },
 ];
 
@@ -18,6 +20,7 @@ const mobileNav = [
   { title: "Home", href: "/", external: false },
   { title: "Projects", href: `${AUTHOR_PORTFOLIO}/projects`, external: true },
   { title: "Templates", href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
+  { title: "Resume", href: `${AUTHOR_PORTFOLIO}/resume`, external: true },
   { title: "Blog", href: "/", external: false },
 ];
 
@@ -67,7 +70,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
-      <div className="border-x border-border mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
+      <div className="relative border-x border-border mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
+        {/* Plus markers at navbar bottom border intersection */}
+        <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+          <PlusCross />
+        </div>
+        <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+          <PlusCross />
+        </div>
         {/* Left: Monogram logo */}
         <a
           href={AUTHOR_PORTFOLIO}

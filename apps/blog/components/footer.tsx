@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AUTHOR_PORTFOLIO } from "@/lib/consts";
 import { GitHubIcon, GmailIcon, LinkedInIcon, XIcon } from "./footer-icons";
 import { FooterBrand } from "./footer-brand";
+import { PlusCross } from "./ui/plus-cross";
 import { LocalTime } from "./local-time";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +42,7 @@ const resourceLinks: NavLinkItem[] = [
   { title: "Templates", href: `${AUTHOR_PORTFOLIO}/templates`, external: true },
   {
     title: "Resume",
-    href: `${AUTHOR_PORTFOLIO}/resume/resume.pdf`,
+    href: `${AUTHOR_PORTFOLIO}/resume`,
     external: true,
   },
   {
@@ -53,7 +54,7 @@ const resourceLinks: NavLinkItem[] = [
 ];
 
 const connectLinks: NavLinkItem[] = [
-  { title: "Email", href: "mailto:info@priyam.tech", external: true },
+  { title: "Email", href: "mailto:hello@priyam.tech", external: true },
   {
     title: "GitHub",
     href: "https://github.com/gyanranjan-priyam",
@@ -94,6 +95,7 @@ export function Footer({
   latestWriting = DEFAULT_LATEST_WRITING,
   className,
 }: FooterProps = {}) {
+  const currentYear = new Date().getFullYear();
   return (
     <footer
       className={cn(
@@ -103,13 +105,35 @@ export function Footer({
     >
       <div className="w-full flex flex-col">
         {/* Top diagonal stripe divider - FULL SCREEN WIDTH */}
-        <div className="w-full border-t border-b border-border">
+        <div className="w-full border-t border-b border-border relative">
           <div className="stripe-divider h-7 sm:h-8 w-full" />
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="mx-auto max-w-4xl h-full relative">
+              <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                <PlusCross />
+              </div>
+              <div className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                <PlusCross />
+              </div>
+              <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+                <PlusCross />
+              </div>
+              <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+                <PlusCross />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Title & Quote block - FULL WIDTH HORIZONTAL LINE */}
         <div className="w-full border-b border-border">
-          <div className="mx-auto border-x border-border max-w-4xl flex flex-col sm:flex-row sm:items-center justify-between gap-x-6 gap-y-2 px-4 sm:px-6 py-4 sm:py-5">
+          <div className="relative mx-auto border-x border-border max-w-4xl flex flex-col sm:flex-row sm:items-center justify-between gap-x-6 gap-y-2 px-4 sm:px-6 py-4 sm:py-5">
+            <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
             <span className="font-caveat font-semibold text-xl sm:text-2xl text-foreground tracking-wide leading-none shrink-0">
               Gyanranjan Priyam
             </span>
@@ -122,8 +146,14 @@ export function Footer({
 
         {/* Explore, Product, Resources & Connect 4-Column Grid - FULL WIDTH */}
         <div className="w-full border-b border-border">
-          <div className="mx-auto border-x border-border max-w-4xl">
-            <dl className="grid grid-cols-2 gap-px bg-border font-mono md:grid-cols-4">
+          <div className="relative mx-auto border-x border-border max-w-4xl">
+            <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <dl className="grid grid-cols-2 gap-px bg-border font-mono font-medium md:grid-cols-4">
               <Field label="Explore">
                 <ul className="flex flex-col gap-2 text-xs sm:text-[13px] text-muted-foreground">
                   {exploreLinks.map((item) => (
@@ -202,8 +232,14 @@ export function Footer({
 
         {/* Latest Writing & Location Grid - FULL WIDTH */}
         <div className="w-full border-b border-border">
-          <div className="mx-auto border-x border-border max-w-4xl">
-            <dl className="grid grid-cols-1 gap-px bg-border font-mono sm:grid-cols-4">
+          <div className="relative mx-auto border-x border-border max-w-4xl">
+            <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <dl className="grid grid-cols-1 gap-px bg-border font-mono font-medium sm:grid-cols-4">
               <Field className="sm:col-span-3" label="Latest Writing">
                 <ul className="flex flex-col gap-2 text-xs sm:text-[13px] text-muted-foreground">
                   {latestWriting.map((item) => (
@@ -230,21 +266,24 @@ export function Footer({
 
         {/* Bottom Status Bar - FULL WIDTH */}
         <div className="w-full border-b border-border">
-          <div className="mx-auto border-x border-border max-w-4xl flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 sm:py-4 text-muted-foreground">
-            <a
-              href={AUTHOR_PORTFOLIO}
-              className="text-muted-foreground transition-colors hover:text-foreground flex items-center gap-2 no-underline"
-              aria-label="Home"
-            >
-              <span className="font-mono text-sm sm:text-base font-semibold tracking-tight text-foreground">
-                priyam.tech
+          <div className="relative mx-auto border-x border-border max-w-4xl flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 sm:py-4 text-muted-foreground">
+            <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+              <PlusCross />
+            </div>
+            
+            <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+              <span className="font-mono font-medium text-xs text-muted-foreground" suppressHydrationWarning>
+                © {currentYear} Gyanranjan Priyam<span className="hidden sm:inline">. All rights reserved.</span>
               </span>
-            </a>
+            </div>
 
             <div className="flex items-center gap-3.5">
               <a
                 className="flex items-center transition-colors hover:text-foreground"
-                href="mailto:info@priyam.tech"
+                href="mailto:hello@priyam.tech"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Email"

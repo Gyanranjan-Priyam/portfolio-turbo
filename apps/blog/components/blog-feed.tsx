@@ -4,6 +4,7 @@ import * as React from 'react';
 import { BlogPostData } from '@/lib/types';
 import { BlogCard } from './blog-card';
 import { SearchModal } from './search-modal';
+import { SectionDivider } from './ui/section-divider';
 
 interface Props {
   posts: BlogPostData[];
@@ -139,7 +140,7 @@ export function BlogFeed({ posts, categories }: Props) {
               <span className="font-sans text-xs">Search articles...</span>
             </div>
             <div>
-              <kbd className="font-mono text-[10px] font-medium px-1.5 py-0.5 rounded bg-muted border border-border text-muted-foreground">
+              <kbd className="font-mono font-medium text-[10px] font-medium px-1.5 py-0.5 rounded bg-muted border border-border text-muted-foreground">
                 Ctrl K
               </kbd>
             </div>
@@ -174,7 +175,7 @@ export function BlogFeed({ posts, categories }: Props) {
       </section>
 
       {/* Diagonal Stripe Hatch Pattern Divider Band */}
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border my-6" />
+      <SectionDivider className="my-6" />
 
       {/* POSTS FEED SECTION */}
       <section className="w-full pt-1" ref={feedRef}>
@@ -209,7 +210,7 @@ export function BlogFeed({ posts, categories }: Props) {
             <button
               onClick={() => handlePageChange(validPage - 1)}
               disabled={validPage <= 1}
-              className="inline-flex items-center justify-center min-w-8 h-8 px-3 rounded-md font-mono text-xs bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-2xs"
+              className="inline-flex items-center justify-center min-w-8 h-8 px-3 rounded-md font-medium font-mono text-xs bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-2xs"
               type="button"
               aria-label="Previous page"
             >
@@ -224,7 +225,7 @@ export function BlogFeed({ posts, categories }: Props) {
                     key={p}
                     type="button"
                     onClick={() => handlePageChange(p)}
-                    className={`inline-flex items-center justify-center w-8 h-8 rounded-md font-mono text-xs cursor-pointer transition-all ${
+                    className={`inline-flex items-center justify-center w-8 h-8 rounded-md font-medium font-mono text-xs cursor-pointer transition-all ${
                       isActive
                         ? 'bg-primary text-primary-foreground font-bold border border-primary shadow-xs'
                         : 'bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted shadow-2xs'
@@ -241,7 +242,7 @@ export function BlogFeed({ posts, categories }: Props) {
             <button
               onClick={() => handlePageChange(validPage + 1)}
               disabled={validPage >= totalPages}
-              className="inline-flex items-center justify-center min-w-8 h-8 px-3 rounded-md font-mono text-xs bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-2xs"
+              className="inline-flex items-center justify-center min-w-8 h-8 px-3 rounded-md font-medium font-mono text-xs bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-2xs"
               type="button"
               aria-label="Next page"
             >
@@ -249,7 +250,7 @@ export function BlogFeed({ posts, categories }: Props) {
             </button>
           </nav>
           
-          <p className="font-mono text-[11px] text-muted-foreground m-0">
+          <p className="font-mono font-medium text-[11px] text-muted-foreground m-0">
             Showing {(validPage - 1) * PAGE_SIZE + 1}–{Math.min(validPage * PAGE_SIZE, filteredPosts.length)} of {filteredPosts.length} {filteredPosts.length === 1 ? 'article' : 'articles'} · Page {validPage} of {totalPages}
           </p>
         </div>

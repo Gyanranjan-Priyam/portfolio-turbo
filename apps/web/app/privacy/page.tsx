@@ -118,7 +118,7 @@ const sections: Section[] = [
     title: "Your Rights",
     content: [
       {
-        text: "You have the right to access, correct, or delete any personal information we hold about you. You can also opt out of analytics tracking by using browser privacy features or extensions. To exercise any of these rights, please contact us at info@priyam.tech.",
+        text: "You have the right to access, correct, or delete any personal information we hold about you. You can also opt out of analytics tracking by using browser privacy features or extensions. To exercise any of these rights, please contact us at hello@priyam.tech.",
       },
     ],
   },
@@ -161,177 +161,177 @@ export default function PrivacyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <BlurFade delay={0.04} direction="up">
-          <div className="mb-3 flex items-start justify-between">
-            <div>
-              <h1
-                className="mb-2 text-2xl font-bold tracking-tight sm:text-3xl"
-                style={{ fontFamily: "var(--font-ibm)" }}
-              >
-                Privacy
-              </h1>
-              <p
+        <div className="mb-3 flex items-start justify-between">
+          <div>
+            <h1
+              className="mb-2 text-2xl font-bold tracking-tight sm:text-3xl"
+              style={{ fontFamily: "var(--font-ibm)" }}
+            >
+              Privacy
+            </h1>
+            <p
               className="font-medium tracking-tight text-muted-foreground"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
             >
               Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
             </p>
-            </div>
-            <div className="ml-4 mt-1 flex shrink-0 items-center gap-2">
-              <Link
-                href="/"
-                aria-label="Home"
-                className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <Home className="size-4" />
-              </Link>
-            </div>
           </div>
-          </BlurFade>
-
-          <BlurFade delay={0.16} direction="up">
-            <p
-              className="mt-6 text-[15px] leading-relaxed text-muted-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          <div className="ml-4 mt-1 flex shrink-0 items-center gap-2">
+            <Link
+              href="/"
+              aria-label="Home"
+              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
-              Your privacy is important to us. This Privacy Policy explains how we collect, use, 
-              and protect your information when you visit{" "}
-              <span className="font-medium text-foreground">priyam.tech</span> or <span className="font-medium text-foreground">gyanranjanpriyam.tech</span> and interact with our 
-              blog content and services.
-            </p>
-          </BlurFade>
+              <Home className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </BlurFade>
 
-          {/* Quick Navigation */}
-          <BlurFade delay={0.2} direction="up">
-            <nav className="mt-8 rounded-lg border bg-card p-4">
-              <h2
-                className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3"
-                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-              >
-                Quick Navigation
-              </h2>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {sections.map((section) => (
-                  <li key={section.id}>
-                    <a
-                      href={`#${section.id}`}
-                      className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      <section.icon className="size-3.5" />
-                      {section.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </BlurFade>
+      <BlurFade delay={0.16} direction="up">
+        <p
+          className="mt-6 text-[15px] leading-relaxed text-muted-foreground"
+          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+        >
+          Your privacy is important to us. This Privacy Policy explains how we collect, use,
+          and protect your information when you visit{" "}
+          <span className="font-medium text-foreground">priyam.tech</span> or <span className="font-medium text-foreground">gyanranjanpriyam.tech</span> and interact with our
+          blog content and services.
+        </p>
+      </BlurFade>
 
-        <Separator />
+      {/* Quick Navigation */}
+      <BlurFade delay={0.2} direction="up">
+        <nav className="mt-8 rounded-lg border bg-card p-4">
+          <h2
+            className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3"
+            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          >
+            Quick Navigation
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {sections.map((section) => (
+              <li key={section.id}>
+                <a
+                  href={`#${section.id}`}
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                >
+                  <section.icon className="size-3.5" />
+                  {section.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </BlurFade>
 
-        {/* Content Sections */}
-        <section className="py-8 space-y-10">
-          {sections.map((section, sectionIndex) => (
-            <BlurFade key={section.id} delay={0.04 + sectionIndex * 0.04} inView>
-              <div id={section.id} className="scroll-mt-20">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted">
-                    <section.icon className="size-5 text-foreground" />
-                  </div>
-                  <h2
-                    className="text-2xl font-semibold"
-                    style={{ fontFamily: "var(--font-ibm)" }}
-                  >
-                    {section.title}
-                  </h2>
+      <Separator />
+
+      {/* Content Sections */}
+      <section className="py-8 space-y-10">
+        {sections.map((section, sectionIndex) => (
+          <BlurFade key={section.id} delay={0.04 + sectionIndex * 0.04} inView>
+            <div id={section.id} className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted">
+                  <section.icon className="size-5 text-foreground" />
                 </div>
+                <h2
+                  className="text-2xl font-semibold"
+                  style={{ fontFamily: "var(--font-ibm)" }}
+                >
+                  {section.title}
+                </h2>
+              </div>
 
-                <div className="space-y-4 pl-0 sm:pl-13">
-                  {section.content.map((item, itemIndex) => (
-                    <div key={itemIndex} className="space-y-2">
-                      {item.subtitle && (
-                        <h3
-                          className="text-sm font-semibold text-foreground"
-                          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                        >
-                          {item.subtitle}
-                        </h3>
-                      )}
-                      <p
-                        className="text-[14px] leading-relaxed text-muted-foreground"
+              <div className="space-y-4 pl-0 sm:pl-13">
+                {section.content.map((item, itemIndex) => (
+                  <div key={itemIndex} className="space-y-2">
+                    {item.subtitle && (
+                      <h3
+                        className="text-sm font-semibold text-foreground"
                         style={{ fontFamily: "var(--font-jetbrains-mono)" }}
                       >
-                        {item.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {sectionIndex < sections.length - 1 && (
-                  <Separator className="mt-8" />
-                )}
+                        {item.subtitle}
+                      </h3>
+                    )}
+                    <p
+                      className="text-[14px] leading-relaxed text-muted-foreground"
+                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
               </div>
-            </BlurFade>
-          ))}
-        </section>
 
-        <Separator />
-
-        {/* Contact Section */}
-        <section className="py-8">
-          <BlurFade delay={0.04} inView>
-            <div className="rounded-lg border bg-card p-6">
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-muted shrink-0">
-                  <Mail className="size-5 text-foreground" />
-                </div>
-                <div>
-                  <h2
-                    className="text-lg font-semibold mb-2"
-                    style={{ fontFamily: "var(--font-ibm)" }}
-                  >
-                    Questions or Concerns?
-                  </h2>
-                  <p
-                    className="text-[14px] leading-relaxed text-muted-foreground mb-4"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    If you have any questions about this Privacy Policy or wish to exercise your 
-                    data rights, feel free to reach out.
-                  </p>
-                  <a
-                    href="mailto:info@priyam.tech"
-                    className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                    style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                  >
-                    <Mail className="size-4" />
-                    info@priyam.tech
-                  </a>
-                </div>
-              </div>
+              {sectionIndex < sections.length - 1 && (
+                <Separator className="mt-8" />
+              )}
             </div>
           </BlurFade>
-        </section>
+        ))}
+      </section>
 
-        {/* Footer Note */}
-        <BlurFade delay={0.08} inView>
-          <div className="pb-8 text-center">
-            <p
-              className="text-xs text-muted-foreground"
-              style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-            >
-              This policy applies to{" "}
-              <Link href="/" className=" hover:text-foreground transition-colors">
-                priyam.tech
-              </Link>{" "}
-                and{" "}
-              <Link href="/" className=" hover:text-foreground transition-colors">
-                gyanranjanpriyam.tech
-              </Link>{" "}
+      <Separator />
 
-              and all associated subdomains.
-            </p>
+      {/* Contact Section */}
+      <section className="py-8">
+        <BlurFade delay={0.04} inView>
+          <div className="rounded-lg border bg-card p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-muted shrink-0">
+                <Mail className="size-5 text-foreground" />
+              </div>
+              <div>
+                <h2
+                  className="text-lg font-semibold mb-2"
+                  style={{ fontFamily: "var(--font-ibm)" }}
+                >
+                  Questions or Concerns?
+                </h2>
+                <p
+                  className="text-[14px] leading-relaxed text-muted-foreground mb-4"
+                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                >
+                  If you have any questions about this Privacy Policy or wish to exercise your
+                  data rights, feel free to reach out.
+                </p>
+                <a
+                  href="mailto:hello@priyam.tech"
+                  className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                >
+                  <Mail className="size-4" />
+                  hello@priyam.tech
+                </a>
+              </div>
+            </div>
           </div>
         </BlurFade>
-      </div>
+      </section>
+
+      {/* Footer Note */}
+      <BlurFade delay={0.08} inView>
+        <div className="pb-8 text-center">
+          <p
+            className="text-xs text-muted-foreground"
+            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          >
+            This policy applies to{" "}
+            <Link href="/" className=" hover:text-foreground transition-colors">
+              priyam.tech
+            </Link>{" "}
+            and{" "}
+            <Link href="/" className=" hover:text-foreground transition-colors">
+              gyanranjanpriyam.tech
+            </Link>{" "}
+
+            and all associated subdomains.
+          </p>
+        </div>
+      </BlurFade>
+    </div>
   );
 }

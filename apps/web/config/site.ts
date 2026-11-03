@@ -55,6 +55,10 @@ export const MAIN_NAV: NavItem<Route>[] = [
     href: "/templates",
   },
   {
+    title: "Resume",
+    href: "/resume" as Route,
+  },
+  {
     title: "Blog",
     href: BLOG_URL as Route,
   },

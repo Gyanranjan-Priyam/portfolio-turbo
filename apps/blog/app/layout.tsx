@@ -1,19 +1,61 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Caveat } from "next/font/google";
+import { Caveat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { SoundEffects } from "@/components/ui/sound";
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/CabinetGrotesk_Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/CabinetGrotesk_Extrabold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
   variable: "--font-geist-sans",
-  subsets: ["latin"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: [
+    {
+      path: "../public/fonts/Satoshi-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi_Variable.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Satoshi_Italic.ttf",
+      style: "italic",
+    },
+  ],
   variable: "--font-geist-mono",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -22,6 +64,7 @@ const caveat = Caveat({
   subsets: ["latin"],
   display: "swap",
 });
+import { BLOG_PAGE_KEYWORDS } from "@/lib/seo";
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
@@ -44,7 +87,7 @@ export const metadata: Metadata = {
     template: `%s | Priyam's Blog`,
   },
   description: SITE_DESCRIPTION,
-  keywords: GLOBAL_SEO_KEYWORDS,
+  keywords: Array.from(new Set([...BLOG_PAGE_KEYWORDS, ...GLOBAL_SEO_KEYWORDS])),
   authors: [{ name: AUTHOR_NAME, url: "https://www.priyam.tech" }],
   creator: AUTHOR_NAME,
   publisher: "Priyam's Blog",
@@ -61,14 +104,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logo.png" },
+      { url: "/favicon.ico" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
-    shortcut: "/logo.png",
+    shortcut: "/favicon.ico",
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180" },
-      { url: "/logo.png" },
+      { url: "/favicon.ico" },
     ],
   },
   manifest: "/site.webmanifest",
@@ -129,6 +172,11 @@ export default function RootLayout({
       "@type": "Person",
       name: AUTHOR_NAME,
       url: "https://www.priyam.tech",
+      sameAs: [
+        "https://x.com/gr_priyam",
+        "https://github.com/gyanranjan-priyam",
+        "https://linkedin.com/in/gyanranjan-priyam",
+      ],
     },
   };
 

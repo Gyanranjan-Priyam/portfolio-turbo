@@ -15,7 +15,7 @@ export async function GET() {
 - GitHub: https://github.com/gyanranjan-priyam
 - LinkedIn: https://linkedin.com/in/gyanranjan-priyam
 - Twitter/X: https://x.com/gr_priyam
-- Email: info@priyam.tech
+- Email: hello@priyam.tech
 - Resume: https://assets.priyam.tech/resume/resume.pdf
 
 ---
@@ -31,43 +31,43 @@ I have led community initiatives as a GeeksforGeeks Campus Mantri, mentored fell
 ## Technical Skills
 
 ${skillCategories
-  .map(
-    (cat) => `### ${cat.number}. ${cat.title}
+      .map(
+        (cat) => `### ${cat.number}. ${cat.title}
 ${cat.skills.map((s) => `- ${s.name}`).join("\n")}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Experience & Career Journey
 
 ${experiences
-  .map(
-    (e) => `### ${e.title} at ${e.company}
+      .map(
+        (e) => `### ${e.title} at ${e.company}
 - **Duration**: ${e.period}
 ${e.content.map((d: string) => `- ${d}`).join("\n")}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Education
 
 ${education
-  .map(
-    (ed) => `### ${ed.degree}
+      .map(
+        (ed) => `### ${ed.degree}
 - **Institution**: ${ed.school} (${ed.period})
 - **Performance**: ${ed.marks || "Ongoing"}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Certifications
 
 ${certifications
-  .map((c) => `- **${c.name}** — ${c.issuer} (${c.year})`)
-  .join("\n")}
+      .map((c) => `- **${c.name}** — ${c.issuer} (${c.year})`)
+      .join("\n")}
 `.trim();
 
   return new Response(content, {

@@ -16,7 +16,7 @@ export async function GET() {
 > GitHub: https://github.com/gyanranjan-priyam
 > LinkedIn: https://linkedin.com/in/gyanranjan-priyam
 > Twitter/X: https://x.com/gr_priyam
-> Email: info@priyam.tech
+> Email: hello@priyam.tech
 > Resume: https://assets.priyam.tech/resume/resume.pdf
 
 ---
@@ -37,69 +37,69 @@ His core strengths include:
 ## Technical Skills & Proficiencies
 
 ${skillCategories
-  .map((cat) => `### Category ${cat.number}: ${cat.title}\n${cat.skills.map((s) => `- ${s.name}`).join("\n")}`)
-  .join("\n\n")}
+      .map((cat) => `### Category ${cat.number}: ${cat.title}\n${cat.skills.map((s) => `- ${s.name}`).join("\n")}`)
+      .join("\n\n")}
 
 ---
 
 ## Professional Experience
 
 ${experiences
-  .map(
-    (exp) => `### ${exp.title} — ${exp.company}
+      .map(
+        (exp) => `### ${exp.title} — ${exp.company}
 - **Period**: ${exp.period}
 - **Key Contributions**:
 ${exp.content.map((d: string) => `  - ${d}`).join("\n")}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Education
 
 ${education
-  .map(
-    (ed) => `### ${ed.degree}
+      .map(
+        (ed) => `### ${ed.degree}
 - **Institution**: ${ed.school}
 - **Duration**: ${ed.period}
 - **Grade/Score**: ${ed.marks || "Ongoing"}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Certifications
 
 ${certifications
-  .map((c) => `- **${c.name}** issued by ${c.issuer} (${c.year})`)
-  .join("\n")}
+      .map((c) => `- **${c.name}** issued by ${c.issuer} (${c.year})`)
+      .join("\n")}
 
 ---
 
 ## Full Projects Catalog (${projects.length} Projects)
 
 ${projects
-  .map((p, idx) => {
-    const highlights =
-      "highlights" in p && Array.isArray((p as { highlights?: string[] }).highlights)
-        ? (p as { highlights?: string[] }).highlights!.map((h) => `  - ${h}`).join("\n")
-        : "  - Production-ready frontend implementation";
+      .map((p, idx) => {
+        const highlights =
+          "highlights" in p && Array.isArray((p as { highlights?: string[] }).highlights)
+            ? (p as { highlights?: string[] }).highlights!.map((h) => `  - ${h}`).join("\n")
+            : "  - Production-ready frontend implementation";
 
-    const featuresList =
-      "features" in p && Array.isArray((p as { features?: { category: string; items: string[] }[] }).features)
-        ? (p as { features: { category: string; items: string[] }[] }).features
-            .map((f) => `  - **${f.category}**: ${f.items.join(", ")}`)
-            .join("\n")
-        : "";
+        const featuresList =
+          "features" in p && Array.isArray((p as { features?: { category: string; items: string[] }[] }).features)
+            ? (p as { features: { category: string; items: string[] }[] }).features
+              .map((f) => `  - **${f.category}**: ${f.items.join(", ")}`)
+              .join("\n")
+            : "";
 
-    const techDetailedList =
-      "techDetailed" in p && Array.isArray((p as { techDetailed?: { layer: string; value: string }[] }).techDetailed)
-        ? (p as { techDetailed: { layer: string; value: string }[] }).techDetailed
-            .map((t) => `  - **${t.layer}**: ${t.value}`)
-            .join("\n")
-        : "";
+        const techDetailedList =
+          "techDetailed" in p && Array.isArray((p as { techDetailed?: { layer: string; value: string }[] }).techDetailed)
+            ? (p as { techDetailed: { layer: string; value: string }[] }).techDetailed
+              .map((t) => `  - **${t.layer}**: ${t.value}`)
+              .join("\n")
+            : "";
 
-    return `### Project ${idx + 1}: ${p.title}
+        return `### Project ${idx + 1}: ${p.title}
 
 - **Project ID**: ${p.id}
 - **Canonical Page**: ${SITE_URL}/projects/${p.id}
@@ -120,26 +120,26 @@ ${featuresList ? `#### Categorized Features:\n${featuresList}` : ""}
 
 ${techDetailedList ? `#### Architecture & Tech Layers:\n${techDetailedList}` : ""}
 `;
-  })
-  .join("\n---\n\n")}
+      })
+      .join("\n---\n\n")}
 
 ---
 
 ## Templates & Starters Catalog (${templates.length} Templates)
 
 ${templates
-  .map((t, idx) => {
-    const highlights =
-      t.highlights && t.highlights.length > 0
-        ? t.highlights.map((h) => `  - ${h}`).join("\n")
-        : "  - High quality starter kit";
+      .map((t, idx) => {
+        const highlights =
+          t.highlights && t.highlights.length > 0
+            ? t.highlights.map((h) => `  - ${h}`).join("\n")
+            : "  - High quality starter kit";
 
-    const features =
-      t.features && t.features.length > 0
-        ? t.features.map((f) => `  - ${f}`).join("\n")
-        : "";
+        const features =
+          t.features && t.features.length > 0
+            ? t.features.map((f) => `  - ${f}`).join("\n")
+            : "";
 
-    return `### Template ${idx + 1}: ${t.title}
+        return `### Template ${idx + 1}: ${t.title}
 
 - **Template ID**: ${t.id}
 - **Canonical Page**: ${SITE_URL}/templates/${t.id}
@@ -158,14 +158,14 @@ ${highlights}
 
 ${features ? `#### Features:\n${features}` : ""}
 `;
-  })
-  .join("\n---\n\n")}
+      })
+      .join("\n---\n\n")}
 
 ---
 
 ## Contact & Social Profiles
 
-- **Email**: info@priyam.tech
+- **Email**: hello@priyam.tech
 - **Website**: ${SITE_URL}
 - **Blog**: ${BLOG_URL}
 - **GitHub**: https://github.com/gyanranjan-priyam

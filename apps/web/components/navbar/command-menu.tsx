@@ -169,9 +169,9 @@ export function CommandMenu() {
         id: "social-email",
         category: "Socials & Contact",
         title: "Send Email",
-        subtitle: "info@priyam.tech",
+        subtitle: "hello@priyam.tech",
         icon: <IconMail className="h-4 w-4" />,
-        action: () => window.open("mailto:info@priyam.tech"),
+        action: () => window.open("mailto:hello@priyam.tech"),
       },
     ]
 

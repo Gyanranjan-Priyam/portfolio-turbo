@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Home, LayoutGrid, List, Calendar, ArrowRight, Search, X } from "lucide-react";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { motion, AnimatePresence } from "motion/react";
 import { useLoaderStore } from "@/components/loader-component";
 import { TechBadge } from "@/components/tech-icons";
@@ -212,7 +213,7 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
             <h1 className="mb-2 text-2xl sm:text-3xl font-bold tracking-tight font-sans text-foreground">
               Website Templates
             </h1>
-            <p className="text-xs sm:text-sm font-mono text-muted-foreground leading-relaxed">
+            <p className="text-xs sm:text-sm font-mono font-medium text-muted-foreground leading-relaxed">
               Pre-built website templates ready to customize and deploy for your projects.
             </p>
           </div>
@@ -221,14 +222,14 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search templates"
               title="Search templates (Ctrl+K)"
-              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+              className="rounded-full font-medium border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
             >
               <Search className="size-4" />
             </button>
             <button
               onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
               aria-label={viewMode === "grid" ? "Switch to list view" : "Switch to grid view"}
-              className="rounded-full border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+              className="rounded-full border font-medium p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
             >
               {viewMode === "grid" ? (
                 <List className="size-4" />
@@ -246,7 +247,7 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
           </div>
         </div>
       </BlurFade>
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border mb-8" />
+      <SectionDivider className="mb-8" />
 
       {viewMode === "grid" ? (
         <div className="grid gap-4 sm:grid-cols-2 items-stretch">
@@ -280,12 +281,12 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
                       </div>
                       <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground mt-0.5" />
                     </div>
-                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-muted-foreground line-clamp-2 font-mono min-h-[2.5rem] sm:min-h-[2.75rem]">
+                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-muted-foreground font-medium line-clamp-2 font-mono min-h-[2.5rem] sm:min-h-[2.75rem]">
                       {template.desc[0]}
                     </p>
                   </div>
                   <div className="mt-auto pt-3">
-                    <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-xs font-mono font-medium text-muted-foreground">
                       <Calendar className="size-3.5 text-muted-foreground/80" />
                       <span>{template.date}</span>
                     </div>

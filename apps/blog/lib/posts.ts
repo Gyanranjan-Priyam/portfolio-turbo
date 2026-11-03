@@ -143,7 +143,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   let html = processedContent.toString();
 
   // Add IDs to headings (h1, h2, h3, h4) for Table of Contents scrolling
-  html = html.replace(/<(h[1-4])(?:\s+id="([^"]*)")?>([\s\S]*?)<\/\1>/gi, (match, tag, existingId, innerHtml) => {
+  html = html.replace(/<(h[1-4])(?:\s+id="([^"]*)")?>([\s\S]*?)<\/\1>/gi, (match: string, tag: string, existingId: string | undefined, innerHtml: string) => {
     const plainText = innerHtml.replace(/<[^>]+>/g, '').trim();
     const slug = existingId || plainText
       .toLowerCase()

@@ -7,6 +7,7 @@ import { IconBrandGithub as Github } from "@tabler/icons-react";
 import templates from "@/data/templateData";
 import { SITE_URL } from "@/lib/config";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { SectionDivider } from "@/components/ui/section-divider";
 import Image from "next/image";
 import { TemplatePreview } from "./TemplatePreview";
 import { TechBadge } from "@/components/tech-icons";
@@ -190,7 +191,7 @@ export default async function TemplatePage({ params }: Props) {
               <h1 className="text-3xl font-bold tracking-tight font-sans text-foreground sm:text-4xl">
                 {template.title}
               </h1>
-              <p className="mt-1 text-xs sm:text-sm font-mono text-muted-foreground">
+              <p className="mt-1 text-xs sm:text-sm font-mono font-medium text-muted-foreground">
                 {template.company} &middot; {template.date}
               </p>
             </div>
@@ -228,7 +229,7 @@ export default async function TemplatePage({ params }: Props) {
           </div>
         </div>
       </BlurFade>
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Preview Section with Desktop/Mobile Toggle */}
       {(template.desktopImage || template.mobileImage || template.liveLink) ? (
@@ -257,7 +258,7 @@ export default async function TemplatePage({ params }: Props) {
         </BlurFade>
       ) : null}
 
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Description / Overview */}
       <BlurFade delay={0.16}>
@@ -270,7 +271,7 @@ export default async function TemplatePage({ params }: Props) {
           {template.desc.map((paragraph, i) => (
             <p
               key={i}
-              className="text-xs sm:text-sm font-mono leading-relaxed text-muted-foreground"
+              className="text-[13px] sm:text-[15px] font-medium font-mono leading-relaxed text-muted-foreground"
             >
               {paragraph}
             </p>
@@ -278,7 +279,7 @@ export default async function TemplatePage({ params }: Props) {
         </div>
       </BlurFade>
 
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Key Highlights */}
       {"highlights" in template && (template as any).highlights?.length > 0 && (
@@ -288,7 +289,7 @@ export default async function TemplatePage({ params }: Props) {
               <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
                 Key Highlights
               </h2>
-              <span className="text-xs font-mono text-muted-foreground/70">
+              <span className="text-xs font-mono font-medium text-muted-foreground/70">
                 ({(template as any).highlights.length})
               </span>
             </div>
@@ -320,7 +321,7 @@ export default async function TemplatePage({ params }: Props) {
                         {num}
                       </div>
 
-                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                      <p className="text-xs sm:text-[14px] leading-relaxed text-muted-foreground group-hover:text-foreground font-medium font-mono transition-colors">
                         {item}
                       </p>
                     </div>
@@ -332,7 +333,7 @@ export default async function TemplatePage({ params }: Props) {
         </BlurFade>
       )}
 
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Features */}
       {"features" in template && (template as any).features?.length > 0 && (
@@ -342,7 +343,7 @@ export default async function TemplatePage({ params }: Props) {
               <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
                 Features Included
               </h2>
-              <span className="text-xs font-mono text-muted-foreground/70">
+              <span className="text-xs font-mono font-medium text-muted-foreground/70">
                 ({(template as any).features.length})
               </span>
             </div>
@@ -350,6 +351,7 @@ export default async function TemplatePage({ params }: Props) {
             <div className="-mx-4 sm:-mx-6 border-t border-b border-border">
               <div className="grid grid-cols-1 sm:grid-cols-2">
                 {(template as any).features.map((feature: string, i: number) => {
+                  const num = String(i + 1).padStart(2, "0");
                   const total = (template as any).features.length;
                   const isEven = i % 2 === 0;
                   const isLastRowDesktop = i >= total - (total % 2 === 0 ? 2 : 1);
@@ -370,10 +372,10 @@ export default async function TemplatePage({ params }: Props) {
                     >
                       {/* Minimalist Code Keycap Badge */}
                       <div className="size-7 shrink-0 mt-0.5 rounded-md border border-border/80 bg-muted/40 dark:bg-neutral-900 flex items-center justify-center text-[10px] font-mono font-medium text-muted-foreground group-hover:text-foreground group-hover:border-foreground/40 transition-colors select-none shadow-2xs">
-                        &lt;/&gt;
+                       {num}
                       </div>
 
-                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                      <p className="text-xs sm:text-[14px] leading-relaxed text-muted-foreground group-hover:text-foreground font-medium font-mono transition-colors">
                         {feature}
                       </p>
                     </div>
@@ -385,7 +387,7 @@ export default async function TemplatePage({ params }: Props) {
         </BlurFade>
       )}
 
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Tech Stack Section */}
       <BlurFade delay={0.22} inView>
@@ -409,7 +411,7 @@ export default async function TemplatePage({ params }: Props) {
         </div>
       </BlurFade>
 
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
 
       {/* Next template */}
       <BlurFade delay={0.26} inView>
@@ -423,7 +425,7 @@ export default async function TemplatePage({ params }: Props) {
                 className="group flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
               >
                 <div>
-                  <p className="text-xs font-mono text-muted-foreground">
+                  <p className="text-xs font-mono font-medium text-muted-foreground">
                     Next Template
                   </p>
                   <p className="text-base font-sans font-semibold text-foreground group-hover:underline">

@@ -9,7 +9,7 @@ export async function GET() {
 > Effective Date: January 1, 2025 (Last updated: Current)
 
 - Canonical URL: ${SITE_URL}/privacy
-- Contact: info@priyam.tech
+- Contact: hello@priyam.tech
 
 ---
 
@@ -51,7 +51,7 @@ We use the collected information to:
 ## 5. Your Rights & Contact
 
 You have the right to access, correct, or request deletion of any personal data you have shared with us.
-To exercise your rights or ask questions, email: info@priyam.tech.
+To exercise your rights or ask questions, email: hello@priyam.tech.
 `.trim();
 
   return new Response(content, {

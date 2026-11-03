@@ -20,7 +20,6 @@ export default async function Image() {
     "→ STARTER CODE & TEMPLATES",
     "→ REPO: GYANRANJAN-PRIYAM",
     "→ DOMAIN: WWW.PRIYAM.TECH",
-    "// NEVER QUITS",
   ];
 
   return renderReferenceOgImage({

@@ -25,7 +25,7 @@ export function LocalTime() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 text-xs sm:text-[13px] text-muted-foreground leading-snug">
+    <div className="flex flex-col font-medium gap-1 text-xs sm:text-[13px] text-muted-foreground leading-snug">
       <span className="text-foreground font-medium">Odisha, India</span>
       <span className="font-mono text-[11px] sm:text-xs text-muted-foreground">
         {time ? `${time} IST` : "IST (UTC+5:30)"}

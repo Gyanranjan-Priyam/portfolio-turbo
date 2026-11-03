@@ -85,7 +85,7 @@ export function getFooterConfig(): FooterConfig {
     resourceLinks: [
       { title: "Blog", href: BLOG_URL, external: true },
       { title: "Templates", href: "/templates" },
-      { title: "Resume", href: "/resume/resume.pdf", external: true },
+      { title: "Resume", href: "/resume" },
       {
         title: "Source Code",
         href: "https://github.com/Gyanranjan-Priyam/portfolio-turbo",
@@ -94,7 +94,7 @@ export function getFooterConfig(): FooterConfig {
       { title: "llms.txt", href: "/llms.txt", external: true },
     ],
     connectLinks: [
-      { title: "Email", href: "mailto:info@priyam.tech", external: true },
+      { title: "Email", href: "mailto:hello@priyam.tech", external: true },
       {
         title: "GitHub",
         href: "https://github.com/gyanranjan-priyam",
@@ -118,7 +118,7 @@ export function getFooterConfig(): FooterConfig {
       github: "https://github.com/gyanranjan-priyam",
       linkedin: "https://linkedin.com/in/gyanranjan-priyam",
       instagram: "https://instagram.com/gyanranjanpriyam",
-      email: "mailto:info@priyam.tech",
+      email: "mailto:hello@priyam.tech",
     },
   };
 }

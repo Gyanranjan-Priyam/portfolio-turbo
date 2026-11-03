@@ -8,11 +8,20 @@ import { ThemeToggle } from "@/components/navbar/theme-toggle";
 import { SoundToggle } from "@/components/ui/sound";
 import Image from "next/image";
 import { VerticalSeparator } from "../ui/separator-vertical";
+import { PlusCross } from "@/components/ui/plus-cross";
 
 export function NavMain() {
   return (
     <header className="hidden sm:block sticky top-0 z-50 w-full bg-background border-b border-border">
-      <div className="border-x border-border mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
+      <div className="relative border-x border-border mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
+        {/* Plus markers at navbar bottom border intersection */}
+        <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+          <PlusCross />
+        </div>
+        <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 z-10 pointer-events-none">
+          <PlusCross />
+        </div>
+
         {/* Left: Pixel/geometric monogram logo */}
         <Link
           href="/"

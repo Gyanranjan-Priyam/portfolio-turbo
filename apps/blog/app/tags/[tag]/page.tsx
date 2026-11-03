@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogCard } from "@/components/blog-card";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { SearchModal } from "@/components/search-modal";
 import { getAllPosts, getAllTags, getPostsByTag } from "@/lib/posts";
 import { SITE_URL } from "@/lib/consts";
@@ -58,7 +59,7 @@ export default async function TagArchivePage({ params }: Props) {
   return (
     <main
       id="layout"
-      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans overflow-x-clip"
     >
       <Header />
 
@@ -125,7 +126,7 @@ export default async function TagArchivePage({ params }: Props) {
           </section>
 
           {/* Solid line Divider */}
-          <div className="h-px w-full bg-border my-4 mb-7" />
+          <SectionDivider className="my-6 mb-8" />
 
           {/* POSTS FEED SECTION */}
           <section className="w-full">

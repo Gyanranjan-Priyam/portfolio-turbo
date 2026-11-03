@@ -9,9 +9,11 @@ import { TableOfContents } from "@/components/table-of-contents";
 import { ShareButtons } from "@/components/share-buttons";
 import { SearchModal } from "@/components/search-modal";
 import { BlogCard } from "@/components/blog-card";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { ArticleActionButtons } from "@/components/article-action-buttons";
 import { CodeCopyHandler } from "@/components/code-copy-handler";
 import { getAllPosts, getPostBySlug, getPlaceholderImage } from "@/lib/posts";
+import { getBlogPostSeo, BLOG_PAGE_KEYWORDS } from "@/lib/seo";
 import {
   SITE_URL,
   AUTHOR_NAME,
@@ -47,14 +49,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : `${SITE_URL}${post.heroImage}`
     : `${SITE_URL}/android-chrome-512x512.png`;
 
+  const postSeo = getBlogPostSeo(slug);
   const canonicalUrl = `${SITE_URL}/${post.slug}`;
-  const dedicatedKeywords =
-    post.keywords && post.keywords.length > 0 ? post.keywords : [];
+  const dedicatedKeywords = Array.from(
+    new Set([
+      ...(post.keywords && post.keywords.length > 0 ? post.keywords : []),
+      ...(postSeo?.keywords || []),
+      ...(post.tags || []),
+    ]),
+  );
   const keywords = Array.from(
     new Set([
       ...dedicatedKeywords,
-      ...(post.tags || []),
       post.category,
+      ...BLOG_PAGE_KEYWORDS,
       ...GLOBAL_SEO_KEYWORDS,
     ]),
   );
@@ -118,8 +126,13 @@ export default async function BlogPostPage({ params }: Props) {
       ? heroImageSrc
       : fallbackBg;
 
-  const dedicatedKeywords =
-    post.keywords && post.keywords.length > 0 ? post.keywords : post.tags;
+  const postSeo = getBlogPostSeo(slug);
+  const dedicatedKeywords = Array.from(
+    new Set([
+      ...(post.keywords && post.keywords.length > 0 ? post.keywords : post.tags || []),
+      ...(postSeo?.keywords || []),
+    ]),
+  );
   const wordCount = post.content ? post.content.trim().split(/\s+/).length : 0;
   const minutes = Math.max(1, Math.ceil(wordCount / 200));
 
@@ -209,7 +222,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main
       id="layout"
-      className="min-h-screen bg-background text-foreground flex flex-col font-sans"
+      className="min-h-screen bg-background text-foreground flex flex-col font-sans overflow-x-clip"
     >
       <script
         type="application/ld+json"
@@ -288,7 +301,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Subtitle / Description */}
             {post.description && (
-              <p className="font-sans text-sm sm:text-base leading-relaxed text-muted-foreground text-center max-w-2xl mx-auto mb-4">
+              <p className="font-mono font-medium text-sm sm:text-base leading-relaxed text-muted-foreground text-center max-w-2xl mx-auto mb-4">
                 {post.description}
               </p>
             )}
@@ -324,7 +337,7 @@ export default async function BlogPostPage({ params }: Props) {
           </header>
 
           {/* Full-bleed Stripe Divider */}
-          <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border my-6" />
+          <SectionDivider className="my-6" />
 
           {/* Table of Contents Floating Drawer */}
           {post.headings && post.headings.length > 0 && (
@@ -333,12 +346,12 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Markdown Article Body */}
           <article
-            className="prose w-full"
+            className="prose w-full font-mono font-medium"
             dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }}
           />
 
           {/* Full-bleed Stripe Divider above tags */}
-          <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border mt-10 mb-6" />
+          <SectionDivider className="mt-10 mb-6" />
 
           {/* Article Bottom Tags & Share */}
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -348,7 +361,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <Link
                     key={tag}
                     href={`/tags/${encodeURIComponent(tag)}`}
-                    className="font-mono text-[11px] text-muted-foreground hover:text-foreground bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border px-2 py-0.5 rounded transition-colors no-underline"
+                    className="font-mono font-medium text-[11px] text-muted-foreground hover:text-foreground bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border px-2 py-0.5 rounded transition-colors no-underline"
                   >
                     #{tag}
                   </Link>
@@ -362,15 +375,15 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Next Posts Section */}
           {nextPosts.length > 0 && (
             <>
-              <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border mt-8 mb-6" />
+              <SectionDivider className="mt-8 mb-6" />
               <div className="w-full">
                 <div className="flex items-baseline justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-foreground m-0">
+                  <h3 className="text-sm font-sans font-bold text-foreground m-0">
                     Continue Reading
                   </h3>
                   <Link
                     href="/"
-                    className="font-mono text-xs text-muted-foreground hover:text-foreground no-underline"
+                    className="font-mono font-medium text-xs text-muted-foreground hover:text-foreground no-underline"
                   >
                     All posts &rarr;
                   </Link>

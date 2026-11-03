@@ -31,7 +31,7 @@ Priyam's Blog is a publication dedicated to technical deep dives, architectural 
 ## Contact & Connect
 
 - Portfolio: ${AUTHOR_PORTFOLIO}
-- Email: info@priyam.tech
+- Email: hello@priyam.tech
 - GitHub: ${AUTHOR_GITHUB}
 `.trim();
 

@@ -1,15 +1,36 @@
-import * as React from 'react';
+import * as React from "react";
+import {
+  SectionDivider,
+  type SectionDividerProps,
+} from "@/components/ui/section-divider";
 
-interface Props {
-  className?: string;
+export interface HatchDividerProps extends SectionDividerProps {
+  rounded?: boolean;
 }
 
-export function HatchDivider({ className = '' }: Props) {
+/**
+ * HatchDivider - Technical blueprint divider with diagonal stripe hatch pattern,
+ * extended horizontal grid lines crossing into viewport margins, and plus markers at
+ * the container boundary intersections.
+ */
+export function HatchDivider({
+  className,
+  density = "default",
+  variant = "hatch",
+  extendLines = true,
+  showPluses = true,
+  ...props
+}: HatchDividerProps) {
   return (
-    <div
-      role="separator"
-      aria-hidden="true"
-      className={`w-full border-b border-border my-6 ${className}`}
+    <SectionDivider
+      className={className}
+      density={density}
+      variant={variant === "line" ? "line" : "hatch"}
+      extendLines={extendLines}
+      showPluses={showPluses}
+      {...props}
     />
   );
 }
+
+export default HatchDivider;

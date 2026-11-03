@@ -151,7 +151,7 @@ function TreeNode({ node, depth }: { node: FileNode; depth: number }) {
           </>
         )}
         <span 
-          className="text-[13px] leading-6 text-foreground/90 group-hover:text-foreground transition-colors font-mono"
+          className="text-[13px] leading-6 text-foreground/90 group-hover:text-foreground transition-colors font-medium font-mono"
         >
           {node.name}
         </span>
@@ -280,7 +280,7 @@ export function FolderStructure({ structure }: { structure: FileNode[] }) {
 
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer select-none font-mono"
+          className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer select-none font-medium font-mono"
           title="Copy structure markdown"
         >
           {copied ? (
@@ -312,7 +312,7 @@ export function FolderStructure({ structure }: { structure: FileNode[] }) {
           ref={scrollRef}
           className="h-[400px] overflow-y-auto overflow-x-auto bg-zinc-950/90 dark:bg-zinc-950 p-4 sm:p-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <pre className="text-xs sm:text-[13px] leading-7 text-emerald-400 whitespace-pre font-mono selection:bg-emerald-500/30">
+          <pre className="text-xs sm:text-[13px] leading-7 text-emerald-400 whitespace-pre font-medium font-mono selection:bg-emerald-500/30">
             {ascii}
           </pre>
         </div>

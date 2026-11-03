@@ -19,7 +19,7 @@ export default function Meet() {
       data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
       className="h-9 cursor-pointer hover:bg-primary/90 inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold font-mono text-primary-foreground hover:shadow-lg hover:shadow-primary/25 select-none transition-all"
     >
-      Let&apos;s have a meet.{" "}
+      Schedule a meet.{" "}
       <motion.svg
         transition={{ repeat: Infinity, duration: 1.5 }}
         viewBox="0 0 24 24"

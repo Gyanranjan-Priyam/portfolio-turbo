@@ -77,13 +77,13 @@ function ExpandedExperienceCard({
               <div>
                 <motion.h3
                   layoutId={`company-${active.id}-${id}`}
-                  className="text-md font-semibold font-mono"
+                  className="text-md font-medium font-mono"
                 >
                   {active.company}
                 </motion.h3>
                 <motion.p
                   layoutId={`title-${active.id}-${id}`}
-                  className="text-md text-muted-foreground font-mono"
+                  className="text-md font-medium text-muted-foreground font-mono"
                 >
                   {active.title}
                 </motion.p>
@@ -111,7 +111,7 @@ function ExpandedExperienceCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-md leading-relaxed text-muted-foreground font-mono"
+              className="text-md leading-relaxed text-muted-foreground font-medium font-mono"
             >
               {Array.isArray(active.content) ? (
                 <ul className="space-y-2 list-none">
@@ -205,20 +205,20 @@ export function ExperienceSection() {
               <div className="flex-1 min-w-0">
                 <motion.p
                   layoutId={`company-${exp.id}-${id}`}
-                  className="text-md font-semibold leading-tight font-mono"
+                  className="text-md font-medium leading-tight font-mono"
                 >
                   {exp.company}
                 </motion.p>
                 <motion.p
                   layoutId={`title-${exp.id}-${id}`}
-                  className="text-xs text-muted-foreground font-mono"
+                  className="text-xs font-medium text-muted-foreground font-mono"
                 >
                   {exp.title}
                 </motion.p>
               </div>
               <motion.span
                 layoutId={`period-${exp.id}-${id}`}
-                className="shrink-0 text-xs text-muted-foreground text-right font-mono"
+                className="shrink-0 text-xs font-medium text-muted-foreground text-right font-mono"
               >
                 {exp.period}
               </motion.span>

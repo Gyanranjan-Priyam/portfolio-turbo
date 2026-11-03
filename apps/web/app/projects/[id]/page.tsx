@@ -7,6 +7,7 @@ import { IconBrandGithub as Github } from "@tabler/icons-react";
 import projects from "@/data/projectsData";
 import { SITE_URL } from "@/lib/config";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { ImageCarousel } from "@/components/ui/image-carousel";
 import { FolderStructure } from "@/components/ui/folder-structure";
 import { FeaturesAccordion } from "@/components/ui/features-accordion";
@@ -224,7 +225,7 @@ export default async function ProjectPage({ params }: Props) {
               <h1 className="text-3xl font-bold tracking-tight font-sans text-foreground sm:text-4xl">
                 {project.title}
               </h1>
-              <p className="mt-1 text-xs sm:text-sm font-mono text-muted-foreground">
+              <p className="mt-1 text-xs sm:text-sm font-mono font-medium text-muted-foreground">
                 {project.company} &middot; {project.date}
               </p>
             </div>
@@ -262,7 +263,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </div>
       </BlurFade>
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       {/*Image Section*/}
       {project.img && (
         <BlurFade delay={0.15}>
@@ -282,16 +283,16 @@ export default async function ProjectPage({ params }: Props) {
       {/* Role */}
       {"role" in project && project.role && (
         <BlurFade delay={0.14}>
-          <div className="mb-8 flex items-start gap-3 rounded-lg border bg-muted/30 p-4">
+          <div className="mb-8 flex items-start gap-3 rounded-md border bg-muted/30 p-4">
             <Users className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-            <p className="text-xs sm:text-sm font-mono tracking-tight leading-relaxed text-muted-foreground">
-              <span className="font-semibold text-foreground">My Role: </span>
+            <p className="text-xs font-medium sm:text-sm font-mono tracking-tight leading-relaxed text-muted-foreground">
+              <span className="font-semibold font-mono text-foreground">My Role: </span>
               {project.role}
             </p>
           </div>
         </BlurFade>
       )}
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       {/* Description */}
       <BlurFade delay={0.16}>
         <div className="mb-10 mt-8 space-y-4">
@@ -303,14 +304,14 @@ export default async function ProjectPage({ params }: Props) {
           {project.desc.map((paragraph, i) => (
             <p
               key={i}
-              className="text-xs sm:text-sm font-mono leading-relaxed text-muted-foreground"
+              className="text-[13px] sm:text-[15px] font-mono font-medium leading-relaxed text-muted-foreground"
             >
               {paragraph}
             </p>
           ))}
         </div>
       </BlurFade>
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       {/* Key Highlights */}
       {"highlights" in project && (project as any).highlights?.length > 0 && (
         <BlurFade delay={0.18} inView>
@@ -319,7 +320,7 @@ export default async function ProjectPage({ params }: Props) {
               <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
                 Key Highlights
               </h2>
-              <span className="text-xs font-mono text-muted-foreground/70">
+              <span className="text-xs font-mono font-medium text-muted-foreground/70">
                 ({(project as any).highlights.length})
               </span>
             </div>
@@ -351,7 +352,7 @@ export default async function ProjectPage({ params }: Props) {
                         {num}
                       </div>
 
-                      <p className="text-xs sm:text-[13px] leading-relaxed text-muted-foreground group-hover:text-foreground font-mono transition-colors">
+                      <p className="text-xs sm:text-[14px] leading-relaxed font-medium text-muted-foreground group-hover:text-foreground font-mono transition-colors">
                         {item}
                       </p>
                     </div>
@@ -362,7 +363,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </BlurFade>
       )}
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       {/* Features by category */}
       {"features" in project && (project as any).features?.length > 0 && (
         <BlurFade delay={0.2} inView>
@@ -371,7 +372,7 @@ export default async function ProjectPage({ params }: Props) {
               <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
                 Features
               </h2>
-              <span className="text-xs font-mono text-muted-foreground/70">
+              <span className="text-xs font-mono font-medium text-muted-foreground/70">
                 ({(project as any).features.reduce((acc: number, f: any) => acc + f.items.length, 0)})
               </span>
             </div>
@@ -379,7 +380,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </BlurFade>
       )}
-<div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+<SectionDivider />
       {/* Tech stack table */}
       {"techDetailed" in project &&
         (project as any).techDetailed?.length > 0 && (
@@ -428,7 +429,7 @@ export default async function ProjectPage({ params }: Props) {
             </div>
           </BlurFade>
         )}
-        <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+        <SectionDivider />
       {/* Folder Structure */}
       {"folderStructure" in project &&
         (project as any).folderStructure?.length > 0 && (
@@ -438,7 +439,7 @@ export default async function ProjectPage({ params }: Props) {
                 <h2 className="text-2xl font-bold tracking-tight font-sans text-foreground">
                   Project Structure
                 </h2>
-                <span className="text-xs font-mono text-muted-foreground/70">
+                <span className="text-sm font-medium font-mono text-muted-foreground/70">
                   (Directory Tree)
                 </span>
               </div>
@@ -446,7 +447,7 @@ export default async function ProjectPage({ params }: Props) {
             </div>
           </BlurFade>
         )}
-        <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+        <SectionDivider />
       {/* Gallery */}
       {mediaItems.length > 0 && (
         <BlurFade delay={hasRichContent ? 0.24 : 0.2} inView>
@@ -463,7 +464,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </BlurFade>
       )}
-  <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+  <SectionDivider />
       {/* Next project */}
       <BlurFade delay={hasRichContent ? 0.28 : 0.24} inView>
         <div className="mt-8">
@@ -476,7 +477,7 @@ export default async function ProjectPage({ params }: Props) {
                 className="group flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
               >
                 <div>
-                  <p className="text-xs font-mono text-muted-foreground">
+                  <p className="text-xs font-mono font-medium text-muted-foreground">
                     Next Project
                   </p>
                   <p className="text-base font-sans font-semibold text-foreground group-hover:underline">

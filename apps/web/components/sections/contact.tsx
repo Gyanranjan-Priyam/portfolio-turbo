@@ -10,14 +10,14 @@ export function ContactSection() {
         </h2>
       </BlurFade>
       <BlurFade delay={0.08} inView>
-        <p className="text-sm leading-relaxed text-muted-foreground font-mono">
+        <p className="text-sm font-medium leading-relaxed text-muted-foreground font-mono">
           I&apos;m always open to discussing new opportunities, freelance
           projects, or just having a chat about technology. Reach out to me at{" "}
           <a
-            href="mailto:info@priyam.tech"
+            href="mailto:hello@priyam.tech"
             className="font-medium text-foreground underline underline-offset-4"
           >
-            info@priyam.tech
+            hello@priyam.tech
           </a>{" "}
           or you can contact me through{" "}
           <Link

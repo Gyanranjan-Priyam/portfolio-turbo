@@ -1,11 +1,11 @@
 import { HeroSection } from "@/components/sections/hero";
-import { AboutSection } from "@/components/sections/about";
 import { SkillsSection } from "@/components/sections/skills";
 import { ProjectsSection } from "@/components/sections/projects";
 import { EducationSection } from "@/components/sections/education";
 import { ContactSection } from "@/components/sections/contact";
 import { GitHubCalendarSection } from "@/components/sections/github-calendar";
 import { ExperienceSection } from "@/components/sections/experience";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { SITE_URL } from "@/lib/config";
 
 const OG_IMAGE = `${SITE_URL}/og.png`;
@@ -32,7 +32,7 @@ const structuredData = [
     jobTitle: "Frontend Developer",
     url: SITE_URL,
     image: OG_IMAGE,
-    email: "info@priyam.tech",
+    email: "hello@priyam.tech",
     sameAs: [
       "https://linkedin.com/in/gyanranjan-priyam",
       "https://github.com/gyanranjan-priyam",
@@ -64,19 +64,17 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <HeroSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
-      <AboutSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
-      <EducationSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       <ExperienceSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
+      <EducationSection />
+      <SectionDivider />
       <ProjectsSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       <SkillsSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       <GitHubCalendarSection />
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       <ContactSection />
     </>
   );

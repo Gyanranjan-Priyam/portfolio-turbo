@@ -51,7 +51,6 @@ export default async function Image({
     "→ LICENSE: OPEN SOURCE",
     "→ REPO: GYANRANJAN-PRIYAM",
     "→ DOMAIN: WWW.PRIYAM.TECH",
-    "// NEVER QUITS",
   ];
 
   return renderReferenceOgImage({

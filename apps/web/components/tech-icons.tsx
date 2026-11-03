@@ -392,7 +392,7 @@ export function TechBadge({
 
   return (
     <div
-      className={`group/tech-badge inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 font-mono text-foreground transition-all duration-200 select-none ${sizeClasses} ${className}`}
+      className={`group/tech-badge inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 hover:bg-muted hover:border-foreground/30 font-mono font-medium text-foreground transition-all duration-200 select-none ${sizeClasses} ${className}`}
     >
       <span className="shrink-0 transition-all duration-200 opacity-70 group-hover/tech-badge:opacity-100">
         <TechIcon name={name} className={iconClassName} />

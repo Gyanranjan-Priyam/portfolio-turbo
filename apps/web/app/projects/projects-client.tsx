@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { SectionDivider } from "@/components/ui/section-divider";
 import { motion, AnimatePresence } from "motion/react";
 import { useLoaderStore } from "@/components/loader-component";
 import { TechBadge } from "@/components/tech-icons";
@@ -230,11 +231,11 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
             <h1 className="mb-2 text-2xl sm:text-3xl font-bold tracking-tight font-sans text-foreground">
               Projects
             </h1>
-            <p className="text-xs sm:text-sm font-mono text-muted-foreground leading-relaxed">
+            <p className="text-xs font-medium sm:text-sm font-mono  text-muted-foreground leading-relaxed">
               Things I&apos;ve built — from web applications to community
               tools. You can also checkout my <Link
                 href="/templates"
-                className="font-bold hover:text-foreground"
+                className="font-medium text-foreground"
               >
                 Templates
               </Link> section for some helpful templates.
@@ -274,7 +275,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
           </div>
         </div>
       </BlurFade>
-      <div className="stripe-divider -mx-4 sm:-mx-6 h-7 sm:h-8 border-y border-border" />
+      <SectionDivider />
       {viewMode === "grid" ? (
         <div className="grid gap-4 mt-8 sm:grid-cols-2 items-stretch">
           {paginatedProjects.map((project, i) => (
@@ -307,12 +308,12 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
                       </div>
                       <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground mt-0.5" />
                     </div>
-                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-muted-foreground line-clamp-2 font-mono min-h-[2.5rem] sm:min-h-[2.75rem]">
+                    <p className="mt-2 text-xs sm:text-[14px] leading-relaxed font-medium text-muted-foreground line-clamp-2 font-mono min-h-[2.5rem] sm:min-h-[2.75rem]">
                       {project.desc[0]}
                     </p>
                   </div>
                   <div className="mt-auto pt-3">
-                    <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-xs font-medium font-mono text-muted-foreground">
                       <Calendar className="size-3.5 text-muted-foreground/80" />
                       <span>{project.date}</span>
                     </div>

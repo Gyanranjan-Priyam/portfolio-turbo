@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <main
       id="layout"
-      className="min-h-screen bg-background text-foreground flex flex-col"
+      className="min-h-screen bg-background text-foreground flex flex-col overflow-x-clip"
     >
       <Header />
 

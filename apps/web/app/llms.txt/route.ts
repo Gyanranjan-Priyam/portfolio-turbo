@@ -19,7 +19,7 @@ export async function GET() {
 - LinkedIn: https://linkedin.com/in/gyanranjan-priyam
 - Twitter/X: https://x.com/gr_priyam
 - Instagram: https://instagram.com/gyanranjanpriyam
-- Contact Email: info@priyam.tech
+- Contact Email: hello@priyam.tech
 - Resume: https://assets.priyam.tech/resume/resume.pdf
 
 ---
@@ -38,69 +38,69 @@ export async function GET() {
 ## Featured Projects (${projects.length})
 
 ${projects
-  .map((p) => {
-    const desc = formatDescription(p.desc);
-    const tech = p.tech.join(", ");
-    return `### [${p.title}](${SITE_URL}/projects/${p.id}.md)
+      .map((p) => {
+        const desc = formatDescription(p.desc);
+        const tech = p.tech.join(", ");
+        return `### [${p.title}](${SITE_URL}/projects/${p.id}.md)
 - **Live URL**: ${p.liveLink || "N/A"}
 - **Source Code**: ${p.github || "Private / Proprietary"}
 - **Tech Stack**: ${tech}
 - **Role & Company**: ${p.role || p.company} (${p.date})
 - **Summary**: ${desc}
 - **Markdown Version**: ${SITE_URL}/projects/${p.id}.md`;
-  })
-  .join("\n\n")}
+      })
+      .join("\n\n")}
 
 ---
 
 ## Developer Templates & Starters (${templates.length})
 
 ${templates
-  .map((t) => {
-    const desc = formatDescription(t.desc);
-    const tech = t.tech.join(", ");
-    return `### [${t.title}](${SITE_URL}/templates/${t.id}.md)
+      .map((t) => {
+        const desc = formatDescription(t.desc);
+        const tech = t.tech.join(", ");
+        return `### [${t.title}](${SITE_URL}/templates/${t.id}.md)
 - **Live Demo**: ${t.liveLink || "N/A"}
 - **Source Code**: ${t.github || "N/A"}
 - **Tech Stack**: ${tech}
 - **Category**: ${t.category} (${t.date})
 - **Summary**: ${desc}
 - **Markdown Version**: ${SITE_URL}/templates/${t.id}.md`;
-  })
-  .join("\n\n")}
+      })
+      .join("\n\n")}
 
 ---
 
 ## Professional Work Experience
 
 ${experiences
-  .map(
-    (e) => `### ${e.title} at ${e.company}
+      .map(
+        (e) => `### ${e.title} at ${e.company}
 - **Period**: ${e.period}
 - **Responsibilities**:
 ${e.content.map((d: string) => `  - ${d}`).join("\n")}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Education & Academic Background
 
 ${education
-  .map(
-    (ed) => `### ${ed.degree}
+      .map(
+        (ed) => `### ${ed.degree}
 - **Institution**: ${ed.school} (${ed.period})
 - **Score/Marks**: ${ed.marks || "In Progress"}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 ---
 
 ## Certifications & Accreditations
 
 ${certifications
-  .map((c) => `- **${c.name}** — ${c.issuer} (${c.year})`)
-  .join("\n")}
+      .map((c) => `- **${c.name}** — ${c.issuer} (${c.year})`)
+      .join("\n")}
 
 ---
 

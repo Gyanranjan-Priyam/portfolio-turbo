@@ -40,7 +40,7 @@ import projects from "@/data/projectsData";
 import templates from "@/data/templateData";
 import { BLOG_URL } from "@/lib/config";
 
-const EMAIL_ADDRESS = "info@priyam.tech";
+const EMAIL_ADDRESS = "hello@priyam.tech";
 
 /* -------------------------------------------------------------------------- */
 /* 1. Explore / Navigation Panel                                              */
@@ -90,12 +90,12 @@ function NavigationPanel() {
     },
     {
       title: "Resume",
-      description: "Download PDF document",
-      href: "/resume/resume.pdf",
-      badge: "PDF",
-      external: true,
+      description: "Interactive CV & PDF",
+      href: "/resume",
+      badge: "CV",
+      external: false,
       icon: <IconDownload className="h-4 w-4" />,
-      active: false,
+      active: pathname.startsWith("/resume"),
     },
   ];
 
@@ -118,11 +118,10 @@ function NavigationPanel() {
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noopener noreferrer" : undefined}
             onClick={() => close()}
-            className={`group flex items-center gap-2 rounded-lg p-2 transition-colors cursor-pointer border ${
-              link.active
+            className={`group flex items-center gap-2 rounded-lg p-2 transition-colors cursor-pointer border ${link.active
                 ? "bg-neutral-100 dark:bg-neutral-800/80 border-neutral-300 dark:border-neutral-700 text-foreground font-medium"
                 : "bg-transparent hover:bg-neutral-100/70 dark:hover:bg-neutral-900/60 border-transparent hover:border-border/60 text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-border/60 bg-background/80 text-foreground/80">
               {link.icon}
@@ -578,11 +577,10 @@ export function NavigationDock() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-4 z-50 flex sm:hidden items-end justify-center px-3 transition-all duration-300 ease-out ${
-        hideBar
+      className={`fixed inset-x-0 bottom-4 z-50 flex sm:hidden items-end justify-center px-3 transition-all duration-300 ease-out ${hideBar
           ? "translate-y-12 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"
-      }`}
+        }`}
     >
       <ExpandableTabs items={items} />
     </div>

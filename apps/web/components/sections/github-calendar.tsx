@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PlusCross } from "@/components/ui/plus-cross";
 
 interface Activity {
   date: string;
@@ -127,7 +128,7 @@ export function GitHubCalendarSection() {
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight font-sans">
               GitHub Contributions
             </h2>
-            <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-mono">
+            <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium font-mono">
               Public activity &amp; commit history
             </p>
           </div>
@@ -208,9 +209,9 @@ export function GitHubCalendarSection() {
           </div>
 
           {/* Technical Blueprint Footer Caption (Matching Fig. 2 Reference) */}
-          <div className="mt-4 pt-3 border-t border-border/60 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground font-mono">
+          <div className="mt-4 pt-3 border-t border-border/60 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground font-medium font-mono">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="font-semibold text-foreground">Fig. 2.</span>
+              <span className="font-medium text-foreground">Fig. 2.</span>
               <span>
                 {stats.total > 0
                   ? `${stats.total.toLocaleString()} contributions`
@@ -223,7 +224,7 @@ export function GitHubCalendarSection() {
                 href="https://github.com/gyanranjan-priyam"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-foreground transition-colors"
+                className="underline underline-offset-2 hover:text-foreground font-medium transition-colors"
               >
                 GitHub
               </a>
@@ -247,38 +248,6 @@ export function GitHubCalendarSection() {
           </div>
         </div>
       </BlurFade>
-
-      {/* Diagonal Hatch Pattern Band with Handwritten Greeting, Subtitle & Live Clock */}
-      <BlurFade delay={0.12} inView>
-        <div className="mt-6 -mx-4 sm:-mx-6 border-y border-border pattern-diagonal-stripes overflow-hidden">
-          <div className="px-4 sm:px-6 py-3 bg-background/80 backdrop-blur-xs flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="font-caveat text-xl sm:text-2xl text-foreground font-medium tracking-wide">
-                {greeting}
-              </span>
-              {greetingSubtitle ? (
-                <span className="text-[11px] sm:text-xs font-mono text-muted-foreground/75 tracking-tight">
-                  {greetingSubtitle}
-                </span>
-              ) : null}
-            </div>
-            {currentTime ? (
-              <div className="flex items-center gap-2 select-none shrink-0 ml-auto sm:ml-0">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-                </span>
-                <span
-                  suppressHydrationWarning
-                  className="text-xs sm:text-sm font-mono text-muted-foreground/90 tabular-nums tracking-wide"
-                >
-                  {currentTime}
-                </span>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </BlurFade>
-    </section>
+  </section>
   );
 }

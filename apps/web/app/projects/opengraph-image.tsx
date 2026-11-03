@@ -20,7 +20,6 @@ export default async function Image() {
     "→ ROLE: FRONTEND DEVELOPER",
     "→ REPO: GYANRANJAN-PRIYAM",
     "→ DOMAIN: WWW.PRIYAM.TECH",
-    "// NEVER QUITS",
   ];
 
   return renderReferenceOgImage({
