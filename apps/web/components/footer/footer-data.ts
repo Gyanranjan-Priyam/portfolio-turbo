@@ -86,6 +86,7 @@ export function getFooterConfig(): FooterConfig {
       { title: "Blog", href: BLOG_URL, external: true },
       { title: "Templates", href: "/templates" },
       { title: "Resume", href: "/resume" },
+      { title: "Legal & Policies", href: "/legal" },
       {
         title: "Source Code",
         href: "https://github.com/Gyanranjan-Priyam/portfolio-turbo",

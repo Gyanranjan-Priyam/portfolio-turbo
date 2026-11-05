@@ -95,6 +95,14 @@ export function CommandMenu() {
         action: () => router.push("/templates"),
       },
       {
+        id: "nav-services",
+        category: "Navigation",
+        title: "Services",
+        subtitle: "Web development, frontend engineering & SaaS",
+        icon: <IconStack2 className="h-4 w-4" />,
+        action: () => router.push("/services"),
+      },
+      {
         id: "nav-blog",
         category: "Navigation",
         title: "Blog",

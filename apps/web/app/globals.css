@@ -18,7 +18,7 @@
 
 /* Smooth background and text transition */
 html:not([data-beui-vt]) body {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {

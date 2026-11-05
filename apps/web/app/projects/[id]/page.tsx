@@ -187,7 +187,7 @@ export default async function ProjectPage({ params }: Props) {
     "techDetailed" in project;
 
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-6 sm:pt-8 pb-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

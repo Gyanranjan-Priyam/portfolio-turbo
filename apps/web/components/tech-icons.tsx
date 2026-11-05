@@ -38,6 +38,7 @@ import {
   siSass,
   siLucide,
   siGoogle,
+  siSupabase,
   type SimpleIcon,
 } from "simple-icons";
 
@@ -114,6 +115,7 @@ export const ViteIcon = createSimpleIconComponent(siVite);
 export const SCSSIcon = createSimpleIconComponent(siSass);
 export const LucideIcon = createSimpleIconComponent(siLucide);
 export const GoogleIcon = createSimpleIconComponent(siGoogle);
+export const SupabaseIcon = createSimpleIconComponent(siSupabase);
 
 // Dedicated SVGs for brands restricted by trademark policies in Simple Icons (e.g. OpenAI, Adobe, AWS)
 export function PhotoshopIcon({ className = "size-3.5" }: { className?: string }) {
@@ -347,7 +349,10 @@ export function getTechIconComponent(name: string): React.ComponentType<{ classN
   // Zod
   if (n.includes("zod")) return ZodIcon;
 
-  // Recharts
+  // Supabase
+  if (n.includes("supabase")) return SupabaseIcon;
+
+ // Recharts
   if (n.includes("recharts") || n.includes("chart")) return RechartsIcon;
 
   // dnd kit / dnd-kit

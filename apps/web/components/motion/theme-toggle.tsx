@@ -25,6 +25,7 @@ export interface ThemeToggleProps
   variant?: ThemeVariant;
   /** Origin direction for the reveal. Default: "bottom-up". */
   start?: RectStart;
+  duration?: number;
   iconClassName?: string;
 }
 
@@ -42,7 +43,7 @@ html[data-beui-vt="rect"]::view-transition-old(root) {
 }
 html[data-beui-vt="rect"]::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation: beui-rect-reveal 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: beui-rect-reveal var(--beui-vt-duration, 850ms) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 2;
 }
 html[data-beui-vt="circle"]::view-transition-old(root),
@@ -53,12 +54,12 @@ html[data-beui-vt="circle-blur"]::view-transition-old(root) {
 }
 html[data-beui-vt="circle"]::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation: beui-circle-reveal 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation: beui-circle-reveal var(--beui-vt-duration, 1100ms) cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
 }
 html[data-beui-vt="circle-blur"]::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation: beui-circle-blur-reveal 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation: beui-circle-blur-reveal var(--beui-vt-duration, 1100ms) cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
 }
 html[data-beui-vt="blinds"]::view-transition-old(root) {
@@ -90,7 +91,7 @@ html[data-beui-vt="blinds"]::view-transition-new(root) {
   );
   mask-size: 72px 100%;
   mask-repeat: repeat;
-  animation: beui-blinds-reveal 700ms ${EASE_OUT_CSS};
+  animation: beui-blinds-reveal var(--beui-vt-duration, 1100ms) ${EASE_OUT_CSS};
   z-index: 2;
 }
 @keyframes beui-rect-reveal {
@@ -132,7 +133,8 @@ const CIRCLE_ORIGIN: Record<RectStart, string> = {
 export function useThemeToggle({
   variant = "rectangle",
   start = "bottom-up",
-}: { variant?: ThemeVariant; start?: RectStart } = {}) {
+  duration,
+}: { variant?: ThemeVariant; start?: RectStart; duration?: number } = {}) {
   const { setTheme, resolvedTheme } = useTheme();
   const reduce = useReducedMotion() ?? false;
   const [mounted, setMounted] = useState(false);
@@ -181,6 +183,10 @@ export function useThemeToggle({
 
     const root = document.documentElement;
 
+    if (duration) {
+      root.style.setProperty("--beui-vt-duration", `${duration}ms`);
+    }
+
     if (variant === "rectangle") {
       root.style.setProperty("--beui-vt-from", RECT_FROM[start]);
       root.dataset.beuiVt = "rect";
@@ -200,6 +206,9 @@ export function useThemeToggle({
 
     vt.finished.finally(() => {
       delete root.dataset.beuiVt;
+      if (duration) {
+        root.style.removeProperty("--beui-vt-duration");
+      }
     });
   };
 
@@ -209,11 +218,12 @@ export function useThemeToggle({
 export function ThemeToggle({
   variant = "rectangle",
   start = "bottom-up",
+  duration,
   className,
   iconClassName,
   ...rest
 }: ThemeToggleProps) {
-  const { isDark, mounted, toggle } = useThemeToggle({ variant, start });
+  const { isDark, mounted, toggle } = useThemeToggle({ variant, start, duration });
 
   return (
     <button

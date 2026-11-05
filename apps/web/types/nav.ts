@@ -1,4 +1,9 @@
 export type NavItem<T extends string = string> = {
   title: string
-  href: T
+  href?: T
+  items?: {
+    title: string
+    href: T
+    description?: string
+  }[]
 }

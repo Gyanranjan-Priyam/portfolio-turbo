@@ -28,13 +28,10 @@ import {
   IconExternalLink,
   IconMoon,
   IconSun,
-  IconArrowUp,
-  IconShare,
   IconCode,
   IconStack2,
   IconFolderCode,
   IconTemplate,
-  IconAdjustments,
 } from "@tabler/icons-react";
 import projects from "@/data/projectsData";
 import templates from "@/data/templateData";
@@ -58,20 +55,11 @@ function NavigationPanel() {
       active: pathname === "/",
     },
     {
-      title: "Projects",
-      description: `${projects.length}+ production builds`,
-      href: "/projects",
-      badge: `${projects.length}`,
-      icon: <IconBriefcase className="h-4 w-4" />,
-      active: pathname.startsWith("/projects"),
-    },
-    {
-      title: "Templates",
-      description: `${templates.length}+ starter kits`,
-      href: "/templates",
-      badge: `${templates.length}`,
-      icon: <IconTemplate className="h-4 w-4" />,
-      active: pathname.startsWith("/templates"),
+      title: "Services",
+      description: "Web development & SaaS",
+      href: "/services",
+      icon: <IconCode className="h-4 w-4" />,
+      active: pathname.startsWith("/service"),
     },
     {
       title: "Blog",
@@ -79,13 +67,6 @@ function NavigationPanel() {
       href: BLOG_URL,
       external: true,
       icon: <IconNotebook className="h-4 w-4" />,
-      active: false,
-    },
-    {
-      title: "Experience",
-      description: "Career & background",
-      href: "/#experience",
-      icon: <IconStack2 className="h-4 w-4" />,
       active: false,
     },
     {

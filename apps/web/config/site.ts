@@ -47,30 +47,35 @@ export const MAIN_NAV: NavItem<Route>[] = [
     href: "/",
   },
   {
-    title: "Projects",
-    href: "/projects",
+    title: "Works",
+    items: [
+      {
+        title: "Projects",
+        href: "/projects",
+        description: "Case studies & builds",
+      },
+      {
+        title: "Templates",
+        href: "/templates",
+        description: "Starters & boilerplates",
+      },
+    ],
   },
   {
-    title: "Templates",
-    href: "/templates",
-  },
-  {
-    title: "Resume",
-    href: "/resume" as Route,
+    title: "Services",
+    href: "/services" as Route,
   },
   {
     title: "Blog",
     href: BLOG_URL as Route,
   },
+  {
+    title: "Resume",
+    href: "/resume" as Route,
+  },
 ]
 
-export const MOBILE_NAV: NavItem<Route>[] = [
-  {
-    title: "Home",
-    href: "/",
-  },
-  ...MAIN_NAV,
-]
+export const MOBILE_NAV: NavItem<Route>[] = MAIN_NAV
 
 export const X_HANDLE = "@gr_priyam"
 export const GITHUB_USERNAME = "gyanranjan-priyam"

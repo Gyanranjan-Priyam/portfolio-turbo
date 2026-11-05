@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { Separator } from "@/components/ui/separator";
+import { SectionDivider } from "@/components/ui/section-divider";
 import Link from "next/link";
 import { ArrowLeft, Shield, Eye, Cookie, Database, Mail, FileText, Clock, Home } from "lucide-react";
 import { SITE_URL } from "@/lib/config";
+import { ContactSection } from "@/components/sections/contact";
+import { TableOfContents } from "@/components/table-of-contents";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -153,9 +155,15 @@ const breadcrumbSchema = {
   ],
 };
 
+const headings = sections.map((s, i) => ({
+  slug: s.id,
+  text: `${String(i + 1).padStart(2, "0")}. ${s.title}`,
+  depth: 2,
+}));
+
 export default function PrivacyPage() {
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-6 sm:pt-8 pb-0">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -200,81 +208,52 @@ export default function PrivacyPage() {
         </p>
       </BlurFade>
 
-      {/* Quick Navigation */}
-      <BlurFade delay={0.2} direction="up">
-        <nav className="mt-8 rounded-lg border bg-card p-4">
-          <h2
-            className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3"
-            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-          >
-            Quick Navigation
-          </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {sections.map((section) => (
-              <li key={section.id}>
-                <a
-                  href={`#${section.id}`}
-                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                >
-                  <section.icon className="size-3.5" />
-                  {section.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </BlurFade>
+      {/* Blueprint Hatched Stripe Divider */}
+      <SectionDivider />
 
-      <Separator />
+      {/* Table of Contents Floating Drawer */}
+      <TableOfContents headings={headings} postTitle="Privacy Policy" />
 
-      {/* Content Sections */}
-      <section className="py-8 space-y-10">
+            {/* Content Sections */}
+      <div className="-mx-4 sm:-mx-6 select-text -mt-px">
         {sections.map((section, sectionIndex) => (
-          <BlurFade key={section.id} delay={0.04 + sectionIndex * 0.04} inView>
-            <div id={section.id} className="scroll-mt-20">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted">
-                  <section.icon className="size-5 text-foreground" />
-                </div>
-                <h2
-                  className="text-2xl font-semibold"
-                  style={{ fontFamily: "var(--font-ibm)" }}
-                >
+          <BlurFade key={section.id} delay={0.02 + sectionIndex * 0.02} inView>
+            <article
+              id={section.id}
+              className="scroll-mt-24 grid grid-cols-[48px_1fr] sm:grid-cols-[56px_1fr] md:grid-cols-[64px_1fr] border-b border-border/70"
+            >
+              {/* Column 1: Number */}
+              <div className="px-2 sm:px-4 py-5 sm:py-6 border-r border-border/70 flex items-start justify-center font-mono text-xs sm:text-sm select-none text-muted-foreground/60 font-bold">
+                {String(sectionIndex + 1).padStart(2, "0")}
+              </div>
+
+              {/* Column 2: Content */}
+              <div className="px-4 sm:px-6 py-5 sm:py-6 space-y-4 min-w-0">
+                <h2 className="text-lg sm:text-xl font-bold font-sans tracking-tight text-foreground">
                   {section.title}
                 </h2>
-              </div>
 
-              <div className="space-y-4 pl-0 sm:pl-13">
-                {section.content.map((item, itemIndex) => (
-                  <div key={itemIndex} className="space-y-2">
-                    {item.subtitle && (
-                      <h3
-                        className="text-sm font-semibold text-foreground"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                      >
-                        {item.subtitle}
-                      </h3>
-                    )}
-                    <p
-                      className="text-[14px] leading-relaxed text-muted-foreground"
-                      style={{ fontFamily: "var(--font-jetbrains-mono)" }}
-                    >
-                      {item.text}
-                    </p>
-                  </div>
-                ))}
+                <div className="space-y-3 pt-1">
+                  {section.content.map((item, itemIndex) => (
+                    <div key={itemIndex} className="space-y-1.5">
+                      {item.subtitle && (
+                        <h3 className="text-xs sm:text-sm font-bold font-sans text-foreground">
+                          {item.subtitle}
+                        </h3>
+                      )}
+                      <p className="text-xs sm:text-sm font-mono text-muted-foreground leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              {sectionIndex < sections.length - 1 && (
-                <Separator className="mt-8" />
-              )}
-            </div>
+            </article>
           </BlurFade>
         ))}
-      </section>
+      </div>
 
-      <Separator />
+      <SectionDivider className="-mt-px" />
 
       {/* Contact Section */}
       <section className="py-8">

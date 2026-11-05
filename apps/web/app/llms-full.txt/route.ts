@@ -163,6 +163,55 @@ ${features ? `#### Features:\n${features}` : ""}
 
 ---
 
+## Development & Engineering Services Catalog
+
+- **Canonical Services Page**: ${SITE_URL}/services
+- **Markdown Specification**: ${SITE_URL}/services.md
+- **Availability**: Open for high-impact freelance projects, contract engineering, and enterprise consulting worldwide.
+
+### 1. Website Development
+- **Starting Price**: ₹12,000 / $299
+- **Delivery Timeline**: 4–7 business days
+- **Scope & Deliverables**:
+  - 1–5 responsive, mobile-first pages built with Next.js and Tailwind CSS
+  - Semantic HTML5, Core Web Vitals optimization, Schema.org structured data
+  - Vercel or Cloudflare deployment with DNS and custom domain setup
+  - 30 days post-launch warranty support
+- **Consultation Booking**: https://cal.com/gyanranjanpriyam/web-dev
+
+### 2. Frontend Engineering & Architecture
+- **Starting Price**: ₹20,000 / $499
+- **Delivery Timeline**: 2–3 weeks
+- **Scope & Deliverables**:
+  - Pixel-perfect translation of Figma or Sketch designs into clean React/Next.js code
+  - Design system creation with Radix UI, Base UI, and shadcn/ui components
+  - Performance optimization (sub-second LCP, zero layout shifts)
+  - Fluid animations with Framer Motion and GSAP
+  - WCAG 2.1 AA accessibility compliance
+- **Consultation Booking**: https://cal.com/gyanranjanpriyam/frontend-engineering
+
+### 3. Full-Stack SaaS Development
+- **Starting Price**: ₹50,000 / $1,499
+- **Delivery Timeline**: 3–5 weeks
+- **Scope & Deliverables**:
+  - Complete minimum viable product (MVP) or production-ready web platform
+  - Authentication (Better Auth / NextAuth / Supabase Auth) with social and email providers
+  - Database schema architecture with PostgreSQL and Prisma ORM
+  - Subscription billing and payment integration (Stripe, Razorpay)
+  - Admin dashboards, analytics, and webhook ingestion
+- **Consultation Booking**: https://cal.com/gyanranjanpriyam/saas-design
+
+### 4. Custom Architecture & AI Integration
+- **Starting Price**: Custom quote based on scope
+- **Delivery Timeline**: Agile sprints
+- **Scope & Deliverables**:
+  - LLM RAG pipelines (Gemini API, Claude, OpenAI)
+  - Agentic workflows and streaming chat interfaces
+  - High-concurrency backends and serverless architectures
+- **Consultation Booking**: https://cal.com/gyanranjanpriyam/meet
+
+---
+
 ## Contact & Social Profiles
 
 - **Email**: hello@priyam.tech

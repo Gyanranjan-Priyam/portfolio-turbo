@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 
-import { GitHubIcon, GmailIcon, LinkedInIcon, XIcon } from "./footer-icons";
+import { GitHubIcon, GmailIcon, InstagramIcon, LinkedInIcon, XIcon } from "./footer-icons";
 import { DEFAULT_FOOTER_CONFIG, type FooterConfig } from "./footer-data";
 import { SiteFooterInteractiveLogotype } from "./site-footer-brand";
 import { LocalTime } from "./local-time";
@@ -201,36 +201,31 @@ export function SiteFooter({
             </div>
             <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
               <span className="font-mono font-medium text-xs text-muted-foreground" suppressHydrationWarning>
-                © {currentYear} Gyanranjan Priyam<span className="hidden sm:inline">. All rights reserved.</span>
+                © {currentYear} Gyanranjan Priyam<span className="hidden md:inline">. All rights reserved.</span>
               </span>
+              <span className="hidden sm:inline text-border">·</span>
+              <div className="flex items-center gap-2 text-[11px] font-medium font-mono text-muted-foreground">
+                <Link href="/legal/terms" className="hover:text-foreground hover:underline transition-colors">
+                  Terms
+                </Link>
+                <span>·</span>
+                <Link href="/legal/privacy" className="hover:text-foreground hover:underline transition-colors">
+                  Privacy
+                </Link>
+                <span>·</span>
+                <Link href="/legal/agreement" className="hover:text-foreground hover:underline transition-colors">
+                  Agreement
+                </Link>
+                <span>·</span>
+                <Link href="/legal/refund" className="hover:text-foreground hover:underline transition-colors">
+                  Refunds
+                </Link>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3 sm:gap-3.5">
               <a
-                className="flex items-center transition-colors hover:text-foreground"
-                href={config.socialLinks.email}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email"
-              >
-                <GmailIcon className="size-4" />
-              </a>
-              <div className="h-4 w-px bg-border" />
-
-              <a
-                className="flex items-center transition-colors hover:text-foreground"
-                href={config.socialLinks.x}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter / X Profile"
-              >
-                <XIcon className="size-4" />
-              </a>
-
-              <div className="h-4 w-px bg-border" />
-
-              <a
-                className="flex items-center transition-colors hover:text-foreground"
+                className="flex items-center text-foreground/80 hover:text-foreground transition-all duration-200 hover:scale-110 active:scale-95"
                 href={config.socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -242,13 +237,49 @@ export function SiteFooter({
               <div className="h-4 w-px bg-border" />
 
               <a
-                className="flex items-center transition-colors hover:text-foreground"
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
                 href={config.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedInIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center text-foreground/80 hover:text-foreground transition-all duration-200 hover:scale-110 active:scale-95"
+                href={config.socialLinks.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X Profile"
+              >
+                <XIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
+                href={config.socialLinks.email}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Email"
+              >
+                <GmailIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
+                href={config.socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Profile"
+              >
+                <InstagramIcon className="size-4" />
               </a>
             </div>
           </div>

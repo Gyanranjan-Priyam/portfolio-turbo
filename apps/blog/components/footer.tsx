@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { AUTHOR_PORTFOLIO } from "@/lib/consts";
-import { GitHubIcon, GmailIcon, LinkedInIcon, XIcon } from "./footer-icons";
+import { GitHubIcon, GmailIcon, InstagramIcon, LinkedInIcon, XIcon } from "./footer-icons";
 import { FooterBrand } from "./footer-brand";
 import { PlusCross } from "./ui/plus-cross";
 import { LocalTime } from "./local-time";
@@ -280,33 +280,9 @@ export function Footer({
               </span>
             </div>
 
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3 sm:gap-3.5">
               <a
-                className="flex items-center transition-colors hover:text-foreground"
-                href="mailto:hello@priyam.tech"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email"
-              >
-                <GmailIcon className="size-4" />
-              </a>
-
-              <div className="h-4 w-px bg-border" />
-
-              <a
-                className="flex items-center transition-colors hover:text-foreground"
-                href="https://x.com/gr_priyam"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter / X Profile"
-              >
-                <XIcon className="size-4" />
-              </a>
-
-              <div className="h-4 w-px bg-border" />
-
-              <a
-                className="flex items-center transition-colors hover:text-foreground"
+                className="flex items-center text-foreground/80 hover:text-foreground transition-all duration-200 hover:scale-110 active:scale-95"
                 href="https://github.com/gyanranjan-priyam"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -318,13 +294,49 @@ export function Footer({
               <div className="h-4 w-px bg-border" />
 
               <a
-                className="flex items-center transition-colors hover:text-foreground"
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
                 href="https://linkedin.com/in/gyanranjan-priyam"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedInIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center text-foreground/80 hover:text-foreground transition-all duration-200 hover:scale-110 active:scale-95"
+                href="https://x.com/gr_priyam"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X Profile"
+              >
+                <XIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
+                href="mailto:hello@priyam.tech"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Email"
+              >
+                <GmailIcon className="size-4" />
+              </a>
+
+              <div className="h-4 w-px bg-border" />
+
+              <a
+                className="flex items-center transition-all duration-200 hover:scale-110 active:scale-95"
+                href="https://instagram.com/gyanranjanpriyam"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Profile"
+              >
+                <InstagramIcon className="size-4" />
               </a>
             </div>
           </div>

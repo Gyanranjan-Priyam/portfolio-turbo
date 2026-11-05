@@ -205,7 +205,7 @@ export function HeroSection() {
 
           {/* Right: Actions & Socials */}
           <div className="flex flex-col items-start sm:items-end gap-2.5 shrink-0">
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+            <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
               <TooltipProvider delayDuration={150}>
                 {socials.map((s) => (
                   <Tooltip key={s.label}>
@@ -219,9 +219,17 @@ export function HeroSection() {
                             : "noopener noreferrer"
                         }
                         aria-label={s.label}
-                        className="size-8 sm:size-9 flex items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-all hover:bg-muted hover:text-foreground hover:border-foreground/30 shadow-2xs"
+                        className="group relative size-9 sm:size-10 flex items-center justify-center rounded-full overflow-hidden backdrop-blur-xl backdrop-saturate-180 bg-white/45 dark:bg-white/[0.08] border border-white/80 dark:border-white/[0.18] shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.95),inset_0_-1px_1px_0_rgba(0,0,0,0.05),0_4px_12px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] dark:shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.3),inset_0_-1px_1px_0_rgba(0,0,0,0.5),0_4px_16px_rgba(0,0,0,0.4)] transition-all duration-300 ease-out hover:scale-110 active:scale-95 hover:bg-white/70 dark:hover:bg-white/[0.16] hover:border-white dark:hover:border-white/30 hover:shadow-[inset_0_1.5px_2px_0_rgba(255,255,255,1),0_8px_24px_-4px_rgba(0,0,0,0.12)] dark:hover:shadow-[inset_0_1.5px_2px_0_rgba(255,255,255,0.45),0_8px_24px_-4px_rgba(0,0,0,0.6)] cursor-pointer"
                       >
-                        {s.icon}
+                        {/* Specular curved glass reflection */}
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 rounded-full bg-linear-to-b from-white/60 via-white/10 to-transparent dark:from-white/20 dark:via-white/5 dark:to-transparent opacity-80"
+                        />
+                        {/* Icon with interactive micro-bounce */}
+                        <span className="relative z-10 flex items-center justify-center text-foreground/80 group-hover:text-foreground transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95">
+                          {s.icon}
+                        </span>
                       </a>
                     </TooltipTrigger>
                     <TooltipContent side="bottom" sideOffset={6} className="font-bold">

@@ -19,6 +19,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     });
 
     setLenis(lenis);
+    if (typeof window !== "undefined") {
+      (window as unknown as { lenis?: Lenis }).lenis = lenis;
+    }
 
     // Only stop scrolling if the loader intro is actively playing
     if (isLoading && !introOut) {
@@ -32,13 +35,18 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      if (typeof window !== "undefined") {
+        (window as unknown as { lenis?: Lenis }).lenis = undefined;
+      }
+      lenis.destroy();
+    };
   }, [setLenis, isLoading, introOut]);
 
   // Scroll to top on route change
   useEffect(() => {
     const lenis = useLoaderStore.getState().lenis;
-    if (lenis) {
+    if (lenis && typeof lenis.scrollTo === "function") {
       lenis.scrollTo(0, { force: true });
     } else {
       window.scrollTo(0, 0);

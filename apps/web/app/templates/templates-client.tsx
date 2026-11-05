@@ -206,7 +206,7 @@ export function TemplatesClient({ templates }: TemplatesClientProps) {
   }, []);
 
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-6 sm:pt-8 pb-10">
       <BlurFade delay={0.04}>
         <div className="flex items-start justify-between mb-10">
           <div>

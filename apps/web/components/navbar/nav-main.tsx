@@ -38,7 +38,7 @@ export function NavMain() {
         </Link>
 
         {/* Right: Nav items, Command palette trigger, GitHub, Sound & Theme toggles */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 h-full">
           <NavDesktop items={MAIN_NAV} />
           <NavMobile items={MOBILE_NAV} />
           <VerticalSeparator orientation="vertical" className="h-4 self-center" />

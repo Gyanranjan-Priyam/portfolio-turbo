@@ -65,9 +65,9 @@ export default function Home() {
       />
       <HeroSection />
       <SectionDivider />
-      <ExperienceSection />
-      <SectionDivider />
       <EducationSection />
+      <SectionDivider />
+      <ExperienceSection />
       <SectionDivider />
       <ProjectsSection />
       <SectionDivider />

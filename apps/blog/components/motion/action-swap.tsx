@@ -53,9 +53,9 @@ export interface ActionSwapIconProps {
 // the new target instead of restarting. The leaving layer is a little quicker,
 // still long enough to cross the arrival so the swap reads as one morph.
 const BLUR_TRANSITION = SPRING_SWAP;
-const BLUR_EXIT_TRANSITION = { duration: 0.16, ease: EASE_OUT } as const;
+const BLUR_EXIT_TRANSITION = { duration: 0.4, ease: EASE_OUT } as const;
 const ROLL_TRANSITION = SPRING_SWAP;
-const ROLL_EXIT_TRANSITION = { duration: 0.14, ease: EASE_OUT } as const;
+const ROLL_EXIT_TRANSITION = { duration: 0.35, ease: EASE_OUT } as const;
 // A light blur softens the crossing without smearing small glyphs.
 const SWAP_BLUR = "blur(2px)";
 const ROLL_BLUR = "blur(3px)";

@@ -9,5 +9,5 @@ import { Nav } from "@/components/navbar/nav"
 export function NavDesktop({ items }: { items: NavItem<Route>[] }) {
   const pathname = usePathname()
 
-  return <Nav className="hidden sm:flex font-sans" items={items} activeId={pathname} />
+  return <Nav className="hidden sm:flex font-sans h-full items-center" items={items} activeId={pathname} />
 }

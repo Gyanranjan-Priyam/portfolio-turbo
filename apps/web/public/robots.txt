@@ -112,5 +112,12 @@ Sitemap: https://blogs.priyam.tech/sitemap-index.xml
 # LLMs Full Context: https://www.priyam.tech/llms-full.txt
 # About (Markdown): https://www.priyam.tech/about.md
 # Projects (Markdown): https://www.priyam.tech/projects.md
+# Services (Markdown): https://www.priyam.tech/services.md
 # Templates (Markdown): https://www.priyam.tech/templates.md
 # Privacy (Markdown): https://www.priyam.tech/privacy.md
+# Legal & Governance:
+# Legal Hub: https://www.priyam.tech/legal
+# Terms: https://www.priyam.tech/legal/terms
+# Privacy: https://www.priyam.tech/legal/privacy
+# Agreement: https://www.priyam.tech/legal/agreement
+# Refunds: https://www.priyam.tech/legal/refund

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-6 sm:pt-8 pb-10">
       {/* Top Action Toolbar / Page Header */}
       <ResumeToolbar />
 

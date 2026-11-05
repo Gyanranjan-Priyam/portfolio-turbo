@@ -67,6 +67,12 @@ const nextConfig: NextConfig = {
     { source: "/work", destination: "/projects", statusCode: 301 },
     { source: "/portfolio", destination: "/projects", statusCode: 301 },
 
+    // Services aliases
+    { source: "/service", destination: "/services", statusCode: 301 },
+    { source: "/services-offered", destination: "/services", statusCode: 301 },
+    { source: "/pricing", destination: "/services", statusCode: 301 },
+    { source: "/quote", destination: "/services", statusCode: 301 },
+
     // Blog aliases -> Redirect to standalone Astro blog app
     {
       source: "/blog",
@@ -130,6 +136,19 @@ const nextConfig: NextConfig = {
 
     // Contact
     { source: "/contact", destination: "/", statusCode: 301 },
+
+    // Legal aliases
+    { source: "/privacy", destination: "/legal/privacy", statusCode: 301 },
+    { source: "/privacy-policy", destination: "/legal/privacy", statusCode: 301 },
+    { source: "/terms", destination: "/legal/terms", statusCode: 301 },
+    { source: "/terms-of-service", destination: "/legal/terms", statusCode: 301 },
+    { source: "/tos", destination: "/legal/terms", statusCode: 301 },
+    { source: "/agreement", destination: "/legal/agreement", statusCode: 301 },
+    { source: "/service-agreement", destination: "/legal/agreement", statusCode: 301 },
+    { source: "/client-agreement", destination: "/legal/agreement", statusCode: 301 },
+    { source: "/refund", destination: "/legal/refund", statusCode: 301 },
+    { source: "/refund-policy", destination: "/legal/refund", statusCode: 301 },
+    { source: "/cancellation-policy", destination: "/legal/refund", statusCode: 301 },
   ],
 };
 

@@ -1,14 +1,9 @@
 import { create } from 'zustand';
-
-interface LenisInstance {
-  scrollTo: (target: number, options?: { force?: boolean }) => void;
-  start: () => void;
-  stop: () => void;
-}
+import type Lenis from 'lenis';
 
 interface LoaderStore {
-  lenis: LenisInstance | undefined;
-  setLenis: (lenis: LenisInstance) => void;
+  lenis: Lenis | undefined;
+  setLenis: (lenis: Lenis) => void;
   introOut: boolean;
   setIntroOut: (introOut: boolean) => void;
   isLoading: boolean;
