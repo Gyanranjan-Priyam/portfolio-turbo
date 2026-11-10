@@ -17,13 +17,14 @@ export type RectStart =
   | "bottom-left"
   | "bottom-right"
   | "center"
-  | "bottom-up";
+  | "bottom-up"
+  | "top-down";
 
 export interface ThemeToggleProps
   extends Omit<ComponentPropsWithoutRef<"button">, "children" | "onClick"> {
   /** Animation variant. Default: "rectangle". */
   variant?: ThemeVariant;
-  /** Origin direction for the reveal. Default: "bottom-up". */
+  /** Origin direction for the reveal. Defaults to "bottom-up" for light mode and "top-down" for dark mode. */
   start?: RectStart;
   duration?: number;
   iconClassName?: string;
@@ -43,7 +44,8 @@ html[data-beui-vt="rect"]::view-transition-old(root) {
 }
 html[data-beui-vt="rect"]::view-transition-new(root) {
   mix-blend-mode: normal;
-  animation: beui-rect-reveal var(--beui-vt-duration, 850ms) cubic-bezier(0.16, 1, 0.3, 1);
+  animation: beui-rect-reveal var(--beui-vt-duration, 1250ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  will-change: clip-path;
   z-index: 2;
 }
 html[data-beui-vt="circle"]::view-transition-old(root),
@@ -119,6 +121,7 @@ const RECT_FROM: Record<RectStart, string> = {
   "bottom-right":"inset(100% 0 0 100%)",
   center:        "inset(50% 50% 50% 50%)",
   "bottom-up":   "inset(100% 0 0 0)",
+  "top-down":    "inset(0 0 100% 0)",
 };
 
 const CIRCLE_ORIGIN: Record<RectStart, string> = {
@@ -128,12 +131,13 @@ const CIRCLE_ORIGIN: Record<RectStart, string> = {
   "bottom-right":"100% 100%",
   center:        "50% 50%",
   "bottom-up":   "50% 100%",
+  "top-down":    "50% 0%",
 };
 
 export function useThemeToggle({
   variant = "rectangle",
-  start = "bottom-up",
-  duration,
+  start,
+  duration = 1250,
 }: { variant?: ThemeVariant; start?: RectStart; duration?: number } = {}) {
   const { setTheme, resolvedTheme } = useTheme();
   const reduce = useReducedMotion() ?? false;
@@ -187,14 +191,24 @@ export function useThemeToggle({
       root.style.setProperty("--beui-vt-duration", `${duration}ms`);
     }
 
+    // Directional transition:
+    // Light mode: reveals from bottom to top ("bottom-up")
+    // Dark mode: reveals from top to bottom ("top-down")
+    const effectiveStart: RectStart =
+      start && start !== "bottom-up" && start !== "top-down"
+        ? start
+        : nextDark
+          ? "top-down"
+          : "bottom-up";
+
     if (variant === "rectangle") {
-      root.style.setProperty("--beui-vt-from", RECT_FROM[start]);
+      root.style.setProperty("--beui-vt-from", RECT_FROM[effectiveStart]);
       root.dataset.beuiVt = "rect";
     } else if (variant === "blinds") {
       // Slats sweep the whole viewport; there is no origin point to set.
       root.dataset.beuiVt = "blinds";
     } else {
-      root.style.setProperty("--beui-vt-origin", CIRCLE_ORIGIN[start]);
+      root.style.setProperty("--beui-vt-origin", CIRCLE_ORIGIN[effectiveStart]);
       root.dataset.beuiVt = variant;
     }
 
@@ -206,6 +220,8 @@ export function useThemeToggle({
 
     vt.finished.finally(() => {
       delete root.dataset.beuiVt;
+      root.style.removeProperty("--beui-vt-from");
+      root.style.removeProperty("--beui-vt-origin");
       if (duration) {
         root.style.removeProperty("--beui-vt-duration");
       }
@@ -217,8 +233,8 @@ export function useThemeToggle({
 
 export function ThemeToggle({
   variant = "rectangle",
-  start = "bottom-up",
-  duration,
+  start,
+  duration = 1250,
   className,
   iconClassName,
   ...rest

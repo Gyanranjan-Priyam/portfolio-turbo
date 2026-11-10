@@ -107,7 +107,7 @@ export function Nav({
                   {/* Header Bar */}
                   <div className="px-3.5 py-1.5 border-b border-border bg-muted/20 flex items-center justify-between select-none">
                     <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                      // Works
+                      Works
                     </span>
                     <span className="font-mono text-[10px] text-muted-foreground/60">
                       [0{item.items.length}]

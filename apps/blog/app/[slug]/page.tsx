@@ -308,7 +308,12 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Metadata Line */}
             <div className="flex items-center justify-center flex-wrap gap-2 font-mono text-[11px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-5">
-              <span>{post.author || AUTHOR_NAME}</span>
+              <Link
+                href="/about"
+                className="hover:text-foreground transition-colors hover:underline underline-offset-4 cursor-pointer"
+              >
+                {post.author || AUTHOR_NAME}
+              </Link>
               <span className="opacity-40">·</span>
               <span>
                 <FormattedDate date={post.pubDate} />

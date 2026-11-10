@@ -140,13 +140,13 @@ export function TableOfContents({ headings, postTitle }: Props) {
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
               />
             </svg>
-            <span className="absolute font-mono text-[9px] font-bold text-foreground">
+            <span className="absolute font-medium font-mono text-[9px] font-bold text-foreground">
               {filteredHeadings.length}
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
+            <span className="font-mono font-medium text-xs font-semibold uppercase tracking-wider text-foreground">
               TOC
             </span>
             <span className="hidden sm:inline font-sans text-xs text-muted-foreground max-w-[160px] truncate border-l border-border pl-2">
@@ -180,7 +180,7 @@ export function TableOfContents({ headings, postTitle }: Props) {
       >
         <div className="flex flex-col h-full py-2">
           {/* Progress Indicator */}
-          <div className="flex items-center justify-between px-1 mb-3 font-mono text-[11px] text-muted-foreground border-b border-border/40 pb-2">
+          <div className="flex items-center justify-between px-1 mb-3 font-medium font-mono text-[11px] text-muted-foreground border-b border-border/40 pb-2">
             <span>Reading Progress: {progress}%</span>
             <span>
               Section {activeIndex + 1} of {filteredHeadings.length}
@@ -213,7 +213,7 @@ export function TableOfContents({ headings, postTitle }: Props) {
                   </div>
                   <span className="flex-1 leading-snug">{heading.text}</span>
                   {isActive && (
-                    <span className="shrink-0 font-mono text-[10px] text-muted-foreground uppercase bg-background px-1.5 py-0.5 rounded border border-border">
+                    <span className="shrink-0 font-mono font-medium text-[10px] text-muted-foreground uppercase bg-background px-1.5 py-0.5 rounded border border-border">
                       Current
                     </span>
                   )}
@@ -227,7 +227,7 @@ export function TableOfContents({ headings, postTitle }: Props) {
             <button
               type="button"
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted px-2.5 py-1.5 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium font-mono text-muted-foreground hover:text-foreground hover:bg-muted px-2.5 py-1.5 rounded-md transition-colors cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +248,7 @@ export function TableOfContents({ headings, postTitle }: Props) {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-foreground bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border px-3 py-1.5 rounded-md transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium font-mono text-foreground bg-muted hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-border px-3 py-1.5 rounded-md transition-colors cursor-pointer"
             >
               Close
             </button>
