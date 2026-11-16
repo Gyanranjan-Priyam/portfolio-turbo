@@ -975,6 +975,26 @@ export const BLOG_POSTS_SEO: Record<
       'managing engineering GPA and programming',
     ],
   },
+  'becoming-a-frontend-developer-in-the-ai-era': {
+    slug: 'becoming-a-frontend-developer-in-the-ai-era',
+    canonicalUrl: `${BLOG_URL}/posts/becoming-a-frontend-developer-in-the-ai-era`,
+    category: 'Engineering',
+    tags: ['Frontend Development', 'AI', 'React', 'Next.js', 'UI/UX Design', 'Web Development'],
+    primaryKeywords: [
+      'becoming a frontend developer in the AI era',
+      'frontend development AI workflow',
+      'build better interfaces with AI',
+      'frontend roadmap 2026',
+      'AI prompt for UI design',
+      'developing UI taste for developers',
+      'modern frontend learning stack',
+      'React Next.js AI development',
+      'how to use AI as a frontend developer',
+      'portfolio projects frontend AI',
+      'design systems for frontend engineers',
+      'human judgment in AI code generation',
+    ],
+  },
 };
 
 export function getBlogPostSeo(slug: string) {

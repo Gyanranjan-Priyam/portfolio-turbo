@@ -27,6 +27,7 @@
     "@react-bits": "https://reactbits.dev/r/{name}.json",
     "@beui": "https://beui.dev/r/{name}.json",
     "@componentry": "https://componentry.fun/r/{name}.json",
-    "@kobra": "https://kobra.systems/r/{name}.json"
+    "@kobra": "https://kobra.systems/r/{name}.json",
+    "@ncdai": "https://chanhdai.com/r/{name}.json"
   }
 }

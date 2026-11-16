@@ -41,6 +41,7 @@ const slugToPlaceholderMap: Record<string, string> = {
   'my-journey-to-becoming-a-gfg-campus-mantri-doubts-a-shaky-interview-and-an-unexpected-yes': '/blog-placeholder-3.jpg',
   'successfully-completing-my-geeksforgeeks-campus-mantri-journey-months-of-growth-and-leadership': '/blog-placeholder-4.jpg',
   'my-one-month-vlsi-internship-at-cttc-bhubaneswar-from-logic-gates-to-chip-design': '/blog-placeholder-2.jpg',
+  'becoming-a-frontend-developer-in-the-ai-era': '/blog-placeholder-2.jpg',
 };
 
 export function getPlaceholderImage(id: string): string {
